@@ -24,19 +24,19 @@ interface VoteOption {
 // ============================================================
 // MOCK DATA
 // ============================================================
-const DEMO_QUESTION = "Should our association adopt a 4-day work week?";
+const DEMO_QUESTION = "Notre association doit-elle adopter la semaine de 4 jours ?";
 const DEMO_OPTIONS: VoteOption[] = [
-  { id: "yes", label: "Yes, adopt it", emoji: "✅" },
-  { id: "no", label: "No, keep 5 days", emoji: "❌" },
-  { id: "trial", label: "Trial period first", emoji: "🔄" },
-  { id: "abstain", label: "Abstain", emoji: "⬜" },
+  { id: "yes", label: "Oui, adoptons-la", emoji: "✅" },
+  { id: "no", label: "Non, gardons 5 jours", emoji: "❌" },
+  { id: "trial", label: "Periode d'essai d'abord", emoji: "🔄" },
+  { id: "abstain", label: "Abstention", emoji: "⬜" },
 ];
 
 const MOCK_RESULTS = [
-  { option: "Yes, adopt it", votes: 847, pct: 42.4 },
-  { option: "No, keep 5 days", votes: 312, pct: 15.6 },
-  { option: "Trial period first", votes: 741, pct: 37.1 },
-  { option: "Abstain", votes: 100, pct: 5.0 },
+  { option: "Oui, adoptons-la", votes: 847, pct: 42.4 },
+  { option: "Non, gardons 5 jours", votes: 312, pct: 15.6 },
+  { option: "Periode d'essai d'abord", votes: 741, pct: 37.1 },
+  { option: "Abstention", votes: 100, pct: 5.0 },
 ];
 
 const MOCK_HASH = "a7f3c2e8d4b1...9f0e6a3d8c5b";
