@@ -127,7 +127,7 @@ export default function Contact() {
             >
               <div className="glass-card p-6">
                 <h4 className="text-white font-semibold mb-3">📧 Email</h4>
-                <p className="text-vp-teal text-sm">contact@voxpop-app.com</p>
+                <a href="mailto:contact@voxpop-app.com" className="text-vp-teal text-sm hover:underline">contact@voxpop-app.com</a>
               </div>
 
               <div className="glass-card p-6">
