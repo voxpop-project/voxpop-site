@@ -21,9 +21,9 @@ const piliers = [
   },
   {
     icon: "🌍",
-    title: "Impossible à censurer",
+    title: "Conçu pour résister à la censure",
     description:
-      "Aucun gouvernement, aucune entreprise ne peut bloquer votre droit de vote. Votre voix traverse les frontières.",
+      "Notre infrastructure cryptographique protège votre droit de vote dans des contextes où il est compromis. Votre voix traverse les frontières.",
   },
 ];
 
@@ -87,7 +87,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-slate-200 mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-vp-teal animate-pulse" />
-            La révolution démocratique commence ici
+            Une nouvelle ère pour la démocratie
           </motion.div>
 
           {/* Main headline */}
@@ -412,12 +412,65 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ========== FAQ ========== */}
+      <section className="section-padding">
+        <div className="max-w-4xl mx-auto">
+          <SectionTitle
+            title="Vos questions, nos réponses"
+            subtitle="Tout ce que vous devez savoir avant de nous faire confiance."
+          />
+          <div className="space-y-4">
+            {[
+              {
+                q: "Comment garantissez-vous l'anonymat des votes ?",
+                a: "Nous utilisons les Zero-Knowledge Proofs, une technologie cryptographique qui prouve mathématiquement votre éligibilité au vote sans jamais révéler votre identité. Même nos serveurs ne peuvent pas associer un bulletin à un votant — c'est une garantie mathématique, pas une promesse contractuelle.",
+              },
+              {
+                q: "Mon organisation peut-elle vraiment utiliser VoxPop pour ses élections officielles ?",
+                a: "Oui. VoxPop respecte les exigences du Code du travail (élections CSE), les statuts des ordres professionnels, et les recommandations CNIL pour le vote électronique. Nous fournissons sur demande un rapport d'audit cryptographique, signé, opposable juridiquement.",
+              },
+              {
+                q: "Que coûte concrètement VoxPop pour une association de 200 membres ?",
+                a: "À partir de 17€/mois en abonnement Starter — moins qu'un dîner au restaurant. Cela inclut le vote, les notifications email, le support, et la conformité RGPD. La version gratuite est disponible pour tester.",
+              },
+              {
+                q: "Vos données sont-elles hébergées en France ?",
+                a: "Oui, nos serveurs sont en France (OVH Gravelines). Aucune donnée ne transite par des infrastructures hors Union européenne. Aucune exposition au Cloud Act américain. Votre conformité RGPD est protégée par construction.",
+              },
+              {
+                q: "Le code est-il open source ?",
+                a: "Oui, sous licence AGPL-3.0. Le code est publié sur github.com/voxpop-project. N'importe quel expert indépendant peut auditer notre cryptographie. Aucune boîte noire.",
+              },
+              {
+                q: "Quelle est la différence entre le mode Institutionnel et Vox Populi ?",
+                a: "Le mode Institutionnel est notre offre payante pour organisations (associations, copropriétés, ordres professionnels, collectivités) avec accompagnement et SLA. Vox Populi est gratuit pour les citoyens du monde entier, financé par les revenus du mode Institutionnel. C'est notre engagement : chaque organisation qui paye finance la liberté d'expression d'un citoyen.",
+              },
+            ].map((item, i) => (
+              <motion.details
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="group glass-card p-6 cursor-pointer"
+              >
+                <summary className="flex items-center justify-between gap-4 list-none">
+                  <h3 className="text-lg font-semibold text-white">{item.q}</h3>
+                  <span className="text-vp-teal text-2xl group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p className="text-slate-300 mt-4 leading-relaxed">{item.a}</p>
+              </motion.details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ========== CTA FINAL ========== */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-vp-teal/5 to-transparent" />
         <div className="relative max-w-3xl mx-auto text-center">
           <SectionTitle
-            title="Rejoignez la révolution démocratique"
+            title="Rejoignez le mouvement"
             subtitle="Que vous soyez une association, une collectivité ou un citoyen du monde — VoxPop est fait pour vous."
           />
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

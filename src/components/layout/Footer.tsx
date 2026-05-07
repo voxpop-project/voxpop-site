@@ -101,12 +101,20 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-slate-600 text-sm">
-            © {new Date().getFullYear()} VoxPop. Tous droits réservés.
-          </p>
-          <p className="text-slate-600 text-xs">
-            Punch Ventures LLC — Wyoming, USA
-          </p>
+          <div className="text-slate-600 text-sm text-center md:text-left">
+            <p>© {new Date().getFullYear()} VoxPop. Tous droits réservés.</p>
+            <p className="text-xs text-slate-700 mt-1">
+              <a href="mailto:contact@voxpop-app.com" className="hover:text-vp-teal transition-colors">contact@voxpop-app.com</a>
+            </p>
+          </div>
+          <div className="text-slate-600 text-xs text-center md:text-right">
+            <p>
+              Édité par <span className="text-slate-500">SASU Pelegrinus</span> — SIREN 948 908 348 — France
+            </p>
+            <p className="mt-1 text-slate-700">
+              <span className="text-slate-500">Punch Ventures LLC</span> — Wyoming, USA
+            </p>
+          </div>
         </div>
       </div>
     </footer>

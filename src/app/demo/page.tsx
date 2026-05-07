@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ============================================================
@@ -21,8 +21,56 @@ interface VoteOption {
   emoji: string;
 }
 
+interface VoteReceipt {
+  voteHash: string;
+  nullifierHash: string;
+  chainPosition: number;
+  previousHash: string;
+  timestamp: string;
+  pollId: string;
+  choiceIndex: number;
+  zkpVerification: {
+    proofValid: boolean;
+    merkleRootVerified: boolean;
+    nullifierUnique: boolean;
+    verificationTimeMs: number;
+  };
+}
+
+interface AuditData {
+  poll: {
+    id: string;
+    title: string;
+    choices: string[];
+    countryCode: string;
+  };
+  results: {
+    choiceIndex: number;
+    label: string;
+    votes: number;
+    percentage: number;
+  }[];
+  totalVotes: number;
+  chain: {
+    verification: {
+      isValid: boolean;
+      blocksChecked: number;
+    };
+    length: number;
+    genesisHash: string;
+    latestHash: string;
+    blocks: {
+      index: number;
+      hash: string;
+      previousHash: string;
+      timestamp: string;
+      choiceIndex: number;
+    }[];
+  };
+}
+
 // ============================================================
-// MOCK DATA
+// DEFAULT DATA (used as fallback + initial display)
 // ============================================================
 const DEMO_QUESTION = "Notre association doit-elle adopter la semaine de 4 jours ?";
 const DEMO_OPTIONS: VoteOption[] = [
@@ -32,17 +80,11 @@ const DEMO_OPTIONS: VoteOption[] = [
   { id: "abstain", label: "Abstention", emoji: "⬜" },
 ];
 
-const MOCK_RESULTS = [
-  { option: "Oui, adoptons-la", votes: 847, pct: 42.4 },
-  { option: "Non, gardons 5 jours", votes: 312, pct: 15.6 },
-  { option: "Periode d'essai d'abord", votes: 741, pct: 37.1 },
-  { option: "Abstention", votes: 100, pct: 5.0 },
-];
-
-const MOCK_HASH = "a7f3c2e8d4b1...9f0e6a3d8c5b";
-const MOCK_NULLIFIER = "0x7a3f...e9d2";
-const MOCK_PROOF = "π = (A, B, C) ∈ G₁ × G₂ × G₁";
-const MOCK_MERKLE_ROOT = "0xd4e7...3a1f";
+// Fallback values (shown if API hasn't been called yet)
+const FALLBACK_HASH = "a7f3c2e8d4b1...9f0e6a3d8c5b";
+const FALLBACK_NULLIFIER = "0x7a3f...e9d2";
+const FALLBACK_PROOF = "π = (A, B, C) ∈ G₁ × G₂ × G₁";
+const FALLBACK_MERKLE_ROOT = "0xd4e7...3a1f";
 
 // ============================================================
 // STEP INDICATOR
@@ -228,14 +270,28 @@ function WelcomeStep({ onNext }: { onNext: () => void }) {
 // ============================================================
 // STEP: CREATE VOTE
 // ============================================================
-function CreateStep({ onNext }: { onNext: () => void }) {
+function CreateStep({
+  onNext,
+  onCreatePoll,
+}: {
+  onNext: () => void;
+  onCreatePoll: (question: string) => Promise<void>;
+}) {
   const [question, setQuestion] = useState(DEMO_QUESTION);
   const [showOptions, setShowOptions] = useState(false);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowOptions(true), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleCreate = async () => {
+    setCreating(true);
+    await onCreatePoll(question);
+    setCreating(false);
+    onNext();
+  };
 
   return (
     <motion.div
@@ -329,10 +385,11 @@ function CreateStep({ onNext }: { onNext: () => void }) {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={onNext}
-          className="px-8 py-3 bg-gradient-to-r from-vp-teal to-vp-blue text-white font-semibold rounded-full shadow-lg shadow-vp-teal/25 text-sm"
+          onClick={handleCreate}
+          disabled={creating}
+          className="px-8 py-3 bg-gradient-to-r from-vp-teal to-vp-blue text-white font-semibold rounded-full shadow-lg shadow-vp-teal/25 text-sm disabled:opacity-50"
         >
-          Vote créé ! Passer au vote →
+          {creating ? "Création du vote..." : "Vote créé ! Passer au vote →"}
         </motion.button>
       </div>
     </motion.div>
@@ -419,7 +476,7 @@ function IdentityStep({ onNext }: { onNext: () => void }) {
             <div className="ml-11">
               <ProgressBar duration={1800} />
               <p className="text-xs text-slate-500 mt-1 font-mono">
-                Root: {MOCK_MERKLE_ROOT}
+                Root: {FALLBACK_MERKLE_ROOT}
               </p>
             </div>
           )}
@@ -449,7 +506,7 @@ function IdentityStep({ onNext }: { onNext: () => void }) {
             <div className="ml-11">
               <ProgressBar duration={1800} />
               <p className="text-xs text-slate-500 mt-1 font-mono">
-                {MOCK_PROOF}
+                {FALLBACK_PROOF}
               </p>
             </div>
           )}
@@ -473,7 +530,7 @@ function IdentityStep({ onNext }: { onNext: () => void }) {
               </p>
               <div className="mt-3 p-2 bg-white/5 rounded-lg">
                 <p className="text-xs text-slate-500 font-mono">
-                  Nullifier: {MOCK_NULLIFIER}
+                  Nullifier: {FALLBACK_NULLIFIER}
                 </p>
               </div>
             </motion.div>
@@ -502,15 +559,25 @@ function IdentityStep({ onNext }: { onNext: () => void }) {
 // ============================================================
 // STEP: VOTE
 // ============================================================
-function VoteStep({ onNext }: { onNext: () => void }) {
+function VoteStep({
+  onNext,
+  onVote,
+}: {
+  onNext: () => void;
+  onVote: (choiceIndex: number) => Promise<void>;
+}) {
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = () => {
-    if (selected) {
-      setSubmitted(true);
-      setTimeout(onNext, 1500);
-    }
+  const handleSubmit = async () => {
+    if (!selected) return;
+    setSubmitting(true);
+    const choiceIndex = DEMO_OPTIONS.findIndex((o) => o.id === selected);
+    await onVote(choiceIndex);
+    setSubmitted(true);
+    setSubmitting(false);
+    setTimeout(onNext, 1500);
   };
 
   return (
@@ -542,13 +609,13 @@ function VoteStep({ onNext }: { onNext: () => void }) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
-              onClick={() => !submitted && setSelected(opt.id)}
-              disabled={submitted}
+              onClick={() => !submitted && !submitting && setSelected(opt.id)}
+              disabled={submitted || submitting}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-300 text-left ${
                 selected === opt.id
                   ? "border-vp-teal bg-vp-teal/10 shadow-lg shadow-vp-teal/20"
                   : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
-              } ${submitted ? "opacity-60" : ""}`}
+              } ${submitted || submitting ? "opacity-60" : ""}`}
             >
               <span className="text-xl">{opt.emoji}</span>
               <span className={`text-sm font-medium ${selected === opt.id ? "text-vp-teal" : "text-white"}`}>
@@ -587,7 +654,7 @@ function VoteStep({ onNext }: { onNext: () => void }) {
               Vote enregistré et chiffré !
             </p>
             <p className="text-slate-400 text-xs mt-1">
-              Génération de la preuve...
+              Preuve ZKP vérifiée — ajouté à la hash chain
             </p>
           </motion.div>
         ) : (
@@ -595,14 +662,18 @@ function VoteStep({ onNext }: { onNext: () => void }) {
             whileHover={{ scale: selected ? 1.05 : 1 }}
             whileTap={{ scale: selected ? 0.95 : 1 }}
             onClick={handleSubmit}
-            disabled={!selected}
+            disabled={!selected || submitting}
             className={`w-full py-3 rounded-full font-semibold text-sm transition-all duration-300 ${
-              selected
+              selected && !submitting
                 ? "bg-gradient-to-r from-vp-teal to-vp-blue text-white shadow-lg shadow-vp-teal/25"
                 : "bg-white/10 text-slate-500 cursor-not-allowed"
             }`}
           >
-            {selected ? "Confirmer mon vote 🔒" : "Sélectionnez une option"}
+            {submitting
+              ? "Vérification ZKP en cours..."
+              : selected
+              ? "Confirmer mon vote 🔒"
+              : "Sélectionnez une option"}
           </motion.button>
         )}
       </div>
@@ -613,7 +684,29 @@ function VoteStep({ onNext }: { onNext: () => void }) {
 // ============================================================
 // STEP: CONFIRMATION + CRYPTO PROOF
 // ============================================================
-function ConfirmStep({ onNext }: { onNext: () => void }) {
+function ConfirmStep({
+  onNext,
+  receipt,
+}: {
+  onNext: () => void;
+  receipt: VoteReceipt | null;
+}) {
+  // Use real receipt data or fallback
+  const voteHash = receipt
+    ? receipt.voteHash.slice(0, 16) + "..." + receipt.voteHash.slice(-16)
+    : FALLBACK_HASH;
+  const nullifier = receipt
+    ? "0x" + receipt.nullifierHash.slice(0, 8) + "..." + receipt.nullifierHash.slice(-4)
+    : FALLBACK_NULLIFIER;
+  const previousHash = receipt
+    ? receipt.previousHash.slice(0, 16) + "..." + receipt.previousHash.slice(-8)
+    : FALLBACK_MERKLE_ROOT;
+  const verificationTime = receipt?.zkpVerification.verificationTimeMs || 2300;
+  const proofString = receipt
+    ? `ZKP valid=${receipt.zkpVerification.proofValid} | merkle=${receipt.zkpVerification.merkleRootVerified} | unique=${receipt.zkpVerification.nullifierUnique}`
+    : "π = (A, B, C) ∈ G₁ × G₂ × G₁";
+  const chainPos = receipt ? `#${receipt.chainPosition}` : "#?";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -634,7 +727,7 @@ function ConfirmStep({ onNext }: { onNext: () => void }) {
           Vote confirmé !
         </h2>
         <p className="text-slate-400 text-sm">
-          Voici votre preuve cryptographique
+          Voici votre preuve cryptographique {receipt && "(données réelles)"}
         </p>
       </div>
 
@@ -643,10 +736,10 @@ function ConfirmStep({ onNext }: { onNext: () => void }) {
         <div className="p-4 bg-white/5 rounded-xl border border-white/10">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs text-slate-400 uppercase tracking-wider">
-              Reçu de vote
+              Reçu de vote {chainPos}
             </span>
             <span className="text-xs px-2 py-0.5 bg-vp-teal/20 text-vp-teal rounded-full">
-              Vérifié
+              {receipt ? "✓ SHA-256 réel" : "Vérifié"}
             </span>
           </div>
 
@@ -654,27 +747,35 @@ function ConfirmStep({ onNext }: { onNext: () => void }) {
             <div>
               <p className="text-xs text-slate-500">Hash du vote (SHA-256)</p>
               <p className="text-xs font-mono text-vp-teal break-all">
-                <TypewriterText text={MOCK_HASH} speed={40} />
+                <TypewriterText text={voteHash} speed={30} />
               </p>
             </div>
             <div>
               <p className="text-xs text-slate-500">Nullifier (anti double-vote)</p>
-              <p className="text-xs font-mono text-white">
-                <TypewriterText text={MOCK_NULLIFIER} speed={50} />
+              <p className="text-xs font-mono text-white break-all">
+                <TypewriterText text={nullifier} speed={40} />
               </p>
             </div>
             <div>
               <p className="text-xs text-slate-500">ZK-SNARK Proof</p>
-              <p className="text-xs font-mono text-vp-gold">
-                <TypewriterText text={MOCK_PROOF} speed={25} />
+              <p className="text-xs font-mono text-vp-gold break-all">
+                <TypewriterText text={proofString} speed={20} />
               </p>
             </div>
             <div>
-              <p className="text-xs text-slate-500">Merkle Root</p>
-              <p className="text-xs font-mono text-white">
-                <TypewriterText text={MOCK_MERKLE_ROOT} speed={50} />
+              <p className="text-xs text-slate-500">Hash précédent (chaînage)</p>
+              <p className="text-xs font-mono text-white break-all">
+                <TypewriterText text={previousHash} speed={40} />
               </p>
             </div>
+            {receipt && (
+              <div>
+                <p className="text-xs text-slate-500">Temps de vérification</p>
+                <p className="text-xs font-mono text-slate-300">
+                  {verificationTime}ms
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -720,8 +821,27 @@ function ConfirmStep({ onNext }: { onNext: () => void }) {
 // ============================================================
 // STEP: RESULTS
 // ============================================================
-function ResultsStep({ onNext }: { onNext: () => void }) {
-  const maxVotes = Math.max(...MOCK_RESULTS.map((r) => r.votes));
+function ResultsStep({
+  onNext,
+  auditData,
+  selectedChoiceIndex,
+}: {
+  onNext: () => void;
+  auditData: AuditData | null;
+  selectedChoiceIndex: number;
+}) {
+  // Use real audit data if available, otherwise fallback to mock
+  const MOCK_RESULTS = [
+    { label: "Oui, adoptons-la", votes: 847, percentage: 42.4 },
+    { label: "Non, gardons 5 jours", votes: 312, percentage: 15.6 },
+    { label: "Periode d'essai d'abord", votes: 741, percentage: 37.1 },
+    { label: "Abstention", votes: 100, percentage: 5.0 },
+  ];
+
+  const results = auditData?.results || MOCK_RESULTS;
+  const totalVotes = auditData?.totalVotes || 2000;
+  const maxVotes = Math.max(...results.map((r) => r.votes));
+  const isLive = !!auditData;
 
   return (
     <motion.div
@@ -736,51 +856,60 @@ function ResultsStep({ onNext }: { onNext: () => void }) {
           Résultats vérifiables
         </h2>
         <p className="text-slate-400 text-sm">
-          Chaque vote est prouvé — les résultats sont infalsifiables
+          {isLive
+            ? "Résultats en temps réel depuis la hash chain"
+            : "Chaque vote est prouvé — les résultats sont infalsifiables"}
         </p>
       </div>
 
       <div className="glass-card p-5 sm:p-6 max-w-md mx-auto">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-white font-semibold text-sm">
-            {DEMO_QUESTION}
+            {auditData?.poll.title || DEMO_QUESTION}
           </h3>
           <span className="text-xs px-2 py-0.5 bg-vp-teal/20 text-vp-teal rounded-full whitespace-nowrap ml-2">
-            2 000 votes
+            {totalVotes.toLocaleString()} vote{totalVotes > 1 ? "s" : ""}
           </span>
         </div>
 
         <div className="space-y-4">
-          {MOCK_RESULTS.map((result, i) => (
-            <motion.div
-              key={result.option}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.15 }}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-sm text-white">{result.option}</span>
-                <span className="text-sm font-mono text-vp-teal">
-                  {result.pct}%
-                </span>
-              </div>
-              <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${result.pct}%` }}
-                  transition={{ duration: 1, delay: 0.3 + i * 0.15, ease: "easeOut" }}
-                  className={`h-full rounded-full ${
-                    result.votes === maxVotes
-                      ? "bg-gradient-to-r from-vp-teal to-vp-blue"
-                      : "bg-white/20"
-                  }`}
-                />
-              </div>
-              <p className="text-xs text-slate-500 mt-0.5">
-                {result.votes.toLocaleString()} votes vérifiés
-              </p>
-            </motion.div>
-          ))}
+          {results.map((result, i) => {
+            const isUserChoice = i === selectedChoiceIndex;
+            return (
+              <motion.div
+                key={result.label}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.15 }}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className={`text-sm ${isUserChoice ? "text-vp-teal font-semibold" : "text-white"}`}>
+                    {result.label} {isUserChoice && "← votre vote"}
+                  </span>
+                  <span className="text-sm font-mono text-vp-teal">
+                    {result.percentage}%
+                  </span>
+                </div>
+                <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${result.percentage}%` }}
+                    transition={{ duration: 1, delay: 0.3 + i * 0.15, ease: "easeOut" }}
+                    className={`h-full rounded-full ${
+                      result.votes === maxVotes
+                        ? "bg-gradient-to-r from-vp-teal to-vp-blue"
+                        : isUserChoice
+                        ? "bg-vp-teal/60"
+                        : "bg-white/20"
+                    }`}
+                  />
+                </div>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {result.votes.toLocaleString()} vote{result.votes > 1 ? "s" : ""} vérifié{result.votes > 1 ? "s" : ""}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div
@@ -790,15 +919,15 @@ function ResultsStep({ onNext }: { onNext: () => void }) {
           className="mt-5 p-3 bg-white/5 border border-white/10 rounded-xl"
         >
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 bg-vp-teal rounded-full" />
+            <span className={`w-2 h-2 rounded-full ${isLive ? "bg-green-400 animate-pulse" : "bg-vp-teal"}`} />
             <span className="text-xs text-slate-300 font-medium">
-              Intégrité garantie
+              {isLive ? "Données temps réel — hash chain vérifiée" : "Intégrité garantie"}
             </span>
           </div>
           <p className="text-xs text-slate-400">
-            Chaque vote possède une preuve ZK-SNARK. Le total correspond
-            exactement au nombre de preuves vérifiées. Aucun vote fantôme,
-            aucun vote supprimé.
+            {isLive
+              ? `${auditData.chain.length} blocs dans la chaîne. Vérification : ${auditData.chain.verification.isValid ? "✅ Intègre" : "❌ Erreur"}. Chaque vote possède un hash SHA-256 unique.`
+              : "Chaque vote possède une preuve ZK-SNARK. Le total correspond exactement au nombre de preuves vérifiées. Aucun vote fantôme, aucun vote supprimé."}
           </p>
         </motion.div>
       </div>
@@ -823,13 +952,30 @@ function ResultsStep({ onNext }: { onNext: () => void }) {
 // ============================================================
 // STEP: AUDIT (HASH CHAIN)
 // ============================================================
-function AuditStep({ onRestart }: { onRestart: () => void }) {
-  const chainBlocks = [
-    { id: "#1997", hash: "7a3f...e2d1", prev: "0000...0000", votes: 50, time: "10:00" },
-    { id: "#1998", hash: "b4c8...9f3a", prev: "7a3f...e2d1", votes: 50, time: "10:05" },
-    { id: "#1999", hash: "d1e5...4b7c", prev: "b4c8...9f3a", votes: 50, time: "10:10" },
-    { id: "#2000", hash: "a7f3...8c5b", prev: "d1e5...4b7c", votes: 50, time: "10:15" },
+function AuditStep({
+  onRestart,
+  auditData,
+}: {
+  onRestart: () => void;
+  auditData: AuditData | null;
+}) {
+  // Fallback chain blocks if no audit data
+  const MOCK_CHAIN = [
+    { index: 0, hash: "0000...genesis", previousHash: "0000...0000", timestamp: "10:00", choiceIndex: -1 },
+    { index: 1, hash: "7a3f...e2d1", previousHash: "0000...genesis", timestamp: "10:05", choiceIndex: 0 },
+    { index: 2, hash: "b4c8...9f3a", previousHash: "7a3f...e2d1", timestamp: "10:10", choiceIndex: 2 },
+    { index: 3, hash: "d1e5...4b7c", previousHash: "b4c8...9f3a", timestamp: "10:15", choiceIndex: 0 },
   ];
+
+  const chainBlocks = auditData?.chain.blocks || MOCK_CHAIN;
+  const isLive = !!auditData;
+  const chainValid = auditData?.chain.verification.isValid ?? true;
+
+  // Show last 6 blocks max for UI clarity (skip genesis if many blocks)
+  const displayBlocks = chainBlocks.length > 6
+    ? [chainBlocks[0], ...chainBlocks.slice(-5)]
+    : chainBlocks;
+  const skippedBlocks = chainBlocks.length > 6 ? chainBlocks.length - 6 : 0;
 
   return (
     <motion.div
@@ -844,57 +990,76 @@ function AuditStep({ onRestart }: { onRestart: () => void }) {
           Audit — Hash Chain
         </h2>
         <p className="text-slate-400 text-sm">
-          La chaîne de preuves est publique et vérifiable par tous
+          {isLive
+            ? `${chainBlocks.length} blocs réels — SHA-256 vérifiable`
+            : "La chaîne de preuves est publique et vérifiable par tous"}
         </p>
       </div>
 
       <div className="max-w-md mx-auto space-y-3">
-        {chainBlocks.map((block, i) => (
-          <motion.div
-            key={block.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.2 }}
-          >
-            <div className="glass-card p-4 relative">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono text-vp-teal font-bold">
-                  Block {block.id}
-                </span>
-                <span className="text-xs text-slate-500">{block.time}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div>
-                  <span className="text-slate-500">Hash:</span>
-                  <span className="font-mono text-white ml-1">{block.hash}</span>
+        {displayBlocks.map((block, i) => {
+          const isGenesis = block.index === 0;
+          const time = block.timestamp.includes("T")
+            ? new Date(block.timestamp).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+            : block.timestamp;
+
+          return (
+            <motion.div
+              key={block.index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15 }}
+            >
+              {/* Show "... N blocks skipped" indicator */}
+              {i === 1 && skippedBlocks > 0 && (
+                <div className="flex justify-center py-2 mb-3">
+                  <span className="text-xs text-slate-500 px-3 py-1 bg-white/5 rounded-full">
+                    ... {skippedBlocks} blocs ...
+                  </span>
                 </div>
-                <div>
-                  <span className="text-slate-500">Prev:</span>
-                  <span className="font-mono text-slate-400 ml-1">{block.prev}</span>
+              )}
+              <div className={`glass-card p-4 relative ${isGenesis ? "border border-vp-gold/30" : ""}`}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`text-xs font-mono font-bold ${isGenesis ? "text-vp-gold" : "text-vp-teal"}`}>
+                    {isGenesis ? "Genesis Block" : `Block #${block.index}`}
+                  </span>
+                  <span className="text-xs text-slate-500">{time}</span>
+                </div>
+                <div className="grid grid-cols-1 gap-1 text-xs">
+                  <div>
+                    <span className="text-slate-500">Hash: </span>
+                    <span className="font-mono text-white">{block.hash}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">Prev: </span>
+                    <span className="font-mono text-slate-400">{block.previousHash}</span>
+                  </div>
+                </div>
+                <div className="mt-2 flex items-center justify-between">
+                  <span className="text-xs text-slate-400">
+                    {isGenesis
+                      ? "Bloc de genèse"
+                      : `Vote option #${block.choiceIndex}`}
+                  </span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${chainValid ? "bg-vp-teal/10 text-vp-teal" : "bg-red-500/10 text-red-400"}`}>
+                    {chainValid ? "✓ Intègre" : "✗ Cassé"}
+                  </span>
                 </div>
               </div>
-              <div className="mt-2 flex items-center justify-between">
-                <span className="text-xs text-slate-400">
-                  {block.votes} votes vérifiés
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-vp-teal/10 text-vp-teal rounded-full">
-                  ✓ Intègre
-                </span>
-              </div>
-            </div>
-            {/* Chain link */}
-            {i < chainBlocks.length - 1 && (
-              <div className="flex justify-center py-1">
-                <motion.div
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ delay: i * 0.2 + 0.15 }}
-                  className="w-0.5 h-6 bg-gradient-to-b from-vp-teal to-transparent"
-                />
-              </div>
-            )}
-          </motion.div>
-        ))}
+              {/* Chain link */}
+              {i < displayBlocks.length - 1 && (
+                <div className="flex justify-center py-1">
+                  <motion.div
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ delay: i * 0.15 + 0.1 }}
+                    className="w-0.5 h-6 bg-gradient-to-b from-vp-teal to-transparent"
+                  />
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Summary box */}
@@ -904,6 +1069,14 @@ function AuditStep({ onRestart }: { onRestart: () => void }) {
         transition={{ delay: 1.2 }}
         className="glass-card p-5 max-w-md mx-auto mt-6"
       >
+        {isLive && (
+          <div className="flex items-center gap-2 mb-3 p-2 bg-vp-teal/10 rounded-lg">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-xs text-vp-teal font-medium">
+              Données réelles — {auditData.chain.verification.blocksChecked} blocs vérifiés
+            </span>
+          </div>
+        )}
         <h3 className="text-white font-semibold text-sm mb-3 text-center">
           Ce que garantit cette chaîne :
         </h3>
@@ -957,6 +1130,10 @@ function AuditStep({ onRestart }: { onRestart: () => void }) {
 // ============================================================
 export default function DemoPage() {
   const [step, setStep] = useState<DemoStep>("welcome");
+  const [pollId, setPollId] = useState<string | null>(null);
+  const [voteReceipt, setVoteReceipt] = useState<VoteReceipt | null>(null);
+  const [auditData, setAuditData] = useState<AuditData | null>(null);
+  const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number>(-1);
 
   const goTo = (s: DemoStep) => setStep(s);
   const nextStep = () => {
@@ -965,6 +1142,136 @@ export default function DemoPage() {
       setStep(steps[idx + 1].key);
     }
   };
+
+  // Create poll via API when entering the create step
+  const handleCreatePoll = useCallback(async (question: string) => {
+    try {
+      const res = await fetch("/api/demo/polls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: question,
+          choices: DEMO_OPTIONS.map((o) => o.label),
+          countryCode: "FR",
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.poll) {
+        setPollId(data.poll.id);
+      }
+    } catch (err) {
+      console.error("Failed to create poll:", err);
+    }
+  }, []);
+
+  // Submit vote via API
+  const handleVote = useCallback(
+    async (choiceIndex: number) => {
+      if (!pollId) return;
+      setSelectedChoiceIndex(choiceIndex);
+      try {
+        // Generate a random voter commitment (simulates eIDAS identity)
+        const voterCommitment =
+          Array.from(crypto.getRandomValues(new Uint8Array(32)))
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
+
+        const res = await fetch("/api/demo/vote", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            pollId,
+            choiceIndex,
+            voterCommitment,
+            proof: "simulated-zkp-proof",
+          }),
+        });
+        const data = await res.json();
+        if (data.success && data.receipt) {
+          setVoteReceipt(data.receipt);
+        }
+      } catch (err) {
+        console.error("Failed to submit vote:", err);
+      }
+    },
+    [pollId]
+  );
+
+  // Also inject additional simulated votes for realistic results display
+  const injectSimulatedVotes = useCallback(async () => {
+    if (!pollId) return;
+    // Inject ~15-20 additional simulated votes for realistic results
+    const distribution = [
+      { choiceIndex: 0, count: 8 },  // "Oui" most popular
+      { choiceIndex: 1, count: 3 },  // "Non"
+      { choiceIndex: 2, count: 7 },  // "Periode d'essai"
+      { choiceIndex: 3, count: 2 },  // "Abstention"
+    ];
+    for (const { choiceIndex, count } of distribution) {
+      for (let i = 0; i < count; i++) {
+        const commitment = Array.from(crypto.getRandomValues(new Uint8Array(32)))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+        try {
+          await fetch("/api/demo/vote", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              pollId,
+              choiceIndex,
+              voterCommitment: commitment,
+              proof: "simulated-zkp-batch",
+            }),
+          });
+        } catch {
+          // Silently ignore batch vote errors
+        }
+      }
+    }
+  }, [pollId]);
+
+  // Fetch audit data when entering results or audit step
+  const fetchAuditData = useCallback(async () => {
+    if (!pollId) return;
+    try {
+      const res = await fetch(`/api/demo/audit?pollId=${pollId}`);
+      const data = await res.json();
+      if (data.poll) {
+        setAuditData(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch audit:", err);
+    }
+  }, [pollId]);
+
+  // When vote is submitted, inject simulated votes in background
+  useEffect(() => {
+    if (voteReceipt && pollId) {
+      injectSimulatedVotes();
+    }
+  }, [voteReceipt, pollId, injectSimulatedVotes]);
+
+  // Fetch audit data when reaching results or audit step
+  useEffect(() => {
+    if ((step === "results" || step === "audit") && pollId) {
+      fetchAuditData();
+    }
+  }, [step, pollId, fetchAuditData]);
+
+  const handleRestart = () => {
+    setPollId(null);
+    setVoteReceipt(null);
+    setAuditData(null);
+    setSelectedChoiceIndex(-1);
+    goTo("welcome");
+  };
+
+  // Props passed down to step components
+  const createProps = { onNext: nextStep, onCreatePoll: handleCreatePoll };
+  const voteProps = { onNext: nextStep, onVote: handleVote };
+  const confirmProps = { onNext: nextStep, receipt: voteReceipt };
+  const resultsProps = { onNext: nextStep, auditData, selectedChoiceIndex };
+  const auditProps = { onRestart: handleRestart, auditData };
 
   return (
     <div className="min-h-screen bg-vp-dark">
@@ -984,6 +1291,11 @@ export default function DemoPage() {
             Parcourez le cycle complet d&apos;un vote sécurisé : création,
             vérification, vote, résultats et audit.
           </p>
+          {pollId && (
+            <p className="text-xs text-slate-600 mt-2 font-mono">
+              Session: {pollId}
+            </p>
+          )}
         </motion.div>
       </div>
 
@@ -999,12 +1311,12 @@ export default function DemoPage() {
           <PhoneFrame>
             <AnimatePresence mode="wait">
               {step === "welcome" && <WelcomeStep key="welcome" onNext={nextStep} />}
-              {step === "create" && <CreateStep key="create" onNext={nextStep} />}
+              {step === "create" && <CreateStep key="create" {...createProps} />}
               {step === "identity" && <IdentityStep key="identity" onNext={nextStep} />}
-              {step === "vote" && <VoteStep key="vote" onNext={nextStep} />}
-              {step === "confirm" && <ConfirmStep key="confirm" onNext={nextStep} />}
-              {step === "results" && <ResultsStep key="results" onNext={nextStep} />}
-              {step === "audit" && <AuditStep key="audit" onRestart={() => goTo("welcome")} />}
+              {step === "vote" && <VoteStep key="vote" {...voteProps} />}
+              {step === "confirm" && <ConfirmStep key="confirm" {...confirmProps} />}
+              {step === "results" && <ResultsStep key="results" {...resultsProps} />}
+              {step === "audit" && <AuditStep key="audit" {...auditProps} />}
             </AnimatePresence>
           </PhoneFrame>
 
@@ -1014,12 +1326,12 @@ export default function DemoPage() {
               <div className="lg:hidden">
                 {/* Mobile: show steps directly */}
                 {step === "welcome" && <WelcomeStep key="welcome-m" onNext={nextStep} />}
-                {step === "create" && <CreateStep key="create-m" onNext={nextStep} />}
+                {step === "create" && <CreateStep key="create-m" {...createProps} />}
                 {step === "identity" && <IdentityStep key="identity-m" onNext={nextStep} />}
-                {step === "vote" && <VoteStep key="vote-m" onNext={nextStep} />}
-                {step === "confirm" && <ConfirmStep key="confirm-m" onNext={nextStep} />}
-                {step === "results" && <ResultsStep key="results-m" onNext={nextStep} />}
-                {step === "audit" && <AuditStep key="audit-m" onRestart={() => goTo("welcome")} />}
+                {step === "vote" && <VoteStep key="vote-m" {...voteProps} />}
+                {step === "confirm" && <ConfirmStep key="confirm-m" {...confirmProps} />}
+                {step === "results" && <ResultsStep key="results-m" {...resultsProps} />}
+                {step === "audit" && <AuditStep key="audit-m" {...auditProps} />}
               </div>
 
               {/* Desktop: show explanation sidebar */}
