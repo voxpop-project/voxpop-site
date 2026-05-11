@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxPop — FAQ &amp; réponses aux critiques</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.65}
+a{color:#FCA48E;text-decoration:none}
+a:hover{color:#B8472B;text-decoration:underline}
+
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#F59E0B;color:#0B1220;padding:8px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.1px}
+.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#F59E0B;padding:3px 8px;border-radius:4px;margin-right:8px}
+.preview-banner a{color:#0B1220;text-decoration:underline;font-weight:700}
+.nav{position:fixed;top:38px;left:0;right:0;z-index:100;backdrop-filter:blur(12px);background:rgba(11,18,32,0.85);border-bottom:1px solid rgba(184,71,43,0.15)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:14px;font-weight:800;font-size:20px;color:#E2E8F0}
+.nav-logo img{width:46px;height:46px}
+.nav-back{font-size:13px;color:#94A3B8}
+.nav-back:hover{color:#FCA48E;text-decoration:none}
+
+.hero{padding:170px 32px 50px 32px;text-align:center}
+.hero h1{font-size:clamp(36px,5.5vw,68px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:18px;color:#E2E8F0}
+.hero h1 span{color:#B8472B}
+.hero p{font-size:17px;color:#94A3B8;max-width:640px;margin:0 auto}
+
+.section-bar{background:#101A2E;padding:60px 32px;text-align:center;border-top:1px solid rgba(184,71,43,0.15);border-bottom:1px solid rgba(184,71,43,0.15);margin-bottom:60px}
+.section-bar h2{font-size:clamp(24px,3.5vw,38px);font-weight:900;letter-spacing:-0.02em;line-height:1.15;max-width:760px;margin:0 auto 20px auto;color:#E2E8F0}
+.section-bar h2 span{color:#B8472B}
+.section-bar p{font-size:16px;color:#94A3B8;max-width:680px;margin:0 auto;line-height:1.65}
+
+.content{max-width:840px;margin:0 auto;padding:0 32px 50px 32px}
+
+.attack{padding:30px 32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:5px solid #B8472B;border-radius:0 10px 10px 0;margin-bottom:18px}
+.attack .label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#FCA48E;letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
+.attack .question{font-size:19px;font-weight:800;color:#E2E8F0;line-height:1.3;margin-bottom:14px;letter-spacing:-0.01em}
+.attack .question::before{content:"« ";color:#B8472B}
+.attack .question::after{content:" »";color:#B8472B}
+.attack .answer{font-size:15px;color:#CBD5E1;line-height:1.7}
+.attack .answer strong{color:#FCA48E;font-weight:700}
+
+h2.section-title{font-size:clamp(24px,3.5vw,40px);font-weight:900;letter-spacing:-0.02em;margin:60px 0 30px 0;color:#E2E8F0;line-height:1.15}
+h2.section-title span{color:#B8472B}
+
+.faq-q{padding:24px 28px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;margin-bottom:14px}
+.faq-q h3{font-size:17px;font-weight:700;color:#E2E8F0;margin-bottom:12px;line-height:1.3}
+.faq-q h3::before{content:"Q. ";color:#B8472B;font-family:'JetBrains Mono',monospace;font-weight:800}
+.faq-q p{font-size:14.5px;color:#94A3B8;line-height:1.7;margin-bottom:6px}
+.faq-q p::before{content:"R. ";color:#B8472B;font-family:'JetBrains Mono',monospace;font-weight:800}
+
+.creator-box{background:#0B1220;padding:36px 38px;border:2px solid rgba(184,71,43,0.4);border-radius:14px;margin:30px 0}
+.creator-box h3{font-size:22px;font-weight:900;color:#E2E8F0;margin-bottom:18px;letter-spacing:-0.02em}
+.creator-box h3 span{color:#B8472B}
+.creator-box p{font-size:15px;color:#CBD5E1;line-height:1.75;margin-bottom:14px}
+.creator-box p strong{color:#FCA48E;font-weight:700}
+.creator-box ul{list-style:none;margin:14px 0;padding:0}
+.creator-box li{padding-left:18px;position:relative;font-size:14.5px;color:#CBD5E1;line-height:1.7;margin-bottom:8px}
+.creator-box li::before{content:"▸";position:absolute;left:0;color:#B8472B;font-weight:700}
+
+.foot-mini{padding:30px 32px;text-align:center;font-size:12.5px;color:#64748B;border-top:1px solid rgba(255,255,255,0.06);background:#0B1220}
+.foot-mini a{color:#94A3B8;margin:0 12px}
+.foot-mini a:hover{color:#FCA48E}
+
+@media (max-width:768px){
+  .hero{padding:110px 24px 40px 24px}
+  .content{padding:0 24px 40px 24px}
+  .section-bar{padding:50px 24px}
+  .creator-box{padding:26px 24px}
+  .attack{padding:24px 22px}
+}
+</style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <strong>Preview</strong>Site en mode aperçu · lancement officiel septembre 2026 · <a href="mailto:contact@voxpop-app.com?subject=M'inscrire à la newsletter">Être prévenu</a>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo_gold.png" alt="VoxPop">
+      VoxPop
+    </a>
+    <a href="index.html" class="nav-back">← Accueil</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Questions, <span>critiques, attaques.</span></h1>
+  <p>Ce qu'on va nous dire. Ce qu'on a déjà préparé comme réponse. Pas de langue de bois, pas de défensif.</p>
+</section>
+
+<section class="section-bar">
+  <h2>On nous traitera de tout. <span>C'est précisément la preuve que ça marche.</span></h2>
+  <p>Aucun projet d'expression citoyenne indépendante n'échappe aux attaques en France. Voilà les huit que nous attendons, et les huit réponses préparées. Lucides, factuelles, vérifiables.</p>
+</section>
+
+<div class="content">
+
+  <h2 class="section-title">Les <span>huit attaques</span> anticipées</h2>
+
+  <div class="attack">
+    <div class="label">Attaque 01</div>
+    <div class="question">VoxPop, c'est de la droite cachée</div>
+    <div class="answer">Notre tribu d'ambassadeurs accueille des journalistes souverainistes. Elle accueille aussi <strong>un avocat de gauche radicale</strong>. Et un philosophe républicain centriste. Et un vulgarisateur scientifique sans étiquette. Ce qui les unit, ce n'est pas une ligne politique : c'est leur engagement pour le pluralisme. Si on nous accuse de cacher la droite, c'est qu'on nous reproche d'accueillir <em>aussi</em> la droite. Cette accusation est notre meilleure publicité.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 02</div>
+    <div class="question">VoxPop, c'est de la gauche militante</div>
+    <div class="answer">Mêmes profils dans la tribu, accusation opposée. Même réponse. <strong>Le seul point commun de notre tribu, c'est qu'elle croit toute entière au principe du pluralisme.</strong> Quand on est attaqué simultanément par les deux extrêmes, c'est généralement qu'on est exactement à la bonne place.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 03</div>
+    <div class="question">VoxPop, c'est complotiste</div>
+    <div class="answer">Le terme est devenu un fourre-tout pour disqualifier sans débattre. Notre code est <strong>intégralement public et vérifiable</strong> par n'importe quel chercheur dans le monde. Des auditeurs académiques peuvent passer dessus à n'importe quel moment. Aucune partie de notre architecture ne repose sur la confiance aveugle. Les faits, pas les opinions.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 04</div>
+    <div class="question">VoxPop, c'est anti-Macron</div>
+    <div class="answer">Les trois questions que nous proposons s'appliquent à <strong>tous les futurs présidents, sans exception</strong>. Macron 2032 en tirerait le même bénéfice qu'un autre candidat. Le mandat unique de sept ans, le plafond de campagne à cinq millions, la reconnaissance du vote blanc, n'ont aucun rapport avec un président particulier. Ce sont des règles de fonctionnement institutionnel.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 05</div>
+    <div class="question">VoxPop est financé par la Russie / les États-Unis / Soros / le Qatar</div>
+    <div class="answer">Notre <strong>bilan financier sera publié chaque année</strong>, accessible publiquement. Notre charte interdit tout financement, direct ou indirect, en provenance d'un parti, d'un candidat à une élection, d'un État, ou d'une fondation à agenda politique connu. Sources actuelles : bootstrap intégral par le fondateur, candidatures à des subventions civic tech européennes (NLnet en évaluation), futurs investisseurs privés non partisans, dons optionnels des signataires.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 06</div>
+    <div class="question">VoxPop, c'est juste change.org rebrandé</div>
+    <div class="answer">Trois différences techniques majeures. <strong>Premièrement, les signatures sont cryptographiquement vérifiables, donc inattaquables.</strong> Deuxièmement, on ne vend pas les données : il n'y a rien à vendre, parce que par construction nous n'avons rien à savoir. Troisièmement, le code est open source, auditable par n'importe qui. Aucune autre plateforme française, aucune autre plateforme mondiale grand public, ne réunit les trois.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 07</div>
+    <div class="question">Le fondateur reste anonyme, c'est louche</div>
+    <div class="answer">L'anonymat public du fondateur est <strong>justifié par la nature politiquement sensible du projet</strong>. Une plateforme qui peut potentiellement déranger des intérêts puissants ne peut pas exposer son créateur à des pressions individuelles. La SASU Pelegrinus (SIREN 948 908 348) et Punch Ventures LLC (Wyoming) sont en revanche parfaitement identifiables juridiquement. Les autorités judiciaires françaises peuvent obtenir l'identité du dirigeant par les voies légales auprès de la SASU. Ce n'est pas du secret, c'est de la prudence.</div>
+  </div>
+
+  <div class="attack">
+    <div class="label">Attaque 08</div>
+    <div class="question">Le ZKP, c'est juste de la com technique</div>
+    <div class="answer">Les Zero-Knowledge Proofs sont un standard cryptographique <strong>audité par des dizaines d'équipes de chercheurs</strong> depuis les années 1980. La technologie Semaphore que nous utilisons est maintenue par les Privacy Stewards of Ethereum (PSE), équipe technique de la fondation Ethereum. C'est utilisé par d'autres projets civiques (Worldcoin, Anon Aadhaar en Inde, etc.). Vérifiable par n'importe quel chercheur, n'importe quel doctorant en cryptographie, n'importe quel auditeur indépendant.</div>
+  </div>
+
+  <h2 class="section-title">Qui détient <span>VoxPop</span> ?</h2>
+
+  <div class="creator-box">
+    <h3>Le fondateur, <span>les structures, le code</span></h3>
+    <p>VoxPop est porté par <strong>une seule personne</strong>, dont l'identité n'est pas publiée par choix de protection. Cette personne est le fondateur, dirigeant unique des deux structures juridiques qui éditent la plateforme.</p>
+    <ul>
+      <li><strong>SASU Pelegrinus</strong> (SIREN 948 908 348, France) opère la plateforme en France.</li>
+      <li><strong>Punch Ventures LLC</strong> (Wyoming, États-Unis) opère l'infrastructure internationale.</li>
+      <li><strong>Le code source</strong> est intégralement public sous licence libre AGPL-3.0, sur GitHub à l'organisation <code>voxpop-project</code>.</li>
+    </ul>
+    <p>L'anonymat public du fondateur sera <strong>levé volontairement</strong> dès lors que le projet aura atteint une masse critique de signatures et que le risque personnel sera réduit par la visibilité collective. C'est une décision opérationnelle, pas un choix de fond.</p>
+    <p>Aucun parti politique, aucun État, aucune fondation à agenda politique connu, aucun candidat à une élection française ne possède de part, ne finance, ni n'influence VoxPop. <strong>Cette indépendance est verrouillée par les statuts juridiques eux-mêmes</strong>, et opposable à tout futur tentative de prise de contrôle.</p>
+  </div>
+
+  <h2 class="section-title">Questions <span>plus pratiques</span></h2>
+
+  <div class="faq-q">
+    <h3>Cette pétition a-t-elle une valeur juridique ?</h3>
+    <p>Non. C'est une pétition d'opinion, comme change.org ou avaaz. Aucune valeur au sens du Code électoral. Aucun risque pénal pour les signataires ni pour la plateforme. C'est précisément ce qui nous protège : nous mesurons une opinion, nous n'organisons pas un vote contraignant.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Pourquoi 1 million de signatures et pas 10 millions ?</h3>
+    <p>Parce que c'est l'ordre de grandeur qui force le débat. Mélenchon a réuni 1,2 million de parrainages populaires en six mois en 2017. Le RIP de 2019 sur Aéroports de Paris a recueilli 1,1 million sans budget. Au-delà du million, la pression médiatique est telle qu'aucun candidat ne peut éviter la question : « soutiendrez-vous ces trois questions ? »</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Et si l'État veut couper le site ?</h3>
+    <p>L'infrastructure est répliquée hors juridiction française. En cas de coupure DNS, la pétition reste accessible par d'autres voies techniques. Le code est public, n'importe qui peut redéployer une instance miroir en quelques heures. C'est précisément la raison d'être de l'architecture open source et distribuée.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Pourquoi ne pas utiliser le mot « référendum » sur la plateforme ?</h3>
+    <p>Parce qu'en droit français, un référendum est un acte d'État, encadré par la Constitution. L'utiliser créerait une ambiguïté juridique. Nous parlons donc de pétition, statut clair et reconnu, qui nous donne exactement le même pouvoir d'expression collective sans aucun risque légal.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Comment puis-je vérifier qu'une signature est réelle ?</h3>
+    <p>Le résultat de chaque pétition est inscrit dans un registre public distribué (blockchain). N'importe qui peut, via la démo cryptographique, recompter les signatures et vérifier qu'elles sont uniques, anonymes, et non falsifiées. C'est la différence majeure avec change.org, où vous devez croire la plateforme sur parole.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>VoxPop va-t-il un jour soutenir un candidat à l'élection ?</h3>
+    <p>Non, jamais. La charte de neutralité (article 1) interdit explicitement et de manière irréversible tout soutien à un candidat, à un parti, ou à un mouvement. Cette interdiction est verrouillée dans les statuts des deux structures juridiques. Ce n'est pas une déclaration d'intention, c'est un engagement opposable juridiquement.</p>
+  </div>
+
+  <h2 class="section-title">Sur la <span>fiabilité</span> des signatures</h2>
+
+  <div class="faq-q">
+    <h3>Comment êtes-vous sûrs qu'une personne ne signe pas plusieurs fois ?</h3>
+    <p>Sept couches de vérification combinées. Numéro français +33 obligatoire, blacklist VoIP (Onoff, Twilio, Google Voice, etc.), géolocalisation IP, détection ASN suspects, empreinte d'appareil hashée (irréversible), détection comportementale anti-bot, anomalies géographiques. Aucune méthode n'est parfaite à 100% sans pièce d'identité officielle, mais la combinaison réduit drastiquement les attaques Sybil. Marge d'erreur estimée : 2 à 5%, comparable à un sondage IFOP. Le détail est sur la <a href="petition-presidentielle-2027.html">page pétition</a> et le <a href="dashboard.html">dashboard public temps réel</a>.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Et l'ingérence étrangère, type russe, chinoise, iranienne ?</h3>
+    <p>L'attaque « ingérence russe » est l'arme préférée des médias mainstream pour discréditer toute mobilisation citoyenne (Brexit, Macron Leaks, élections roumaines 2024). On l'a anticipé. Les ASN connus pour ingérence (réseaux russes, chinois, iraniens identifiés par l'ANSSI) sont rejetés en amont. Les IP étrangères hors expatriés français sont bloquées. Les VPN connus sont détectés. Le dashboard public affiche en temps réel le nombre de tentatives rejetées par cause, vérifiable par n'importe qui. Si un journaliste accuse, on répond en montrant les chiffres bruts. La transparence radicale est notre meilleure arme.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Pourquoi assumer publiquement une marge d'erreur ?</h3>
+    <p>Parce que la transparence est notre avantage compétitif. change.org affiche un chiffre brut sans méthodologie publiée, et finit toujours par se faire critiquer pour ses bots. VoxPop publie le total brut, les rejets, la marge d'erreur, et la méthodologie complète. Si quelqu'un nous accuse de gonflage, il peut vérifier lui-même via le registre cryptographique public. C'est exactement ce que font les sondages sérieux (IFOP, Ipsos), et c'est ce qui rend nos résultats juridiquement solides.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Pourquoi le mot « pétition » et pas « vote » ?</h3>
+    <p>Choix politique, pas juridique. En droit français, un référendum est un acte d'État, encadré par la Constitution. Utiliser le mot « vote » ou « référendum » créerait une ambiguïté juridique qui exposerait la plateforme à des poursuites. Le mot « pétition » a un statut clair (change.org, avaaz, mesopinions opèrent depuis quinze ans en France sans poursuite). Mais dans les faits, quand les votes officiels ne changent rien et que les sondages sont commandés, la pétition cryptographiquement vérifiable devient le seul vote qui compte. Légalement non contraignant. Politiquement irrésistible. Aux élus d'en prendre note ou d'en supporter les conséquences.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Que se passe-t-il si 100 signatures arrivent du même endroit en quelques minutes ?</h3>
+    <p>On ne les annule pas. On les marque comme anomalie statistique et on les inclut dans la marge d'erreur publiée. C'est plus honnête que de les supprimer arbitrairement (qui sait, c'est peut-être un meeting réel d'une association locale qui signe en groupe). Le dashboard affiche en permanence les anomalies détectées avec leur localisation. N'importe qui peut juger.</p>
+  </div>
+
+  <div class="faq-q">
+    <h3>Et si quelqu'un avec 10 cartes SIM différentes signe 10 fois ?</h3>
+    <p>Possible techniquement, mais limité par les coûts (10 cartes prépayées + identités = ~50 à 100 euros) et par les autres couches de filtrage. Une même empreinte d'appareil sera détectée. Une même IP aussi. Une cohérence comportementale (vitesse, patterns) sera repérée. À grande échelle, ce type d'attaque est facilement détectable. La méthodologie complète est documentée publiquement, donc personne ne peut nous accuser de cacher quoi que ce soit.</p>
+  </div>
+
+</div>
+
+<footer class="foot-mini">
+  VoxPop · 2026
+  <a href="index.html">Accueil</a>
+  <a href="petition-presidentielle-2027.html">Pétition active</a>
+  <a href="legal.html">Mentions légales</a>
+  <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a>
+</footer>
+
+</body>
+</html>

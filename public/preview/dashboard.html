@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxPop — Dashboard public en temps réel</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#F59E0B;color:#0B1220;padding:8px 32px;text-align:center;font-size:13px;font-weight:600}
+.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#F59E0B;padding:3px 8px;border-radius:4px;margin-right:8px}
+.preview-banner a{color:#0B1220;text-decoration:underline;font-weight:700}
+
+.nav{position:fixed;top:38px;left:0;right:0;z-index:100;backdrop-filter:blur(12px);background:rgba(11,18,32,0.85);border-bottom:1px solid rgba(184,71,43,0.15)}
+.nav-inner{max-width:1300px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:14px;font-weight:800;font-size:20px}
+.nav-logo img{width:46px;height:46px}
+.nav-back{font-size:13px;color:#94A3B8}
+.nav-back:hover{color:#FCA48E}
+
+.live-pulse{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#10B981;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.live-pulse .dot{width:8px;height:8px;background:#10B981;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.85)}}
+
+.hero{padding:170px 32px 50px 32px;text-align:center}
+.hero h1{font-size:clamp(34px,5.5vw,64px);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:18px}
+.hero h1 span{color:#B8472B}
+.hero p{font-size:17px;color:#94A3B8;max-width:680px;margin:0 auto 18px auto}
+
+.content{max-width:1300px;margin:0 auto;padding:0 32px 80px 32px}
+
+.main-stat{padding:50px 60px;background:linear-gradient(135deg,rgba(184,71,43,0.15),rgba(184,71,43,0.05));border:1px solid rgba(184,71,43,0.3);border-radius:18px;text-align:center;margin-bottom:32px;position:relative;overflow:hidden}
+.main-stat::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(184,71,43,0.2),transparent 70%);pointer-events:none}
+.main-stat .label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#FCA48E;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.main-stat .num{font-family:'JetBrains Mono',monospace;font-size:clamp(54px,9vw,108px);font-weight:900;color:#E2E8F0;letter-spacing:-0.04em;line-height:1;margin-bottom:8px}
+.main-stat .target{font-size:15px;color:#94A3B8;margin-bottom:18px}
+.main-stat .target strong{color:#FCA48E}
+.progress-bar{width:100%;height:8px;background:rgba(255,255,255,0.06);border-radius:6px;overflow:hidden;margin:0 auto;max-width:600px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#B8472B,#FBBF24);border-radius:6px;transition:width 0.5s}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:32px}
+.stat-card{padding:24px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px}
+.stat-card .label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.stat-card .num{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:900;color:#E2E8F0;line-height:1;margin-bottom:6px;letter-spacing:-0.02em}
+.stat-card .num.warn{color:#FBBF24}
+.stat-card .num.danger{color:#DC2626}
+.stat-card .num.success{color:#10B981}
+.stat-card .sub{font-size:12px;color:#64748B}
+
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:32px}
+@media (max-width:900px){.dashboard-grid{grid-template-columns:1fr}}
+
+.panel{padding:28px 32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px}
+.panel h2{font-size:14px;font-weight:800;color:#FCA48E;letter-spacing:1.5px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:18px}
+
+.cause-bar{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.cause-bar:last-child{border:none}
+.cause-bar .name{font-size:13px;color:#CBD5E1}
+.cause-bar .num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#FBBF24}
+.cause-bar .vis{grid-column:1 / -1;height:4px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin-top:6px}
+.cause-bar .vis .fill{height:100%;background:linear-gradient(90deg,#FBBF24,#DC2626);border-radius:3px;transition:width 0.5s}
+
+.feed{max-height:340px;overflow-y:auto}
+.feed-item{padding:12px 14px;background:rgba(0,0,0,0.3);border-left:2px solid #10B981;border-radius:0 6px 6px 0;margin-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.5}
+.feed-item.rejected{border-left-color:#DC2626}
+.feed-item .time{color:#64748B;display:block;font-size:10px;margin-bottom:3px}
+.feed-item .hash{color:#FBBF24}
+.feed-item .status{color:#10B981;font-weight:700}
+.feed-item.rejected .status{color:#DC2626}
+
+.geomap{height:280px;background:rgba(0,0,0,0.3);border-radius:10px;position:relative;overflow:hidden;margin-top:10px}
+.geomap-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 35% 45%,rgba(184,71,43,0.2),transparent 50%),radial-gradient(circle at 60% 30%,rgba(16,185,129,0.15),transparent 30%),radial-gradient(circle at 30% 70%,rgba(16,185,129,0.18),transparent 40%);opacity:0.8}
+.geomap-label{position:absolute;font-family:'JetBrains Mono',monospace;font-size:10px;color:#FCA48E;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.geomap-dot{position:absolute;width:8px;height:8px;background:#10B981;border-radius:50%;box-shadow:0 0 12px #10B981;animation:pulse 2s infinite}
+.geomap-dot.warn{background:#FBBF24;box-shadow:0 0 12px #FBBF24}
+.geomap-dot.danger{background:#DC2626;box-shadow:0 0 12px #DC2626}
+
+.timeline{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;height:80px;align-items:end}
+.timeline-bar{background:#B8472B;border-radius:2px 2px 0 0;transition:all 0.3s;min-height:3px}
+.timeline-labels{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:#64748B;margin-top:8px;letter-spacing:0.5px}
+
+.audit-banner{margin-top:32px;padding:32px 36px;background:#0B1220;border:2px solid rgba(16,185,129,0.4);border-radius:14px}
+.audit-banner h3{font-size:18px;color:#10B981;margin-bottom:14px;font-weight:800}
+.audit-banner p{font-size:14.5px;color:#CBD5E1;line-height:1.7;margin-bottom:10px}
+.audit-banner code{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#FBBF24;background:rgba(0,0,0,0.4);padding:3px 8px;border-radius:4px}
+
+.foot-mini{padding:30px 32px;text-align:center;font-size:12.5px;color:#64748B;border-top:1px solid rgba(255,255,255,0.06)}
+.foot-mini a{color:#94A3B8;margin:0 12px}
+
+/* Bandeau MODE DÉMO */
+.demo-banner{position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(90deg,#D4A015,#FCD34D);color:#0B1220;padding:10px 32px;text-align:center;font-size:13px;font-weight:700;letter-spacing:0.2px;box-shadow:0 4px 16px rgba(212,160,21,0.3)}
+.demo-banner strong{font-weight:900;font-family:'JetBrains Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#FCD34D;padding:3px 10px;border-radius:4px;margin-right:10px}
+.demo-banner a{color:#0B1220;text-decoration:underline;font-weight:800;margin-left:14px}
+.demo-banner a:hover{text-decoration:none}
+body.with-demo-banner{padding-top:44px}
+
+</style>
+</head>
+<body>
+<div class="demo-banner">
+  <strong>🟡 Mode démo</strong> Aperçu de la future page citoyenne · Lancement public septembre 2026 · <a href="vox-populi.html">← Retour VoxPop Citoyens</a>
+</div>
+
+<div class="preview-banner">
+  <strong>Preview</strong>Site en mode aperçu · lancement officiel septembre 2026 · <a href="mailto:contact@voxpop-app.com">Être prévenu</a>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo_gold.png" alt="VoxPop">
+      VoxPop
+    </a>
+    <div style="display:flex;gap:18px;align-items:center">
+      <span class="live-pulse"><span class="dot"></span>Données en direct</span>
+      <a href="petition-presidentielle-2027.html" class="nav-back">← Pétition</a>
+    </div>
+  </div>
+</nav>
+
+
+<div style="background:rgba(220,38,38,0.15);border:1.5px dashed #FCA5A5;color:#FCA5A5;padding:12px 18px;border-radius:8px;margin:18px 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase">
+  ⚠️ Ceci est un compteur fictif — Mode démonstration uniquement
+</div>
+<section class="hero">
+  <h1>Dashboard <span>public temps réel</span></h1>
+  <p>Tous les chiffres bruts de la pétition VoxPop sur la présidentielle 2027. Total, rejets, marge d'erreur, anomalies. Vérifiable par n'importe qui, à tout moment.</p>
+  <p style="font-size:13px;color:#64748B;margin-top:6px">Données simulées en mode preview. Le vrai dashboard sera connecté au registre cryptographique en septembre 2026.</p>
+</section>
+
+<div class="content">
+
+  <!-- Rappel pétition active + 3 mesures -->
+  <div style="margin-bottom:24px;padding:24px 28px;background:linear-gradient(90deg,rgba(212,160,21,0.08),rgba(255,255,255,0.02));border-left:5px solid #D4A015;border-radius:0 12px 12px 0;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center">
+    <div style="font-family:'JetBrains Mono',monospace;color:#D4A015;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);padding:8px 0">PÉTITION OR · ACTIVE</div>
+    <div>
+      <h2 style="font-size:22px;font-weight:900;color:#E2E8F0;letter-spacing:-0.02em;margin-bottom:6px">Réforme de la présidentielle 2027</h2>
+      <p style="font-size:13px;color:#94A3B8;margin-bottom:14px">Une seule pétition, trois questions groupées et signées en bloc :</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+        <div style="padding:10px 14px;background:rgba(11,18,32,0.6);border-radius:6px;border-left:2px solid #B8472B">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#FCA48E;font-weight:700;letter-spacing:1.5px;margin-bottom:4px">QUESTION 01</div>
+          <div style="font-size:13px;color:#E2E8F0;font-weight:700">Mandat unique 7 ans</div>
+          <div style="font-size:11px;color:#94A3B8;margin-top:2px">sans reconduction</div>
+        </div>
+        <div style="padding:10px 14px;background:rgba(11,18,32,0.6);border-radius:6px;border-left:2px solid #B8472B">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#FCA48E;font-weight:700;letter-spacing:1.5px;margin-bottom:4px">QUESTION 02</div>
+          <div style="font-size:13px;color:#E2E8F0;font-weight:700">Plafond campagne 5 M€</div>
+          <div style="font-size:11px;color:#94A3B8;margin-top:2px">vs 22 M€ actuels</div>
+        </div>
+        <div style="padding:10px 14px;background:rgba(11,18,32,0.6);border-radius:6px;border-left:2px solid #B8472B">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#FCA48E;font-weight:700;letter-spacing:1.5px;margin-bottom:4px">QUESTION 03</div>
+          <div style="font-size:13px;color:#E2E8F0;font-weight:700">Vote blanc reconnu</div>
+          <div style="font-size:11px;color:#94A3B8;margin-top:2px">au décompte officiel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 compteurs granulaires -->
+  <h2 style="font-size:14px;font-weight:800;color:#FCA48E;letter-spacing:1.5px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:16px">↓ Signatures par question (granulaire)</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:32px">
+    <div style="padding:24px 26px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #B8472B;border-radius:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#FCA48E;letter-spacing:1.5px;margin-bottom:6px">QUESTION 01</div>
+      <div style="font-size:14px;font-weight:700;color:#E2E8F0;margin-bottom:10px">Mandat unique 7 ans</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:900;color:#E2E8F0;line-height:1;margin-bottom:6px" id="cnt1">920 348</div>
+      <div style="font-size:11px;color:#94A3B8">soutenants individuels (92%)</div>
+      <div style="margin-top:10px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden"><div style="height:100%;background:#B8472B;width:92%"></div></div>
+    </div>
+    <div style="padding:24px 26px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #B8472B;border-radius:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#FCA48E;letter-spacing:1.5px;margin-bottom:6px">QUESTION 02</div>
+      <div style="font-size:14px;font-weight:700;color:#E2E8F0;margin-bottom:10px">Plafond campagne 5 M€</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:900;color:#E2E8F0;line-height:1;margin-bottom:6px" id="cnt2">870 102</div>
+      <div style="font-size:11px;color:#94A3B8">soutenants individuels (87%)</div>
+      <div style="margin-top:10px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden"><div style="height:100%;background:#B8472B;width:87%"></div></div>
+    </div>
+    <div style="padding:24px 26px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #B8472B;border-radius:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#FCA48E;letter-spacing:1.5px;margin-bottom:6px">QUESTION 03</div>
+      <div style="font-size:14px;font-weight:700;color:#E2E8F0;margin-bottom:10px">Vote blanc reconnu</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:900;color:#E2E8F0;line-height:1;margin-bottom:6px" id="cnt3">740 618</div>
+      <div style="font-size:11px;color:#94A3B8">soutenants individuels (74%)</div>
+      <div style="margin-top:10px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden"><div style="height:100%;background:#B8472B;width:74%"></div></div>
+    </div>
+  </div>
+
+  <div class="main-stat">
+    <div class="label">↓ Pack complet · signataires d'accord avec les 3 questions</div>
+    <div class="num" id="totalSigs">720 411</div>
+    <div class="target">sur <strong>1 000 000</strong> avant mars 2027 · <strong>1 042 875</strong> personnes ont soutenu au moins une question</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressBar" style="width:72%"></div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="label">↑ Tentatives totales</div>
+      <div class="num" id="attempts">971 873</div>
+      <div class="sub">brut, avant filtrage</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">⊘ Rejets totaux</div>
+      <div class="num warn" id="rejected">124 481</div>
+      <div class="sub">12,8% des tentatives</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">⚠ Marge d'erreur estimée</div>
+      <div class="num warn">3,2 %</div>
+      <div class="sub">comparable à un sondage IFOP</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">✓ Score de transparence</div>
+      <div class="num success">A+</div>
+      <div class="sub">audit indépendant possible</div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="panel">
+      <h2>↓ Causes de rejet (temps réel)</h2>
+      <div class="cause-bar">
+        <span class="name">IP suspectes (ASN étrangers identifiés)</span>
+        <span class="num">67 234</span>
+        <div class="vis"><div class="fill" style="width:54%"></div></div>
+      </div>
+      <div class="cause-bar">
+        <span class="name">Numéros VoIP / virtuels (Onoff, Twilio, etc.)</span>
+        <span class="num">38 109</span>
+        <div class="vis"><div class="fill" style="width:31%"></div></div>
+      </div>
+      <div class="cause-bar">
+        <span class="name">Patterns comportementaux suspects (bots)</span>
+        <span class="num">19 338</span>
+        <div class="vis"><div class="fill" style="width:15%"></div></div>
+      </div>
+      <div class="cause-bar">
+        <span class="name">Doublons d'empreinte d'appareil</span>
+        <span class="num">8 412</span>
+        <div class="vis"><div class="fill" style="width:7%"></div></div>
+      </div>
+      <div class="cause-bar">
+        <span class="name">Anomalies géographiques (incluses dans marge)</span>
+        <span class="num">3 218</span>
+        <div class="vis"><div class="fill" style="width:3%"></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>↓ Signatures récentes (anonymes)</h2>
+      <div class="feed" id="feed">
+        <!-- Rempli par JS -->
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="panel">
+      <h2>↓ Carte de chaleur signatures</h2>
+      <div class="geomap">
+        <div class="geomap-bg"></div>
+        <span class="geomap-label" style="top:18px;left:35%">Île-de-France</span>
+        <span class="geomap-label" style="top:62%;left:30%;color:#10B981">Nouvelle-Aquitaine</span>
+        <span class="geomap-label" style="top:60%;left:60%;color:#10B981">Auvergne-RA</span>
+        <div class="geomap-dot" style="top:30%;left:40%"></div>
+        <div class="geomap-dot" style="top:35%;left:43%"></div>
+        <div class="geomap-dot" style="top:55%;left:30%"></div>
+        <div class="geomap-dot" style="top:45%;left:25%"></div>
+        <div class="geomap-dot" style="top:60%;left:55%"></div>
+        <div class="geomap-dot warn" style="top:70%;left:65%"></div>
+        <div class="geomap-dot" style="top:25%;left:55%"></div>
+        <div class="geomap-dot" style="top:80%;left:50%"></div>
+        <div class="geomap-dot warn" style="top:42%;left:58%"></div>
+        <div class="geomap-dot danger" style="top:48%;left:70%;animation-duration:0.7s"></div>
+      </div>
+      <p style="font-size:12px;color:#94A3B8;margin-top:12px;line-height:1.5">Vert = densité normale · Jaune = densité élevée à surveiller · Rouge = anomalie détectée (incluse dans marge d'erreur)</p>
+    </div>
+
+    <div class="panel">
+      <h2>↓ Activité 24 dernières heures</h2>
+      <div class="timeline" id="timeline"></div>
+      <div class="timeline-labels">
+        <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:59</span>
+      </div>
+      <p style="font-size:12px;color:#94A3B8;margin-top:14px;line-height:1.5"><strong style="color:#FCA48E">Pic à 21h32</strong> : 4 217 signatures en une minute, suite à mention sur une chaîne YouTube indépendante. Aucune anomalie détectée.</p>
+    </div>
+  </div>
+
+  <div class="audit-banner">
+    <h3>✓ Vérification indépendante possible à tout moment</h3>
+    <p>Le registre cryptographique étant public et distribué, n'importe quel chercheur, journaliste, ou autorité peut recompter les signatures et arriver au même chiffre. C'est précisément ce qui rend le résultat inattaquable.</p>
+    <p>Pour audit indépendant : <code>git clone github.com/voxpop-project/registry-snapshot</code></p>
+    <p>Pour vérification autorité : <a href="mailto:audit@voxpop-app.com" style="color:#FBBF24;font-weight:700">audit@voxpop-app.com</a> · ANSSI · CNIL · ARCOM bienvenus.</p>
+  </div>
+
+</div>
+
+<footer class="foot-mini">
+  VoxPop · 2026
+  <a href="index.html">Accueil</a>
+  <a href="petition-presidentielle-2027.html">Pétition</a>
+  <a href="faq.html">FAQ &amp; critiques</a>
+  <a href="legal.html">Mentions légales</a>
+</footer>
+
+<script>
+// Compteur incrémenté
+let totalSigs = 847392;
+let attempts = 971873;
+let rejected = 124481;
+const totalEl = document.getElementById('totalSigs');
+const attEl = document.getElementById('attempts');
+const rejEl = document.getElementById('rejected');
+const barEl = document.getElementById('progressBar');
+
+function fmt(n){return n.toLocaleString('fr-FR').replace(/ /g,' ')}
+
+setInterval(() => {
+  // simulate growth
+  const inc = Math.floor(Math.random()*5)+1;
+  const incRej = Math.random()<0.13 ? 1 : 0;
+  totalSigs += inc;
+  attempts += inc + incRej;
+  rejected += incRej;
+  totalEl.textContent = fmt(totalSigs);
+  attEl.textContent = fmt(attempts);
+  rejEl.textContent = fmt(rejected);
+  barEl.style.width = (totalSigs/1000000*100).toFixed(2) + '%';
+}, 2200);
+
+// Feed
+const feed = document.getElementById('feed');
+const regions = ['Île-de-France','Nouvelle-Aquitaine','Auvergne-Rhône-Alpes','Hauts-de-France','Bretagne','Occitanie','Grand Est','PACA','Pays de la Loire','Normandie','Centre-Val de Loire','Bourgogne-FC'];
+function addFeedItem(rejected){
+  const time = new Date();
+  const hh = String(time.getHours()).padStart(2,'0');
+  const mm = String(time.getMinutes()).padStart(2,'0');
+  const ss = String(time.getSeconds()).padStart(2,'0');
+  const hash = '0x' + Array.from({length:8},()=>Math.floor(Math.random()*16).toString(16)).join('') + '...';
+  const region = regions[Math.floor(Math.random()*regions.length)];
+  const div = document.createElement('div');
+  div.className = 'feed-item' + (rejected?' rejected':'');
+  if(rejected){
+    const reasons = ['ASN suspect','VoIP détecté','Pattern bot','Doublon empreinte'];
+    const reason = reasons[Math.floor(Math.random()*reasons.length)];
+    div.innerHTML = `<span class="time">${hh}:${mm}:${ss}</span><span class="hash">${hash}</span> · <span style="color:#94A3B8">${region}</span> · <span class="status">REJETÉ : ${reason}</span>`;
+  } else {
+    div.innerHTML = `<span class="time">${hh}:${mm}:${ss}</span><span class="hash">${hash}</span> · <span style="color:#94A3B8">${region}</span> · <span class="status">VALIDÉE</span>`;
+  }
+  feed.insertBefore(div, feed.firstChild);
+  if(feed.children.length > 20) feed.lastChild.remove();
+}
+for(let i=0;i<8;i++) addFeedItem(Math.random()<0.13);
+setInterval(() => addFeedItem(Math.random()<0.13), 1800);
+
+// Timeline 24h
+const tl = document.getElementById('timeline');
+const heights = [12,8,5,4,6,12,28,42,55,68,72,75,80,82,78,72,68,75,82,88,95,98,75,52];
+for(let h=0;h<24;h++){
+  const bar = document.createElement('div');
+  bar.className = 'timeline-bar';
+  bar.style.height = heights[h]+'%';
+  bar.title = `${String(h).padStart(2,'0')}:00 - ${heights[h]*60} signatures`;
+  tl.appendChild(bar);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxPop — Une nouvelle ère pour la démocratie</title>
+<meta name="description" content="VoxPop — Plateforme de vote et pétition. Mode citoyen (gratuit, anonyme) + Mode institutionnel (associations, mairies, copropriétés). Une nouvelle ère pour la démocratie.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+
+/* Bandeau préparation */
+.coming-banner{background:linear-gradient(90deg,#D4A015,#FCD34D);color:#0B1220;padding:9px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.2px}
+.coming-banner strong{font-weight:900;font-family:'JetBrains Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#FCD34D;padding:3px 10px;border-radius:4px;margin-right:10px}
+
+/* Hero splash — version classique */
+.splash-hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 32px;position:relative;background:#0B1220;overflow:hidden}
+.splash-hero::before{content:"";position:absolute;inset:0;background:url('images/aerial-mountain.jpg') center/cover no-repeat;filter:saturate(0.7) brightness(0.45);opacity:0.55;z-index:0}
+.splash-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,160,21,0.12),rgba(11,18,32,0.92));z-index:1}
+.split-overlay{display:none}
+
+.splash-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:2;text-align:center}
+
+.logo-top{display:inline-flex;align-items:center;gap:18px;margin-bottom:40px}
+.logo-top img{width:96px;height:96px;filter:drop-shadow(0 8px 24px rgba(212,160,21,0.4))}
+.logo-top .name{font-size:44px;font-weight:900;letter-spacing:-0.03em;line-height:1}
+.logo-top .name .v{color:#E2E8F0}
+.logo-top .name .p{color:#D4A015}
+
+.tagline-main{font-size:clamp(34px,6vw,64px);font-weight:900;line-height:1.05;letter-spacing:-0.035em;margin-bottom:18px;color:#E2E8F0}
+.tagline-main span{color:#D4A015;display:block;margin-top:6px}
+
+.tagline-sub{font-size:clamp(15px,2vw,19px);color:#94A3B8;max-width:680px;margin:0 auto 50px auto;line-height:1.65;font-weight:400}
+.tagline-sub strong{color:#FCD34D;font-weight:600}
+
+/* Question */
+.choice-question{font-family:'JetBrains Mono',monospace;font-size:13px;color:#FCD34D;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:24px}
+
+/* 2 portes */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1100px;margin:0 auto}
+
+.door{padding:42px 36px;border-radius:18px;transition:all 0.3s;cursor:pointer;text-align:left;position:relative;overflow:hidden;min-height:400px;display:flex;flex-direction:column}
+.door .text-frame{padding-right:90px}
+
+/* Door 1 — CITOYEN (or/noir + photo champs France duotone) */
+.door.citoyen{background:#0B1220;border:1.5px solid rgba(212,160,21,0.5);color:#E2E8F0;position:relative;overflow:hidden}
+.door.citoyen::before{content:"";position:absolute;inset:0;background:url('images/aerial-farmland.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(75%) hue-rotate(355deg) saturate(2.5) brightness(0.95) contrast(1.1);z-index:0;opacity:0.75;transition:all 0.5s}
+.door.citoyen::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,18,32,0.4) 0%,rgba(11,18,32,0.55) 100%);z-index:1;transition:all 0.5s}
+.door.citoyen > *{position:relative;z-index:2}
+.door.citoyen:hover{transform:translateY(-6px);border-color:#D4A015;box-shadow:0 24px 60px rgba(212,160,21,0.35)}
+.door.citoyen:hover::before{opacity:1;filter:grayscale(100%) sepia(75%) hue-rotate(355deg) saturate(2.5) brightness(1.1) contrast(1.15)}
+.door.citoyen:hover::after{background:linear-gradient(135deg,rgba(11,18,32,0.15) 0%,rgba(11,18,32,0.3) 100%)}
+.door.citoyen .text-frame{margin-bottom:18px}
+.door.citoyen h2,.door.citoyen .desc,.door.citoyen .features li,.door.citoyen .door-label{text-shadow:0 2px 14px rgba(0,0,0,0.85),0 0 22px rgba(0,0,0,0.6)}
+.door.citoyen .icon{text-shadow:0 4px 16px rgba(0,0,0,0.8)}
+/* Logo positionné haut-droite (citoyen) */
+.door.citoyen .corner-logo{position:absolute;top:48px;right:36px;width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 6px 20px rgba(0,0,0,0.85));z-index:3;transition:transform 0.3s}
+.door.citoyen:hover .corner-logo{transform:scale(1.05)}
+.door.citoyen .door-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:#D4A015;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.door.citoyen h2{font-size:28px;color:#FCD34D;font-weight:900;letter-spacing:-0.02em;line-height:1.1;margin-bottom:14px}
+.door.citoyen .desc{font-size:14px;color:#CBD5E1;line-height:1.7;margin-bottom:18px;flex:1}
+.door.citoyen .desc strong{color:#FCD34D;font-weight:700}
+.door.citoyen .features{list-style:none;margin-bottom:0;font-size:13px}
+.door.citoyen .features li{padding:5px 0;padding-left:22px;position:relative;color:#CBD5E1;line-height:1.5}
+.door.citoyen .features li::before{content:"●";position:absolute;left:6px;color:#D4A015}
+.door.citoyen .cta{display:inline-block;padding:14px 26px;background:#D4A015;color:#0B1220;font-weight:800;font-size:14px;border-radius:8px;letter-spacing:0.5px;transition:all 0.2s;width:fit-content}
+.door.citoyen .cta:hover{background:#FCD34D;transform:translateX(4px)}
+
+/* Door 2 — ORGANISATION (blanc/bleu + photo ville couleurs naturelles) */
+.door.organisation{background:#F8FAFC;border:1.5px solid #3B82F6;color:#1E293B;position:relative;overflow:hidden}
+.door.organisation::before{content:"";position:absolute;inset:0;background:url('images/aerial-city.jpg') center/cover no-repeat;filter:saturate(1.3) contrast(1.08) brightness(0.92);z-index:0;opacity:1;transition:all 0.5s}
+.door.organisation::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(248,250,252,0.45) 0%,rgba(226,232,240,0.6) 100%);z-index:1;transition:all 0.5s}
+.door.organisation > *{position:relative;z-index:2}
+.door.organisation:hover{transform:translateY(-6px);border-color:#1E40AF;box-shadow:0 24px 60px rgba(59,130,246,0.35)}
+.door.organisation:hover::before{filter:saturate(1.4) contrast(1.1) brightness(1)}
+.door.organisation:hover::after{background:linear-gradient(135deg,rgba(248,250,252,0.15) 0%,rgba(226,232,240,0.3) 100%)}
+.door.organisation .text-frame{margin-bottom:18px}
+.door.organisation h2,.door.organisation .desc,.door.organisation .features li,.door.organisation .door-label{text-shadow:0 1px 3px rgba(255,255,255,1),0 0 12px rgba(255,255,255,0.95),0 0 30px rgba(255,255,255,0.7)}
+.door.organisation .icon{text-shadow:0 2px 8px rgba(255,255,255,1),0 0 20px rgba(255,255,255,0.7)}
+/* Logo positionné haut-droite (organisation) */
+.door.organisation .corner-logo{position:absolute;top:48px;right:36px;width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 6px 20px rgba(255,255,255,1));z-index:3;transition:transform 0.3s}
+.door.organisation:hover .corner-logo{transform:scale(1.05)}
+.door.organisation .door-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:#1E3A8A;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.door.organisation h2{font-size:28px;color:#0F172A;font-weight:900;letter-spacing:-0.02em;line-height:1.1;margin-bottom:14px}
+.door.organisation .desc{font-size:14px;color:#1E293B;line-height:1.7;margin-bottom:18px;flex:1}
+.door.organisation .desc strong{color:#1E40AF;font-weight:800}
+.door.organisation .features{list-style:none;margin-bottom:0;font-size:13px}
+.door.organisation .features li{padding:5px 0;padding-left:22px;position:relative;color:#1E293B;line-height:1.5;font-weight:500}
+.door.organisation .features li::before{content:"●";position:absolute;left:6px;color:#3B82F6}
+.door.organisation .cta{display:inline-block;padding:14px 26px;background:#3B82F6;color:white;font-weight:800;font-size:14px;border-radius:8px;letter-spacing:0.5px;transition:all 0.2s;width:fit-content}
+.door.organisation .cta:hover{background:#1E40AF;transform:translateX(4px)}
+
+/* Footer splash */
+.splash-footer{padding:32px;text-align:center;background:#070D18;border-top:1px solid rgba(212,160,21,0.18);position:relative;z-index:2}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-bottom:14px;font-size:13px;color:#94A3B8}
+.footer-links a:hover{color:#FCD34D}
+.footer-meta{font-size:11px;color:#64748B;letter-spacing:0.3px}
+.footer-meta strong{color:#FCD34D}
+
+.contact-bar{margin-top:20px;padding:14px 20px;background:rgba(212,160,21,0.06);border:1px dashed rgba(212,160,21,0.3);border-radius:10px;display:inline-block;font-size:12.5px;color:#CBD5E1;line-height:1.6}
+.contact-bar strong{color:#FCD34D}
+.contact-bar a{color:#FCD34D;text-decoration:underline;font-weight:700}
+
+@media (max-width:768px){
+  .doors{grid-template-columns:1fr}
+  .splash-hero{padding:40px 20px}
+  .logo-top img{width:48px;height:48px}
+  .logo-top .name{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- Bandeau préparation -->
+<div class="coming-banner">
+  <strong>🟡 Lancement public</strong> VoxPop Citoyens ouvre en septembre 2026 · Première pétition en préparation · contact@voxpop-app.com
+</div>
+
+<!-- Hero Splash -->
+<section class="splash-hero">
+  <div class="split-overlay"></div>
+  <div class="splash-inner">
+
+    <div class="logo-top">
+      <img src="images/logo_voxpop_gold.png" alt="VoxPop">
+      <div class="name"><span class="v">Vox</span><span class="p">Pop</span></div>
+    </div>
+
+    <h1 class="tagline-main">
+      Une nouvelle ère
+      <span>pour la démocratie.</span>
+    </h1>
+
+    <p class="tagline-sub">
+      <strong>Votre voix. Sans frontières. Sans compromis.</strong><br>
+      La seule plateforme où votre opinion compte vraiment : vote anonyme, vérifiable, impossible à censurer.
+    </p>
+
+    <div class="choice-question">↓ Vous êtes :</div>
+
+    <div class="doors">
+
+      <!-- PORTE 1 : CITOYEN -->
+      <a href="vox-populi.html" class="door citoyen">
+        <img src="images/logo_voxpop_gold.png" alt="VoxPop" class="corner-logo">
+        <div class="text-frame">
+          <div class="door-label">Mode citoyen — Gratuit</div>
+          <h2>Je suis un citoyen</h2>
+          <p class="desc">
+            Sur les sujets qui structurent la vie de chaque Français — <strong>immigration, fiscalité, énergie, santé, pouvoir</strong> — l'État a confisqué le débat. <strong>VoxPop rend la parole aux citoyens.</strong>
+          </p>
+          <ul class="features">
+            <li>Pétitions citoyennes anonymes par cryptographie</li>
+            <li>Résultats vérifiables mathématiquement</li>
+            <li>Impossible à censurer (Tor, VPN)</li>
+            <li>Gratuit · ouvert à tous · pas de compte requis</li>
+          </ul>
+        </div>
+        <span class="cta">J'ai une voix →</span>
+      </a>
+
+      <!-- PORTE 2 : ORGANISATION -->
+      <a href="https://voxpop-app.com" class="door organisation">
+        <img src="images/logo_voxpop_blue.png" alt="VoxPop" class="corner-logo">
+        <div class="text-frame">
+          <div class="door-label">Mode institutionnel — Payant</div>
+          <h2>Je représente une organisation</h2>
+          <p class="desc">
+            Vote sécurisé clé en main pour <strong>TPE, PME, associations, copropriétés, CSE, ordres pro, mairies, collectivités</strong>. Conforme RGPD. Résultats opposables.
+          </p>
+          <ul class="features">
+            <li>Élections officielles (CSE, ordres pro, asso loi 1901)</li>
+            <li>Consultations TPE / PME / Conseils d'administration</li>
+            <li>Conformité RGPD · serveurs France (OVH)</li>
+            <li>Audit cryptographique signé sur demande</li>
+            <li>Tarifs disponibles sur voxpop-app.com</li>
+          </ul>
+        </div>
+        <span class="cta">Découvrir →</span>
+      </a>
+
+    </div>
+
+    <div class="contact-bar">
+      <strong>📨 Médias · journalistes · institutions · partenaires</strong> · <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a> · <strong>📞</strong> +33 7 43 54 42 42
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer Splash -->
+<footer class="splash-footer">
+  <div class="footer-links">
+    <a href="#">À propos</a>
+    <a href="#">Charte de neutralité</a>
+    <a href="#">FAQ</a>
+    <a href="https://github.com/voxpop-project">GitHub (code ouvert)</a>
+    <a href="#">Mentions légales</a>
+    <a href="vox-populi.html#soutenir">Soutenir</a>
+  </div>
+  <div class="footer-meta">
+    © 2026 <strong>VoxPop</strong> · Marque détenue par Punch Ventures LLC (Wyoming) · Édité par SASU Pelegrinus (SIREN 948 908 348)
+  </div>
+</footer>
+
+</body>
+</html>

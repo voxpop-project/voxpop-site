@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxPop — Mentions légales et charte pétition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.65}
+a{color:#FCA48E;text-decoration:none}
+a:hover{color:#B8472B;text-decoration:underline}
+
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#F59E0B;color:#0B1220;padding:8px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.1px}
+.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#F59E0B;padding:3px 8px;border-radius:4px;margin-right:8px}
+.preview-banner a{color:#0B1220;text-decoration:underline;font-weight:700}
+.nav{position:fixed;top:38px;left:0;right:0;z-index:100;backdrop-filter:blur(12px);background:rgba(11,18,32,0.85);border-bottom:1px solid rgba(184,71,43,0.15)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:14px;font-weight:800;font-size:20px}
+.nav-logo img{width:46px;height:46px}
+.nav-back{font-size:13px;color:#94A3B8}
+.nav-back:hover{color:#FCA48E}
+
+.hero{padding:170px 32px 60px 32px;text-align:center}
+.hero h1{font-size:clamp(36px,5.5vw,64px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:16px}
+.hero h1 span{color:#B8472B}
+.hero p{font-size:17px;color:#94A3B8;max-width:640px;margin:0 auto}
+
+.content{max-width:840px;margin:0 auto;padding:40px 32px 80px 32px}
+.toc{background:rgba(255,255,255,0.03);border:1px solid rgba(184,71,43,0.2);border-radius:10px;padding:22px 28px;margin-bottom:50px}
+.toc h3{font-size:11px;font-weight:700;color:#FCA48E;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-family:'JetBrains Mono',monospace}
+.toc ol{list-style:none;counter-reset:toc}
+.toc li{counter-increment:toc;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.toc li:last-child{border:none}
+.toc li::before{content:counter(toc,decimal-leading-zero) " · ";font-family:'JetBrains Mono',monospace;color:#B8472B;font-weight:700;margin-right:8px}
+.toc a{color:#CBD5E1;font-size:14px;font-weight:500}
+.toc a:hover{color:#B8472B;text-decoration:none}
+
+section.legal-section{padding:30px 0;border-top:1px solid rgba(255,255,255,0.06)}
+section.legal-section:first-of-type{border-top:none;padding-top:10px}
+
+h2{font-size:24px;font-weight:800;color:#E2E8F0;letter-spacing:-0.02em;margin-bottom:14px}
+h2 .num{font-family:'JetBrains Mono',monospace;font-size:14px;color:#B8472B;font-weight:700;letter-spacing:2px;display:block;text-transform:uppercase;margin-bottom:6px}
+h3{font-size:16px;font-weight:700;color:#FCA48E;margin:24px 0 10px 0}
+p{margin-bottom:14px;color:#CBD5E1;font-size:14.5px;line-height:1.7}
+p strong{color:#E2E8F0;font-weight:700}
+ul{margin:12px 0 16px 22px}
+li{color:#CBD5E1;font-size:14.5px;line-height:1.7;margin-bottom:6px}
+
+.charte-box{background:#0B1220;border-left:5px solid #B8472B;padding:24px 28px;margin:24px 0;border-radius:0 8px 8px 0}
+.charte-box h4{font-size:13px;color:#FCA48E;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;font-family:'JetBrains Mono',monospace}
+.charte-box p{color:#E2E8F0;font-size:15px;font-weight:500;line-height:1.65}
+
+.entity-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+.entity-card{padding:20px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px}
+.entity-card h4{font-size:13px;color:#FCA48E;font-weight:700;letter-spacing:1px;margin-bottom:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase}
+.entity-card .row{font-size:13.5px;color:#CBD5E1;line-height:1.7;margin-bottom:4px}
+.entity-card .row strong{color:#E2E8F0;display:inline-block;min-width:100px;font-weight:600}
+
+.foot-mini{padding:30px 32px;text-align:center;font-size:12.5px;color:#64748B;border-top:1px solid rgba(255,255,255,0.06)}
+.foot-mini a{color:#94A3B8;margin:0 12px}
+
+@media (max-width:768px){
+  .hero{padding:110px 24px 40px 24px}
+  .content{padding:30px 24px 60px 24px}
+  .entity-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <strong>Preview</strong>Site en mode aperçu · lancement officiel septembre 2026 · <a href="mailto:contact@voxpop-app.com?subject=M'inscrire à la newsletter">Être prévenu</a>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo_gold.png" alt="VoxPop">
+      VoxPop
+    </a>
+    <a href="index.html" class="nav-back">← Retour au site</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Mentions <span>légales et charte</span></h1>
+  <p>Le cadre juridique de VoxPop, la charte de neutralité de la plateforme, le statut des pétitions, et les engagements RGPD.</p>
+</section>
+
+<div class="content">
+
+  <div class="toc">
+    <h3>Sommaire</h3>
+    <ol>
+      <li><a href="#editeur">Éditeur du site</a></li>
+      <li><a href="#charte">Charte de neutralité VoxPop</a></li>
+      <li><a href="#statut-petition">Statut juridique des pétitions</a></li>
+      <li><a href="#donnees">Données personnelles et anonymat</a></li>
+      <li><a href="#financement">Engagement de financement non partisan</a></li>
+      <li><a href="#code">Code source ouvert et propriété intellectuelle</a></li>
+      <li><a href="#hebergement">Hébergement et infrastructure</a></li>
+      <li><a href="#contact">Contact et réclamations</a></li>
+    </ol>
+  </div>
+
+  <section class="legal-section" id="editeur">
+    <h2><span class="num">01</span>Éditeur du site</h2>
+    <p>Le site voxpop-app.com est édité par la société française <strong>SASU Pelegrinus</strong>, conformément à la loi française.</p>
+    <div class="entity-card" style="max-width:520px;margin:18px 0">
+      <h4>SASU Pelegrinus</h4>
+      <p class="row"><strong>Forme :</strong> Société par actions simplifiée unipersonnelle</p>
+      <p class="row"><strong>SIREN :</strong> 948 908 348</p>
+      <p class="row"><strong>TVA :</strong> FR96 948 908 348</p>
+      <p class="row"><strong>Activité :</strong> édition et exploitation de la plateforme VoxPop</p>
+      <p class="row"><strong>Directeur de publication :</strong> Le fondateur (identité protégée pour raisons de sécurité, communicable aux autorités judiciaires françaises selon la loi)</p>
+    </div>
+    <p>L'identité du fondateur est protégée par une politique de discrétion publique, justifiée par la nature politiquement sensible du projet et par le caractère apolitique strict de la plateforme. Les autorités judiciaires françaises peuvent obtenir l'identité du dirigeant par les voies légales auprès de la SASU Pelegrinus.</p>
+  </section>
+
+  <section class="legal-section" id="charte">
+    <h2><span class="num">02</span>Charte de neutralité VoxPop</h2>
+    <p>VoxPop applique une charte de neutralité absolue qui constitue le cadre éthique et opérationnel de la plateforme. Cette charte est opposable à l'éditeur lui-même.</p>
+
+    <div class="charte-box">
+      <h4>Article 1 — Neutralité de l'opérateur</h4>
+      <p>VoxPop ne soutient aucun candidat, aucun parti, aucun mouvement, aucune doctrine politique, économique, ou religieuse. VoxPop fournit un outil de signature vérifiable. Le contenu, le sens, la portée des pétitions appartiennent exclusivement à leurs initiateurs et à leurs signataires.</p>
+    </div>
+
+    <div class="charte-box">
+      <h4>Article 2 — Non-discrimination des sujets</h4>
+      <p>VoxPop ne refuse pas une pétition au motif de son contenu politique, sauf lorsque celui-ci constitue manifestement un appel à la haine, à la violence, ou à la discrimination au sens du droit français. Les pétitions polémiques mais légales sont acceptées sans filtre.</p>
+    </div>
+
+    <div class="charte-box">
+      <h4>Article 3 — Non-financement partisan</h4>
+      <p>VoxPop s'engage à ne jamais accepter de financement, direct ou indirect, de la part d'un parti politique, d'un candidat à une élection, ou d'un État. Cette interdiction est absolue et imprescriptible. Les bilans financiers seront publiés annuellement.</p>
+    </div>
+
+    <div class="charte-box">
+      <h4>Article 4 — Indépendance éditoriale</h4>
+      <p>VoxPop n'autorise aucune fusion, acquisition, ou rachat qui placerait la plateforme sous le contrôle d'un acteur politique, d'un grand groupe industriel, ou d'un État. Les statuts juridiques contiennent des clauses de protection contre toute prise de contrôle.</p>
+    </div>
+
+    <div class="charte-box">
+      <h4>Article 5 — Transparence radicale</h4>
+      <p>L'intégralité du code source de la plateforme est publiée sous licence libre. N'importe qui peut auditer, copier, forker. Les comptes de l'éditeur sont publiés annuellement. Les listes des partenaires techniques et scientifiques sont publiques.</p>
+    </div>
+  </section>
+
+  <section class="legal-section" id="statut-petition">
+    <h2><span class="num">03</span>Statut juridique des pétitions</h2>
+    <p><strong>Toute pétition diffusée via VoxPop est une pétition d'opinion.</strong> Elle ne constitue ni un référendum, ni un vote contraignant, ni une consultation officielle au sens du droit constitutionnel français.</p>
+    <p>En conséquence, les résultats d'une pétition VoxPop n'ont aucune valeur juridique opposable. Ils constituent une expression collective d'opinion, comparable à celle organisée par change.org, avaaz.org, ou mesopinions.com, lesquels opèrent en France depuis plus de quinze ans sans poursuite judiciaire.</p>
+    <p>Le caractère non contraignant des pétitions VoxPop est explicitement mentionné sur chaque page de signature, et reconnu sans réserve par chaque signataire au moment de la validation.</p>
+
+    <h3>Ce que VoxPop garantit aux signataires</h3>
+    <ul>
+      <li>Anonymat mathématique de la signature (impossible techniquement de remonter à l'identité)</li>
+      <li>Vérifiabilité publique du résultat (recompte possible par tout tiers)</li>
+      <li>Non-vente, non-cession, non-réutilisation des données</li>
+      <li>Effacement des identifiants éphémères dans les 90 jours suivant la fin de la pétition</li>
+    </ul>
+
+    <h3>Ce que VoxPop ne garantit pas</h3>
+    <ul>
+      <li>Une obligation de prise en compte par les pouvoirs publics (impossible juridiquement)</li>
+      <li>Une couverture médiatique automatique</li>
+      <li>Un changement législatif ou réglementaire suite au résultat</li>
+    </ul>
+  </section>
+
+  <section class="legal-section" id="donnees">
+    <h2><span class="num">04</span>Données personnelles et anonymat</h2>
+    <p>VoxPop applique le Règlement Général sur la Protection des Données (RGPD) et le Privacy Act américain dans leur version la plus stricte. <strong>L'architecture technique de la plateforme rend l'anonymat structurel, et non pas seulement contractuel.</strong></p>
+
+    <h3>Données collectées</h3>
+    <ul>
+      <li>Un identifiant éphémère à usage unique au moment de la vérification d'unicité</li>
+      <li>Une preuve cryptographique (Zero-Knowledge Proof) sans information personnelle</li>
+      <li>Aucun nom, aucune adresse postale, aucune adresse email persistante, aucun numéro de téléphone enregistré</li>
+    </ul>
+
+    <h3>Données NON collectées</h3>
+    <ul>
+      <li>Identité civile</li>
+      <li>Coordonnées personnelles persistantes</li>
+      <li>Données de navigation (cookies tiers, trackers, scripts d'analyse marketing)</li>
+      <li>Données comportementales croisées</li>
+    </ul>
+
+    <h3>Vos droits RGPD</h3>
+    <p>Étant donné l'anonymat structurel, les droits d'accès, rectification, suppression et portabilité ne sont techniquement pas applicables aux signatures elles-mêmes (il n'y a rien à rattacher à une personne). Pour toute demande relative à un autre échange (email contact, formulaire), écrire à <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a>.</p>
+  </section>
+
+  <section class="legal-section" id="financement">
+    <h2><span class="num">05</span>Engagement de financement non partisan</h2>
+    <p>VoxPop publie chaque année une déclaration d'origine de fonds attestant qu'aucun versement, direct ou indirect, n'est intervenu en provenance :</p>
+    <ul>
+      <li>D'un parti politique français ou étranger</li>
+      <li>D'un candidat à une élection en France ou à l'étranger</li>
+      <li>D'un État, d'une collectivité territoriale, ou d'un organisme dépendant directement d'eux</li>
+      <li>D'une organisation reconnue comme branche politique ou électorale par le droit français</li>
+    </ul>
+    <p>Sources de financement actuelles et autorisées : bootstrap par le fondateur, candidatures à des subventions civic tech (NLnet, ESP, Mozilla, EIC), futurs investisseurs privés non partisans, et dons des signataires sur base optionnelle.</p>
+  </section>
+
+  <section class="legal-section" id="code">
+    <h2><span class="num">06</span>Code source et propriété intellectuelle</h2>
+    <p>L'intégralité du code source de la plateforme est publiée sous licence libre <strong>GNU Affero General Public License v3.0 (AGPL-3.0)</strong>, qui garantit que toute modification ou réutilisation reste également ouverte.</p>
+    <p>Repository officiel : disponible sur GitHub à l'organisation <code>voxpop-project</code>. La licence permet l'audit, la copie, le fork, et le déploiement d'instances miroirs par n'importe quel acteur, y compris ONG, médias, ou pays étrangers.</p>
+  </section>
+
+  <section class="legal-section" id="hebergement">
+    <h2><span class="num">07</span>Hébergement et infrastructure</h2>
+    <p>La plateforme est hébergée principalement par Vercel Inc. (États-Unis) pour la partie publique du site, et sur un cluster privé pour la partie sensible (validation des preuves). Des miroirs sont répliqués sur des hébergeurs hors juridiction française pour garantir la résilience en cas de pression administrative ou technique.</p>
+  </section>
+
+  <section class="legal-section" id="contact">
+    <h2><span class="num">08</span>Contact et réclamations</h2>
+    <p>Toute question, demande, réclamation, ou signalement peut être adressé à <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a>. Les demandes des autorités judiciaires françaises sont traitées prioritairement par la SASU Pelegrinus selon les voies légales applicables.</p>
+    <p style="font-size:13px;color:#64748B;margin-top:30px;font-style:italic">Dernière mise à jour : 10 mai 2026 · Version 0.5</p>
+  </section>
+
+</div>
+
+<footer class="foot-mini">
+  VoxPop · 2026
+  <a href="index.html">Accueil</a>
+  <a href="petition-presidentielle-2027.html">Pétition active</a>
+  <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a>
+</footer>
+
+</body>
+</html>

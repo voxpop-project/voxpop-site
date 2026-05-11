@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxPop Citoyens — La voix des citoyens, sans intermédiaire</title>
+<meta name="description" content="Plateforme de pétition citoyenne à preuve cryptographique. Anonyme, vérifiable, incensurable. Quand l'État refuse de demander, les citoyens répondent quand même.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#D4A015;color:#0B1220;padding:8px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.1px}
+.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#FCD34D;padding:3px 8px;border-radius:4px;margin-right:8px}
+
+.nav{position:fixed;top:38px;left:0;right:0;z-index:100;backdrop-filter:blur(12px);background:rgba(11,18,32,0.85);border-bottom:1px solid rgba(212,160,21,0.18)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;letter-spacing:-0.02em}
+.nav-logo img{width:38px;height:38px;object-fit:contain}
+.nav-logo .v{color:#E2E8F0}
+.nav-logo .p{color:#D4A015}
+.footer-brand .nav-logo img{width:42px;height:42px}
+
+/* Image dans "Comment ça marche" — bannière duotone */
+.how-image-banner{position:relative;margin:0 0 50px 0;height:200px;border-radius:14px;overflow:hidden;border:1px solid rgba(212,160,21,0.3)}
+.how-image-banner::before{content:"";position:absolute;inset:0;background:url('images/drone-village.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.6) contrast(1.1)}
+
+/* Bannière dans "Pétitions à venir" — terre de France */
+.upcoming-image-banner{position:relative;height:160px;margin:30px 0 -10px 0;border-radius:12px;overflow:hidden;border:1px solid rgba(212,160,21,0.25)}
+.upcoming-image-banner::before{content:"";position:absolute;inset:0;background:url('images/aerial-farmland.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.55) contrast(1.1)}
+.upcoming-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,18,32,0.5),rgba(11,18,32,0.75))}
+.upcoming-image-banner .quote-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-size:clamp(14px,2vw,18px);font-weight:600;color:#FCD34D;font-style:italic;line-height:1.5;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,0.6)}
+
+/* Bannière dans "Manifeste" — vue panoramique */
+.manifesto-image-banner{position:relative;height:140px;margin:0 0 35px 0;border-radius:12px;overflow:hidden}
+.manifesto-image-banner::before{content:"";position:absolute;inset:0;background:url('images/drone-panorama.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.5) contrast(1.15)}
+.manifesto-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,18,32,0.4),rgba(11,18,32,0.85))}
+.how-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,18,32,0.4),rgba(11,18,32,0.7))}
+.how-image-banner .quote-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:32px;text-align:center;font-size:clamp(18px,3vw,28px);font-weight:700;color:#FCD34D;font-style:italic;line-height:1.4;letter-spacing:-0.015em;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,0.6)}
+
+/* Image dans "Pétition active" — bannière duotone */
+.petition-image-banner{position:relative;height:240px;margin:-48px -44px 32px -44px;border-radius:16px 16px 0 0;overflow:hidden}
+.petition-image-banner::before{content:"";position:absolute;inset:0;background:url('images/drone-protest.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.55) contrast(1.15)}
+.petition-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,18,32,0.3),rgba(11,18,32,0.95))}
+.nav-links{display:flex;gap:28px;font-size:13.5px;font-weight:500;color:#94A3B8}
+.nav-links a:hover{color:#FCD34D}
+.nav-right{display:flex;align-items:center;gap:18px}
+.nav-inst{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#64748B;letter-spacing:1px;text-transform:uppercase;padding:6px 10px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;transition:all 0.15s}
+.nav-inst:hover{border-color:#D4A015;color:#FCD34D}
+.nav-cta{padding:9px 22px;background:#D4A015;color:#0B1220;font-weight:800;font-size:13px;border-radius:6px;letter-spacing:0.3px;transition:all 0.2s}
+.nav-cta:hover{background:#FCD34D;transform:translateY(-1px);box-shadow:0 6px 18px rgba(212,160,21,0.35)}
+
+.hero{padding:170px 32px 70px 32px;text-align:center;position:relative;background:#0B1220;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:url('images/citizens-diverse.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.55) contrast(1.15);opacity:0.55;z-index:0}
+.hero::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at top,rgba(212,160,21,0.35),transparent 50%),linear-gradient(to bottom,rgba(11,18,32,0.7),rgba(11,18,32,0.95));z-index:1}
+.hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:2}
+.hero-kicker{display:inline-block;padding:6px 14px;background:rgba(212,160,21,0.12);border:1px solid rgba(212,160,21,0.4);border-radius:30px;font-size:11px;font-weight:700;color:#FCD34D;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:30px;font-family:'JetBrains Mono',monospace}
+.hero h1{font-size:clamp(40px,7vw,82px);font-weight:900;line-height:1.02;letter-spacing:-0.04em;margin-bottom:22px;color:#E2E8F0}
+.hero h1 span{color:#D4A015}
+.hero p.tagline{font-size:clamp(17px,2.2vw,22px);color:#FCD34D;line-height:1.5;max-width:720px;margin:0 auto 26px auto;font-weight:500;font-style:italic}
+.hero p.lead{font-size:15.5px;color:#CBD5E1;line-height:1.7;max-width:680px;margin:0 auto 36px auto;font-weight:400}
+.hero p.lead strong{color:#FCD34D;font-weight:600}
+.hero-cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.btn-primary{padding:16px 32px;background:#D4A015;color:#0B1220;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
+.btn-primary:hover{background:#FCD34D;transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,160,21,0.35)}
+.btn-ghost{padding:16px 32px;background:transparent;color:#FCD34D;font-weight:700;font-size:15px;border-radius:8px;border:1.5px solid #D4A015;cursor:pointer;transition:all 0.2s}
+.btn-ghost:hover{background:rgba(212,160,21,0.1)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:780px;margin:0 auto;padding-top:30px;border-top:1px solid rgba(212,160,21,0.2)}
+.hero-stat{text-align:center}
+.hero-stat .n{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:900;color:#FCD34D;line-height:1;letter-spacing:-0.02em;margin-bottom:6px}
+.hero-stat .l{font-size:11px;color:#94A3B8;letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+
+.section{padding:90px 32px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;color:#D4A015;letter-spacing:2.5px;text-transform:uppercase;text-align:center;margin-bottom:18px}
+.section h2{font-size:clamp(34px,5.5vw,56px);font-weight:900;line-height:1.05;letter-spacing:-0.035em;text-align:center;margin-bottom:18px;color:#E2E8F0}
+.section h2 span{color:#D4A015}
+.section p.section-sub{text-align:center;color:#94A3B8;font-size:17px;max-width:680px;margin:0 auto 60px auto;line-height:1.65}
+
+.piliers-section{background:#0B1220;border-top:1px solid rgba(212,160,21,0.15)}
+.piliers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.pilier{padding:36px 30px;background:rgba(255,255,255,0.03);border-top:3px solid #D4A015;border-radius:0 0 12px 12px;transition:all 0.2s}
+.pilier:hover{transform:translateY(-4px);background:rgba(255,255,255,0.05)}
+.pilier .icon{font-size:36px;margin-bottom:18px}
+.pilier h3{font-size:21px;color:#FCD34D;font-weight:800;margin-bottom:12px;letter-spacing:-0.015em}
+.pilier p{font-size:14.5px;color:#CBD5E1;line-height:1.65}
+.pilier p strong{color:#E2E8F0;font-weight:600}
+
+.how-section{background:#101A2E;border-top:1px solid rgba(212,160,21,0.15);border-bottom:1px solid rgba(212,160,21,0.15)}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.how-step{padding:28px 26px;background:rgba(11,18,32,0.5);border:1px solid rgba(212,160,21,0.18);border-radius:12px;position:relative}
+.how-step .step-num{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:900;color:#D4A015;margin-bottom:14px;line-height:1;letter-spacing:-0.04em}
+.how-step h3{font-size:17px;color:#FCD34D;font-weight:800;margin-bottom:10px}
+.how-step p{font-size:13.5px;color:#94A3B8;line-height:1.6}
+
+.active-section{background:#0B1220;padding:90px 32px}
+.active-inner{max-width:920px;margin:0 auto}
+.petition-card{padding:48px 44px;background:linear-gradient(135deg,rgba(212,160,21,0.12),rgba(212,160,21,0.04));border:1.5px solid rgba(212,160,21,0.45);border-radius:16px;box-shadow:0 20px 50px rgba(212,160,21,0.1)}
+.petition-tag{display:inline-flex;align-items:center;gap:8px;background:#DC2626;color:white;padding:7px 14px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:20px}
+.petition-tag::before{content:"";width:8px;height:8px;background:white;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.petition-card h3{font-size:clamp(28px,4vw,42px);color:#FCD34D;font-weight:900;line-height:1.1;letter-spacing:-0.03em;margin-bottom:18px}
+.petition-card .desc{font-size:16px;color:#CBD5E1;line-height:1.7;margin-bottom:32px;max-width:620px}
+.petition-stats{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;font-family:'JetBrains Mono',monospace}
+.petition-stats .count{font-size:28px;font-weight:900;color:#FCD34D;letter-spacing:-0.02em}
+.petition-stats .count .target{color:#94A3B8;font-size:18px;font-weight:600;margin-left:4px}
+.petition-stats .deadline{font-size:14px;color:#D4A015;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.progress-bar{height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden;margin-bottom:32px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#D4A015,#FCD34D);width:24.7%;border-radius:5px;animation:shimmer 2s infinite}
+@keyframes shimmer{0%,100%{opacity:1}50%{opacity:0.85}}
+.petition-cta-group{display:flex;gap:14px;flex-wrap:wrap}
+
+.upcoming-section{background:#101A2E;border-top:1px solid rgba(212,160,21,0.15);padding:90px 32px}
+.upcoming-list{max-width:880px;margin:0 auto;display:grid;gap:14px}
+.upcoming-item{padding:22px 26px;background:rgba(11,18,32,0.5);border-left:4px solid #D4A015;border-radius:0 10px 10px 0;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;transition:all 0.2s}
+.upcoming-item:hover{transform:translateX(4px);background:rgba(11,18,32,0.7)}
+.upcoming-status{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;padding:6px 12px;border-radius:5px;letter-spacing:1.3px;text-transform:uppercase;white-space:nowrap}
+.upcoming-status.examen{background:rgba(212,160,21,0.18);color:#FCD34D}
+.upcoming-status.soon{background:rgba(34,197,94,0.18);color:#86EFAC}
+.upcoming-q{font-size:17px;color:#E2E8F0;line-height:1.45;font-weight:500}
+.upcoming-note{margin-top:36px;padding:22px 28px;background:rgba(212,160,21,0.06);border:1px dashed rgba(212,160,21,0.35);border-radius:10px;text-align:center;font-size:14.5px;color:#CBD5E1;line-height:1.65;max-width:780px;margin-left:auto;margin-right:auto}
+.upcoming-note strong{color:#FCD34D;font-weight:700}
+
+.propose-section{background:#0B1220;padding:90px 32px;border-top:1px solid rgba(212,160,21,0.15)}
+.propose-inner{max-width:760px;margin:0 auto;text-align:center}
+.propose-warn{font-size:14.5px;color:#94A3B8;line-height:1.7;max-width:620px;margin:0 auto 36px auto;font-style:italic;padding:18px 24px;background:rgba(255,255,255,0.03);border-left:3px solid #FCD34D;border-radius:0 8px 8px 0;text-align:left}
+.propose-warn strong{color:#FCD34D;font-weight:700;font-style:normal}
+.propose-form{background:rgba(255,255,255,0.04);padding:36px 40px;border-radius:14px;border:1px solid rgba(212,160,21,0.25);text-align:left}
+.field-group{margin-bottom:20px}
+.field-group label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:#D4A015;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.field-group input,.field-group textarea{width:100%;padding:13px 16px;background:rgba(11,18,32,0.7);border:1px solid rgba(212,160,21,0.25);border-radius:8px;color:#E2E8F0;font-family:'Inter',sans-serif;font-size:14.5px;line-height:1.5;transition:all 0.2s}
+.field-group input:focus,.field-group textarea:focus{outline:none;border-color:#D4A015;background:rgba(11,18,32,0.95)}
+.field-group textarea{min-height:90px;resize:vertical}
+.field-group .count{font-family:'JetBrains Mono',monospace;font-size:10px;color:#64748B;float:right;margin-top:4px}
+.field-group small{font-size:11.5px;color:#64748B;display:block;margin-top:6px;font-style:italic}
+.propose-submit{width:100%;padding:16px;background:#D4A015;color:#0B1220;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;margin-top:8px}
+.propose-submit:hover{background:#FCD34D}
+.propose-transparency{margin-top:24px;font-size:12.5px;color:#94A3B8;line-height:1.6;font-style:italic;text-align:center}
+.propose-transparency strong{color:#FCD34D;font-weight:700;font-style:normal}
+
+.manifesto-section{background:#101A2E;padding:100px 32px;border-top:1px solid rgba(212,160,21,0.15)}
+.manifesto-inner{max-width:900px;margin:0 auto}
+.manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.manifesto-card{padding:30px 32px;background:rgba(11,18,32,0.5);border-top:3px solid #D4A015;border-radius:0 0 10px 10px}
+.manifesto-card h3{font-size:18px;color:#FCD34D;font-weight:800;margin-bottom:10px;letter-spacing:-0.015em}
+.manifesto-card p{font-size:14px;color:#CBD5E1;line-height:1.7}
+
+.faq-section{background:#0B1220;padding:90px 32px;border-top:1px solid rgba(212,160,21,0.15)}
+.faq-inner{max-width:780px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(212,160,21,0.18);padding:22px 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:17px;color:#E2E8F0;font-weight:700;line-height:1.4}
+.faq-q::after{content:"+";font-family:'JetBrains Mono',monospace;font-size:24px;color:#D4A015;font-weight:300;transition:transform 0.2s}
+.faq-item.open .faq-q::after{content:"−"}
+.faq-a{font-size:14.5px;color:#94A3B8;line-height:1.7;margin-top:14px;display:none}
+.faq-item.open .faq-a{display:block}
+
+.support-section{background:#101A2E;padding:100px 32px;border-top:1px solid rgba(212,160,21,0.15)}
+.support-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:960px;margin:0 auto}
+.support-card{padding:36px 32px;background:rgba(11,18,32,0.6);border-top:3px solid #D4A015;border-radius:0 0 12px 12px;text-align:center;transition:all 0.2s}
+.support-card:hover{transform:translateY(-4px)}
+.support-card .icon{font-size:36px;margin-bottom:18px}
+.support-card h3{font-size:19px;color:#FCD34D;font-weight:800;margin-bottom:10px}
+.support-card p{font-size:13.5px;color:#CBD5E1;line-height:1.65;margin-bottom:18px}
+.support-soon{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:#D4A015;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;background:rgba(212,160,21,0.12);border:1px dashed rgba(212,160,21,0.5);border-radius:5px}
+.support-notify{margin-top:36px;text-align:center;max-width:560px;margin-left:auto;margin-right:auto;padding:28px;background:rgba(212,160,21,0.06);border:1px dashed rgba(212,160,21,0.35);border-radius:12px}
+.support-notify p{font-size:14px;color:#CBD5E1;margin-bottom:14px;line-height:1.65}
+.support-notify p strong{color:#FCD34D;font-weight:700}
+.notify-form{display:flex;gap:8px}
+.notify-form input{flex:1;padding:13px 16px;background:rgba(11,18,32,0.8);border:1px solid rgba(212,160,21,0.3);border-radius:7px;color:#E2E8F0;font-family:'Inter',sans-serif;font-size:14px}
+.notify-form button{padding:13px 22px;background:#D4A015;color:#0B1220;font-weight:800;font-size:13px;border-radius:7px;border:none;cursor:pointer;letter-spacing:0.5px}
+
+.footer{background:#070D18;padding:60px 32px 36px 32px;border-top:1px solid rgba(212,160,21,0.18)}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.footer-brand .nav-logo{font-size:22px;margin-bottom:14px}
+.footer-brand p{font-size:13.5px;color:#94A3B8;line-height:1.7;max-width:380px}
+.footer-brand p strong{color:#FCD34D;font-weight:700}
+.footer-col h4{font-family:'JetBrains Mono',monospace;font-size:11px;color:#D4A015;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px}
+.footer-col a{display:block;font-size:13.5px;color:#94A3B8;margin-bottom:10px;transition:color 0.15s}
+.footer-col a:hover{color:#FCD34D}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:11.5px;color:#64748B;letter-spacing:0.3px}
+.footer-bottom .inst-link{color:#FCD34D;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-size:10.5px}
+
+@media (max-width:768px){
+  .nav-links{display:none}
+  .footer-grid{grid-template-columns:1fr}
+  .manifesto-grid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr}
+  .petition-stats{flex-direction:column;align-items:flex-start;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="preview-banner"><strong>🟡 Lancement public septembre 2026</strong> · VoxPop Citoyens — Première pétition en préparation · <a href="petition-presidentielle-2027.html" style="color:#0B1220;text-decoration:underline;font-weight:800;margin-left:12px">Voir la démo de la 1ère pétition →</a></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="images/logo_voxpop_gold.png" alt="VoxPop"><span class="v">Vox</span><span class="p">Pop</span></a>
+    <div class="nav-links">
+      <a href="#petitions">Pétitions actives</a>
+      <a href="#proposer">Proposer une question</a>
+      <a href="#comment">Comment ça marche</a>
+      <a href="#faq">FAQ</a>
+      <a href="#soutenir">Soutenir</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-inst">→ Vue institutionnelle</a>
+      <a href="#petitions" class="nav-cta">Signer maintenant</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">↓ La voix du peuple · Lancement septembre 2026</span>
+    <h1>Votre voix, <span>sans intermédiaire.</span></h1>
+    <p class="tagline">« Quand l'État refuse de demander, les citoyens répondent quand même. »</p>
+    <p class="lead">Immigration, fiscalité, énergie, gestion du Covid, concentration du pouvoir : sur les grands sujets, <strong>l'État a confisqué le débat</strong>. VoxPop rend la parole aux citoyens — anonyme par cryptographie, vérifiable mathématiquement, impossible à censurer.</p>
+    <div class="hero-cta-group">
+      <a href="#petitions"><button class="btn-primary">Voir les pétitions en cours</button></a>
+      <a href="#comment"><button class="btn-ghost">Comprendre comment ça marche</button></a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">1</div><div class="l">Pétition en préparation</div></div>
+      <div class="hero-stat"><div class="n">Sept. 2026</div><div class="l">Ouverture publique</div></div>
+      <div class="hero-stat"><div class="n">4</div><div class="l">Questions à venir</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section piliers-section">
+  <div class="section-inner">
+    <div class="section-label">↓ Les promesses mathématiques</div>
+    <h2>Trois garanties, <span>par construction.</span></h2>
+    <p class="section-sub">Aucun mot. Aucune promesse marketing. Que des preuves cryptographiques.</p>
+    <div class="piliers">
+      <div class="pilier"><div class="icon">🔒</div><h3>Anonyme par construction</h3><p>Preuve cryptographique <strong>Zero-Knowledge</strong>. Personne, pas même nous, ne peut savoir qui a signé. C'est mathématique, pas une politique de confidentialité.</p></div>
+      <div class="pilier"><div class="icon">✓</div><h3>Vérifiable mathématiquement</h3><p>Chaque résultat peut être <strong>recalculé publiquement</strong>. Aucun trucage possible, par construction. N'importe qui peut auditer le scrutin.</p></div>
+      <div class="pilier"><div class="icon">🌐</div><h3>Impossible à censurer</h3><p>Code public, infrastructure répliquée, accessible via <strong>Tor et VPN</strong>. Si le DNS est coupé, le projet survit. Aucune autorité ne peut le faire taire.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section how-section" id="comment">
+  <div class="section-inner">
+    <div class="section-label">↓ Comment ça marche</div>
+    <h2>Signer en <span>4 étapes simples.</span></h2>
+    <p class="section-sub">Simple comme un site, sérieux comme un scrutin.</p>
+    <div class="how-image-banner">
+      <div class="quote-overlay">« Quand l'État refuse de demander,<br>les citoyens répondent quand même. »</div>
+    </div>
+    <div class="how-grid">
+      <div class="how-step"><div class="step-num">01</div><h3>Choisir une pétition</h3><p>Parcourez les questions actives. Choisissez celle qui vous parle, lisez le détail.</p></div>
+      <div class="how-step"><div class="step-num">02</div><h3>Vérifier votre identité</h3><p>Une fois, anonymement (FranceConnect ou équivalent). On garantit que vous êtes français, on ne saura jamais qui vous êtes.</p></div>
+      <div class="how-step"><div class="step-num">03</div><h3>Signer</h3><p>Votre vote est chiffré. Il rejoint un total public sans qu'on puisse remonter à vous.</p></div>
+      <div class="how-step"><div class="step-num">04</div><h3>Résultat en direct</h3><p>Le compteur est public, vérifiable par tous, en temps réel. Les politiques recevront les chiffres, qu'ils le veuillent ou non.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="active-section" id="petitions">
+  <div class="active-inner">
+    <div class="section-label" style="text-align:center;margin-bottom:18px">↓ Pétition en cours · Signature ouverte</div>
+    <h2 style="text-align:center;font-size:clamp(34px,5.5vw,56px);font-weight:900;line-height:1.05;letter-spacing:-0.035em;margin-bottom:50px;color:#E2E8F0">La <span style="color:#D4A015">première question.</span></h2>
+    <div class="petition-card">
+      <div class="petition-image-banner"></div>
+      <span class="petition-tag" style="background:#D4A015;color:#0B1220">🟡 En préparation · Ouverture septembre 2026</span>
+      <h3>Faut-il instaurer un mandat unique de 7 ans pour la présidence de la République ?</h3>
+      <p class="desc">Question transversale (gauche, droite, centre), structurelle, cohérente avec le calendrier 2027. Posée publiquement aux Français, anonymement, sans biais — pour que la voix collective compte sur cette réforme institutionnelle majeure.</p>
+      <p class="desc" style="font-style:italic;color:#FCD34D;margin-top:14px;font-size:14px"><strong>Ouverture des signatures prévue : septembre 2026.</strong> Notre infrastructure cryptographique est en cours de développement pour garantir un vote totalement anonyme, vérifiable et incensurable. Aucune limite de signatures — la voix du peuple n'a pas de plafond.</p>
+      <div class="petition-cta-group" style="margin-top:24px">
+        <a href="#"><button class="btn-ghost">Voir les détails de la question</button></a>
+        <a href="#soutenir"><button class="btn-primary">Être notifié à l'ouverture →</button></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section upcoming-section">
+  <div class="section-inner">
+    <div class="section-label">↓ Pétitions à venir</div>
+    <h2>Les prochaines <span>questions au peuple.</span></h2>
+    <p class="section-sub">Sélectionnées par le Board sur trois critères stricts.</p>
+    <div class="upcoming-image-banner">
+      <div class="quote-overlay">« Sur ces sujets qui traversent la vie de chaque Français. »</div>
+    </div>
+    <div class="upcoming-list">
+      <div class="upcoming-item"><span class="upcoming-status examen">⏳ À l'examen</span><div class="upcoming-q">« Les juges sont-ils responsables de leurs décisions ? »</div></div>
+      <div class="upcoming-item"><span class="upcoming-status examen">⏳ À l'examen</span><div class="upcoming-q">« Quel plafond pour les dépenses de campagne présidentielle ? »</div></div>
+      <div class="upcoming-item"><span class="upcoming-status soon">🟢 Prochainement</span><div class="upcoming-q">« Les carnets de santé numériques sont-ils acceptables ? »</div></div>
+      <div class="upcoming-item"><span class="upcoming-status soon">🟢 Prochainement</span><div class="upcoming-q">« Faut-il abroger la PPE3 (programmation pluriannuelle de l'énergie) ? »</div></div>
+    </div>
+    <div class="upcoming-note">
+      Les questions sont sélectionnées par le Board sur trois critères : <strong>impact systémique</strong> · <strong>transversal politique</strong> · <strong>vraie absence de débat institutionnel</strong>. <br><br><strong>On étudie, on ne dilue pas.</strong>
+    </div>
+  </div>
+</section>
+
+<section class="propose-section" id="proposer">
+  <div class="propose-inner">
+    <div class="section-label">↓ Vous avez une question essentielle ?</div>
+    <h2>Proposez-nous <span>une question.</span></h2>
+    <p class="propose-warn">
+      <em>Une question qui <strong>concerne la vie de tous les Français</strong> — un sujet central, structurant, qui a un <strong>impact réel sur la population</strong> et que les institutions évitent. On étudie toutes les questions reçues ; les plus pertinentes sont présentées au vote.</em>
+    </p>
+    <form class="propose-form" onsubmit="event.preventDefault();alert('Merci pour votre proposition. Le Board l'examinera.');">
+      <div class="field-group">
+        <label>① Votre question <span class="count">280 max</span></label>
+        <textarea placeholder="Ex. : Faut-il limiter les rémunérations dans les entreprises publiques ?" maxlength="280"></textarea>
+      </div>
+      <div class="field-group">
+        <label>② Pourquoi c'est important <span class="count">500 max</span></label>
+        <textarea placeholder="En 1 ou 2 phrases : pourquoi cette question structure-t-elle la société française ?" maxlength="500"></textarea>
+      </div>
+      <div class="field-group">
+        <label>③ Prénom + email <span class="count">Optionnel</span></label>
+        <input type="text" placeholder="Benjamin · benjamin@exemple.fr (si on retient, on vous crédite)">
+        <small>Optionnel — si renseigné, vous serez crédité comme « proposeur citoyen » avec votre accord.</small>
+      </div>
+      <button type="submit" class="propose-submit">Envoyer ma proposition</button>
+    </form>
+    <p class="propose-transparency">
+      <strong>Note de transparence :</strong> Le Board examine chaque proposition. Si elle est retenue, elle entre dans le calendrier des pétitions à venir.
+    </p>
+  </div>
+</section>
+
+<section class="section manifesto-section">
+  <div class="manifesto-inner">
+    <div class="section-label">↓ Pourquoi VoxPop</div>
+    <h2>Ce que VoxPop <span>n'est pas.</span></h2>
+    <p class="section-sub">Quatre clarifications pour éviter tout malentendu.</p>
+    <div class="manifesto-image-banner"></div>
+    <div class="manifesto-grid">
+      <div class="manifesto-card"><h3>Ni un parti, ni une cause</h3><p>Nous n'avons pas d'opinion. <strong>Vous, oui.</strong> Notre rôle est de garantir la vérifiabilité de votre voix, pas d'orienter le résultat.</p></div>
+      <div class="manifesto-card"><h3>Pas un agrégateur sans filtre</h3><p>Eux noient les vraies questions sous des milliers de pétitions sans filtre. <strong>Nous, on cure</strong> — seules les questions structurantes passent.</p></div>
+      <div class="manifesto-card"><h3>Pas un sondage</h3><p>Les sondages sont biaisés (échantillons, panels, ordre des questions). VoxPop est <strong>anonyme, vérifiable</strong>, et compte de vraies signatures.</p></div>
+      <div class="manifesto-card"><h3>Pas un référendum</h3><p>Les référendums sont décidés par l'État. VoxPop est <strong>décidé par les citoyens</strong>, et continu. On ne dépend de personne pour poser nos questions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="section-label">↓ Foire aux questions</div>
+    <h2 style="margin-bottom:50px">Les <span>questions essentielles.</span></h2>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">C'est légal ?</div>
+      <div class="faq-a">Oui. VoxPop est juridiquement qualifié de « pétition d'opinion », un statut clair (comme les plateformes de pétitions d'opinion). Aucun risque pénal pour l'éditeur ni pour les signataires.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Comment vous savez que je suis français sans connaître mon identité ?</div>
+      <div class="faq-a">Preuve cryptographique <strong>Zero-Knowledge Proof</strong>. C'est une méthode mathématique qui permet de prouver une propriété (« être citoyen français ») sans révéler les données qui la prouvent (votre nom, date de naissance, etc.). Cette technologie est utilisée par les protocoles bancaires et de défense.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Et si l'État coupe le site ?</div>
+      <div class="faq-a">Le code est public, l'infrastructure est répliquée sur plusieurs continents, et tout est accessible via Tor. Couper VoxPop nécessite de couper Tor — ce qui est impossible à l'échelle d'un pays démocratique.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">C'est manipulable par bots ?</div>
+      <div class="faq-a">Non. Chaque signature exige une preuve cryptographique d'identité unique vérifiée par l'État. <strong>Mathématiquement impossible</strong> de faire 1000 votes avec 1 personne — la preuve elle-même l'interdit par construction.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Vous gardez mes données ?</div>
+      <div class="faq-a">Non. Aucune donnée personnelle n'est stockée. C'est ça l'anonymat par construction : ce n'est pas une promesse de confidentialité, c'est une impossibilité mathématique.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Qui finance ?</div>
+      <div class="faq-a">Le module B2B (VoxPop Institutions, payant pour ordres pro, mairies et syndicats) finance l'usage citoyen gratuit. Plus des dons libres. <strong>Aucun financement partisan accepté</strong> : la charte juridique l'interdit.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section support-section" id="soutenir">
+  <div class="section-inner">
+    <div class="section-label">↓ Soutenir le projet</div>
+    <h2>Vous voulez <span>nous donner un coup de main ?</span></h2>
+    <p class="section-sub">Trois façons d'aider, à votre rythme, à votre manière.</p>
+    <div class="support-grid">
+      <div class="support-card">
+        <div class="icon">💰</div><h3>Don ponctuel</h3>
+        <p>Aider le développement de VoxPop avec un don unique — 5 €, 20 €, 50 € ou montant libre.</p>
+        <div class="support-soon">Ouverture dans quelques jours</div>
+      </div>
+      <div class="support-card">
+        <div class="icon">🔁</div><h3>Don récurrent</h3>
+        <p>Soutenir mensuellement le développement et l'infrastructure. Quelques euros par mois suffisent.</p>
+        <div class="support-soon">Ouverture dans quelques jours</div>
+      </div>
+      <div class="support-card">
+        <div class="icon">📢</div><h3>Relayer</h3>
+        <p>Parler de VoxPop à 3 personnes que vous estimez. C'est <strong style="color:#FCD34D">gratuit, immédiat, et c'est ce qui marche le mieux</strong>.</p>
+      </div>
+    </div>
+    <div class="support-notify">
+      <p><strong>🟡 Cagnotte officielle ouvre dans quelques jours.</strong><br>Soyez notifié dès la publication — pas de spam, juste l'annonce.<br><em style="font-size:11.5px;color:#94A3B8;font-style:italic">Pour soutenir immédiatement, écrivez-nous : <a href="mailto:contact@voxpop-app.com" style="color:#FCD34D">contact@voxpop-app.com</a></em></p>
+      <form class="notify-form" onsubmit="event.preventDefault();alert('Merci, on vous tient au courant dès l'ouverture !');">
+        <input type="email" placeholder="votre.email@exemple.fr" required>
+        <button type="submit">Me notifier à l'ouverture</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><img src="images/logo_voxpop_gold.png" alt="VoxPop"><span class="v">Vox</span><span class="p">Pop</span></div>
+        <p><strong>VoxPop Citoyens</strong> et <strong>VoxPop Institutions</strong> sont édités par SASU Pelegrinus (SIREN 948 908 348). Marque détenue par Punch Ventures LLC (Wyoming).</p>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <a href="#comment">Comment ça marche</a>
+        <a href="#faq">FAQ</a>
+        <a href="#">Charte de neutralité</a>
+        <a href="#">Mentions légales</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a>
+        <a href="tel:+33743544242">+33 7 43 54 42 42</a>
+        <a href="#">GitHub (code source)</a>
+        <a href="#" class="inst-link">→ Vue institutionnelle</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VoxPop Citoyens · Mockup en préparation</span>
+      <span class="inst-link">Pour les institutions →</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

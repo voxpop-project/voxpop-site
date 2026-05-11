@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxPop — Soutenir le projet</title>
+<meta name="description" content="Soutenir VoxPop : un don ponctuel ou récurrent finance l'infrastructure, le dev, et la pétition citoyenne. Transparent, sans contrepartie commerciale.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#F59E0B;color:#0B1220;padding:8px 32px;text-align:center;font-size:13px;font-weight:600}
+.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#F59E0B;padding:3px 8px;border-radius:4px;margin-right:8px}
+.preview-banner a{color:#0B1220;text-decoration:underline;font-weight:700}
+
+.nav{position:fixed;top:38px;left:0;right:0;z-index:100;backdrop-filter:blur(12px);background:rgba(11,18,32,0.85);border-bottom:1px solid rgba(184,71,43,0.15)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:14px;font-weight:800;font-size:20px}
+.nav-logo img{width:46px;height:46px}
+.nav-back{font-size:13px;color:#94A3B8}
+.nav-back:hover{color:#FCA48E}
+
+.hero{padding:170px 32px 50px 32px;text-align:center;background:radial-gradient(ellipse at top,rgba(212,160,21,0.15),transparent 60%)}
+.hero-inner{max-width:920px;margin:0 auto}
+.kicker{display:inline-block;padding:6px 14px;background:rgba(212,160,21,0.15);border:1px solid rgba(212,160,21,0.4);border-radius:30px;font-size:11px;font-weight:700;color:#FCD34D;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px;font-family:'JetBrains Mono',monospace}
+.hero h1{font-size:clamp(38px,6vw,76px);font-weight:900;line-height:1.02;letter-spacing:-0.04em;margin-bottom:24px}
+.hero h1 span{color:#D4A015}
+.hero p.lead{font-size:clamp(17px,2vw,22px);color:#94A3B8;line-height:1.5;max-width:720px;margin:0 auto 36px auto}
+.hero p.lead strong{color:#FCD34D}
+
+.counter-block{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:40px}
+.counter-item .num{font-family:'JetBrains Mono',monospace;font-size:42px;font-weight:900;color:#D4A015;letter-spacing:-0.02em;line-height:1}
+.counter-item .lbl{font-size:12.5px;color:#94A3B8;margin-top:6px;letter-spacing:0.5px}
+
+/* Donation block */
+.donation{padding:80px 32px}
+.don-inner{max-width:900px;margin:0 auto}
+.don-tabs{display:flex;gap:6px;margin-bottom:24px;justify-content:center}
+.don-tab{padding:14px 28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;letter-spacing:0.3px;transition:all 0.15s}
+.don-tab.active{background:rgba(212,160,21,0.2);border-color:#D4A015;color:#FCD34D}
+.don-panel{background:rgba(255,255,255,0.03);border:1px solid rgba(212,160,21,0.3);border-radius:18px;padding:40px 44px;display:none}
+.don-panel.active{display:block}
+.don-panel h2{font-size:24px;color:#E2E8F0;font-weight:900;letter-spacing:-0.02em;margin-bottom:8px}
+.don-panel p.intro{color:#94A3B8;font-size:15px;line-height:1.6;margin-bottom:24px}
+.amounts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:18px}
+.amount-btn{padding:18px 14px;background:rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.1);color:#E2E8F0;font-weight:800;font-size:18px;border-radius:10px;cursor:pointer;transition:all 0.15s;font-family:'JetBrains Mono',monospace}
+.amount-btn:hover{border-color:#D4A015;background:rgba(212,160,21,0.1)}
+.amount-btn.selected{border-color:#D4A015;background:rgba(212,160,21,0.25);color:#FCD34D;box-shadow:0 0 20px rgba(212,160,21,0.4)}
+.amount-custom{display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:10px;margin-bottom:20px}
+.amount-custom input{background:transparent;border:none;color:#E2E8F0;font-size:18px;font-family:'JetBrains Mono',monospace;width:100%;outline:none}
+.amount-custom .euro{color:#94A3B8;font-family:'JetBrains Mono',monospace}
+.don-btn{width:100%;padding:18px;background:#D4A015;color:#0B1220;font-weight:900;font-size:16px;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s}
+.don-btn:hover{background:#FCD34D;transform:translateY(-2px);box-shadow:0 12px 35px rgba(212,160,21,0.4)}
+.don-note{margin-top:14px;font-size:12px;color:#64748B;text-align:center;line-height:1.55}
+.don-note a{color:#FCD34D}
+
+/* Transparency */
+.transparency{padding:80px 32px;background:#101A2E;border-top:1px solid rgba(212,160,21,0.15);border-bottom:1px solid rgba(212,160,21,0.15)}
+.tr-inner{max-width:900px;margin:0 auto}
+.tr-title{font-size:clamp(28px,4vw,42px);font-weight:900;text-align:center;letter-spacing:-0.03em;margin-bottom:18px;line-height:1.1}
+.tr-title span{color:#D4A015}
+.tr-sub{text-align:center;color:#94A3B8;max-width:640px;margin:0 auto 40px auto;font-size:16px}
+.usage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.usage-item{padding:24px 26px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-top:3px solid #D4A015;border-radius:10px}
+.usage-item .pct{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:900;color:#D4A015;margin-bottom:6px}
+.usage-item h4{font-size:15px;color:#E2E8F0;font-weight:800;margin-bottom:6px}
+.usage-item p{font-size:13px;color:#94A3B8;line-height:1.55}
+
+/* Mur des premiers soutiens */
+.wall{padding:80px 32px}
+.wall-inner{max-width:1100px;margin:0 auto}
+.wall-title{font-size:clamp(28px,4vw,42px);font-weight:900;text-align:center;letter-spacing:-0.03em;margin-bottom:18px;line-height:1.1}
+.wall-title span{color:#D4A015}
+.wall-sub{text-align:center;color:#94A3B8;font-size:16px;max-width:640px;margin:0 auto 40px auto}
+.wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.supporter{padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-align:center;transition:all 0.15s}
+.supporter:hover{border-color:rgba(212,160,21,0.4);background:rgba(212,160,21,0.05)}
+.supporter .name{font-size:13px;color:#E2E8F0;font-weight:700;margin-bottom:3px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.supporter .amount{font-family:'JetBrains Mono',monospace;font-size:12px;color:#FCD34D;font-weight:700;letter-spacing:0.5px}
+.supporter .meta{font-size:10px;color:#64748B;margin-top:3px}
+.early-badge{background:#D4A015;color:#0B1220;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:800;letter-spacing:0.5px;margin-left:4px}
+
+/* FAQ rapide */
+.faq-rapid{padding:80px 32px;background:#101A2E;border-top:1px solid rgba(212,160,21,0.15)}
+.fr-inner{max-width:840px;margin:0 auto}
+.fr-title{font-size:clamp(28px,4vw,42px);font-weight:900;text-align:center;letter-spacing:-0.03em;margin-bottom:40px;line-height:1.1}
+.fr-title span{color:#D4A015}
+.fr-q{padding:22px 26px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;margin-bottom:12px}
+.fr-q h3{font-size:16px;color:#E2E8F0;font-weight:700;margin-bottom:10px;line-height:1.3}
+.fr-q h3::before{content:"Q. ";color:#D4A015;font-family:'JetBrains Mono',monospace;font-weight:800}
+.fr-q p{font-size:14px;color:#94A3B8;line-height:1.65}
+.fr-q p::before{content:"R. ";color:#D4A015;font-family:'JetBrains Mono',monospace;font-weight:800}
+
+.foot-mini{padding:30px 32px;text-align:center;font-size:12.5px;color:#64748B;border-top:1px solid rgba(255,255,255,0.06);background:#0B1220}
+.foot-mini a{color:#94A3B8;margin:0 12px}
+.foot-mini a:hover{color:#FCD34D}
+
+@media (max-width:768px){
+  .hero{padding:140px 24px 30px 24px}
+  .donation,.transparency,.wall,.faq-rapid{padding:60px 24px}
+  .don-panel{padding:30px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="preview-banner">
+  <strong>Preview</strong>Site en mode aperçu · lancement officiel septembre 2026 · <a href="mailto:contact@voxpop-app.com">Être prévenu</a>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo_gold.png" alt="VoxPop">
+      VoxPop
+    </a>
+    <a href="index.html" class="nav-back">← Accueil</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="kicker">Soutenir le projet · soyez les premiers</span>
+    <h1>VoxPop ne reçoit <span>aucun financement</span> de parti, d'État, ou de fortune.</h1>
+    <p class="lead">Le projet est <strong>autofinancé en bootstrap</strong> par son fondateur. Pour grandir, on dépend de vous, citoyens. Un don ponctuel ou récurrent finance l'infrastructure technique, le développement, et la viralité de la pétition.</p>
+    <div class="counter-block">
+      <div class="counter-item">
+        <div class="num" id="cntSoutiens">147</div>
+        <div class="lbl">premiers soutiens</div>
+      </div>
+      <div class="counter-item">
+        <div class="num" id="cntTotal">3 482 €</div>
+        <div class="lbl">collectés ce mois</div>
+      </div>
+      <div class="counter-item">
+        <div class="num" id="cntRecur">42</div>
+        <div class="lbl">soutiens récurrents</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donation">
+  <div class="don-inner">
+    <div class="don-tabs">
+      <div class="don-tab active" onclick="switchTab('ponct')">Don ponctuel</div>
+      <div class="don-tab" onclick="switchTab('recur')">Soutien récurrent</div>
+    </div>
+
+    <!-- Don ponctuel -->
+    <div class="don-panel active" id="panelPonct">
+      <h2>Un don, une fois.</h2>
+      <p class="intro">Paiement sécurisé par Stripe. Reçu fiscal envoyé par email (réduction 66% pour les particuliers via HelloAsso). Aucun frais bancaire prélevé sur votre don.</p>
+
+      <div class="amounts">
+        <button class="amount-btn" onclick="selectAmount(this,3)">3 €</button>
+        <button class="amount-btn" onclick="selectAmount(this,10)">10 €</button>
+        <button class="amount-btn selected" onclick="selectAmount(this,25)">25 €</button>
+        <button class="amount-btn" onclick="selectAmount(this,50)">50 €</button>
+        <button class="amount-btn" onclick="selectAmount(this,100)">100 €</button>
+        <button class="amount-btn" onclick="selectAmount(this,250)">250 €</button>
+      </div>
+
+      <div class="amount-custom">
+        <span class="euro">Ou autre montant :</span>
+        <input type="number" placeholder="0" id="customAmount" min="1">
+        <span class="euro">€</span>
+      </div>
+
+      <button class="don-btn" onclick="alert('Démo preview : redirection HelloAsso/Stripe désactivée. En production, ce bouton ouvrira la page de paiement sécurisée.')">Donner maintenant →</button>
+      <div class="don-note">
+        Paiement géré par <a href="https://www.helloasso.com" target="_blank">HelloAsso</a> (modèle pourboire, 0% de frais). Stripe alternatif pour cartes étrangères. Aucune donnée personnelle stockée chez VoxPop.
+      </div>
+    </div>
+
+    <!-- Soutien récurrent -->
+    <div class="don-panel" id="panelRecur">
+      <h2>Un soutien chaque mois.</h2>
+      <p class="intro">Devenez membre actif. Soutien mensuel résiliable à tout moment. Vous figurez sur le « Mur des premiers soutiens » (anonymement par défaut, publiquement si vous le souhaitez).</p>
+
+      <div class="amounts">
+        <button class="amount-btn" onclick="selectAmount(this,3)">3 €<span style="font-size:11px;display:block;color:#94A3B8;font-weight:500">par mois</span></button>
+        <button class="amount-btn selected" onclick="selectAmount(this,5)">5 €<span style="font-size:11px;display:block;color:#94A3B8;font-weight:500">par mois</span></button>
+        <button class="amount-btn" onclick="selectAmount(this,10)">10 €<span style="font-size:11px;display:block;color:#94A3B8;font-weight:500">par mois</span></button>
+        <button class="amount-btn" onclick="selectAmount(this,25)">25 €<span style="font-size:11px;display:block;color:#94A3B8;font-weight:500">par mois</span></button>
+        <button class="amount-btn" onclick="selectAmount(this,50)">50 €<span style="font-size:11px;display:block;color:#94A3B8;font-weight:500">par mois</span></button>
+        <button class="amount-btn" onclick="selectAmount(this,100)">100 €<span style="font-size:11px;display:block;color:#94A3B8;font-weight:500">par mois</span></button>
+      </div>
+
+      <button class="don-btn" onclick="alert('Démo preview : redirection HelloAsso désactivée. En production, ce bouton ouvrira la page d\'abonnement récurrent.')">Devenir membre actif →</button>
+      <div class="don-note">
+        Prélèvement mensuel via HelloAsso. Résiliable à tout moment depuis votre espace personnel. Reçu fiscal annuel cumulé.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="transparency">
+  <div class="tr-inner">
+    <h2 class="tr-title">Où va votre <span>argent</span> ?</h2>
+    <p class="tr-sub">Transparence radicale. Chaque mois, le bilan est publié sur le dashboard public. Vous savez exactement à quoi sert chaque euro.</p>
+    <div class="usage-grid">
+      <div class="usage-item">
+        <div class="pct">40%</div>
+        <h4>Infrastructure technique</h4>
+        <p>Serveurs, hébergement, certificats SSL, services de cryptographie et stockage redondé.</p>
+      </div>
+      <div class="usage-item">
+        <div class="pct">35%</div>
+        <h4>Développement open source</h4>
+        <p>Maintenance du code, audit sécurité, intégrations, contributions à Semaphore et Circom.</p>
+      </div>
+      <div class="usage-item">
+        <div class="pct">15%</div>
+        <h4>Outils &amp; services</h4>
+        <p>Email, monitoring, outils anti-fraude, services de vérification, traduction multi-langues.</p>
+      </div>
+      <div class="usage-item">
+        <div class="pct">10%</div>
+        <h4>Lancement &amp; viralité</h4>
+        <p>Ads ciblés sur médias indépendants, vidéos pédagogiques, kit médias presse.</p>
+      </div>
+    </div>
+    <p style="text-align:center;color:#94A3B8;font-size:13px;margin-top:30px"><strong style="color:#FCD34D">0%</strong> en rémunération du fondateur tant que le projet n'aura pas atteint 100 000 signatures.</p>
+  </div>
+</section>
+
+<section class="wall">
+  <div class="wall-inner">
+    <h2 class="wall-title">Mur des <span>premiers soutiens</span></h2>
+    <p class="wall-sub">Citoyens qui ont soutenu VoxPop dès le début. Pseudonymes par défaut, vrais noms si vous le souhaitez.</p>
+    <div class="wall-grid" id="wallGrid">
+      <!-- Rempli dynamiquement -->
+    </div>
+  </div>
+</section>
+
+<section class="faq-rapid">
+  <div class="fr-inner">
+    <h2 class="fr-title">Questions <span>légitimes</span></h2>
+
+    <div class="fr-q">
+      <h3>Je donne 5 €, qu'est-ce que ça change concrètement ?</h3>
+      <p>5 € financent 2 jours d'infrastructure technique, ou 1 heure de développement, ou 50 signatures vérifiées cryptographiquement. À l'échelle de 10 000 donateurs à 5 €, c'est 50 000 € qui couvrent un trimestre entier de fonctionnement.</p>
+    </div>
+
+    <div class="fr-q">
+      <h3>Et si VoxPop devient un succès, vous gardez l'argent ?</h3>
+      <p>Non. La charte de neutralité interdit toute distribution de dividendes à un actionnaire privé. Si le projet devient profitable (B2B Institutions), les bénéfices sont réinvestis dans la plateforme. Bilan annuel public.</p>
+    </div>
+
+    <div class="fr-q">
+      <h3>Pourquoi pas de subvention publique ?</h3>
+      <p>Nous avons déposé un dossier à NLnet (UE, 40 000 €) et Mozilla Foundation. Les réponses prendront 6 mois. En attendant, ce sont vos soutiens qui font vivre le projet. Si les grants arrivent, ils s'ajoutent, ne remplacent pas.</p>
+    </div>
+
+    <div class="fr-q">
+      <h3>Mon don est-il déductible des impôts ?</h3>
+      <p>Oui, via HelloAsso (la SASU Pelegrinus est éligible au mécénat d'entreprise et au don défiscalisé pour particuliers selon article 200 CGI : réduction de 66% dans la limite de 20% de votre revenu imposable).</p>
+    </div>
+
+    <div class="fr-q">
+      <h3>Puis-je donner anonymement ?</h3>
+      <p>Oui. Par défaut, vous figurez sur le « Mur des premiers soutiens » avec un pseudonyme aléatoire. Vous pouvez choisir votre pseudo, votre vrai nom, ou rester anonyme intégralement. Aucune obligation.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot-mini">
+  VoxPop · 2026
+  <a href="index.html">Accueil</a>
+  <a href="legal.html">Mentions légales</a>
+  <a href="mailto:contact@voxpop-app.com">contact@voxpop-app.com</a>
+</footer>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.don-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.don-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel' + (tab === 'ponct' ? 'Ponct' : 'Recur')).classList.add('active');
+}
+
+function selectAmount(btn, val){
+  const panel = btn.closest('.don-panel');
+  panel.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+// Populate the wall with first supporters (mock data)
+const supporters = [
+  {n:'Marc D.', a:25, t:'5 mai 2026', e:true},
+  {n:'Léa K.', a:10, t:'5 mai 2026', e:true, r:true},
+  {n:'Anonyme', a:50, t:'6 mai 2026'},
+  {n:'Pierre M.', a:5, t:'6 mai 2026', r:true},
+  {n:'Citoyenne 78', a:100, t:'6 mai 2026'},
+  {n:'Julie R.', a:15, t:'7 mai 2026'},
+  {n:'Anonyme', a:20, t:'7 mai 2026'},
+  {n:'Hugo B.', a:5, t:'7 mai 2026', r:true},
+  {n:'Sophie V.', a:30, t:'7 mai 2026'},
+  {n:'Anonyme', a:250, t:'8 mai 2026'},
+  {n:'Anaïs T.', a:10, t:'8 mai 2026', r:true},
+  {n:'Mathieu L.', a:50, t:'8 mai 2026'},
+  {n:'Citoyen libre', a:5, t:'8 mai 2026', r:true},
+  {n:'Camille H.', a:25, t:'9 mai 2026'},
+  {n:'Anonyme', a:15, t:'9 mai 2026'},
+  {n:'Stéphane G.', a:100, t:'9 mai 2026'},
+  {n:'Élise P.', a:5, t:'9 mai 2026', r:true},
+  {n:'Anonyme', a:75, t:'10 mai 2026'},
+  {n:'Romain F.', a:10, t:'10 mai 2026', r:true},
+  {n:'Citoyen35', a:20, t:'10 mai 2026'},
+  {n:'Marc B.', a:50, t:'10 mai 2026'},
+  {n:'Anne C.', a:30, t:'10 mai 2026'},
+  {n:'Anonyme', a:5, t:'10 mai 2026', r:true},
+  {n:'Théo M.', a:100, t:'10 mai 2026'},
+];
+
+const grid = document.getElementById('wallGrid');
+supporters.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'supporter';
+  el.innerHTML = `
+    <div class="name">${s.n}${s.e ? '<span class="early-badge">PREMIER</span>' : ''}</div>
+    <div class="amount">${s.a} €${s.r ? '/mois' : ''}</div>
+    <div class="meta">${s.t}</div>
+  `;
+  grid.appendChild(el);
+});
+
+// Animate counters slightly
+let nSoutiens = 147;
+setInterval(() => {
+  if(Math.random() < 0.3){
+    nSoutiens++;
+    document.getElementById('cntSoutiens').textContent = nSoutiens;
+  }
+}, 4000);
+</script>
+
+</body>
+</html>
