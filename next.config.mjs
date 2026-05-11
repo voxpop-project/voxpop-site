@@ -2,7 +2,7 @@
 const nextConfig = {
   async rewrites() {
     return [
-      { source: "/", destination: "/preview/splash.html" },
+      // Le rewrite "/" est géré par src/middleware.ts (plus robuste avec Next.js)
       { source: "/citoyens", destination: "/preview/vox-populi.html" },
       { source: "/splash", destination: "/preview/splash.html" },
       { source: "/petition-2027", destination: "/preview/petition-presidentielle-2027.html" },
