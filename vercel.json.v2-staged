@@ -1,0 +1,12 @@
+{
+  "_comment": "VERSION STAGED — à activer demain soir (12/05/2026) après tribu+INPI+Stripe. Renommer en vercel.json pour activer.",
+  "rewrites": [
+    { "source": "/", "destination": "/preview/splash.html" },
+    { "source": "/institutions", "destination": "/preview/institutions-landing.html" },
+    { "source": "/citoyens", "destination": "/preview/vox-populi.html" },
+    { "source": "/splash", "destination": "/preview/splash.html" },
+    { "source": "/petition-2027", "destination": "/preview/petition-presidentielle-2027.html" },
+    { "source": "/dashboard-demo", "destination": "/preview/dashboard.html" },
+    { "source": "/preview-faq", "destination": "/preview/faq.html" }
+  ]
+}
