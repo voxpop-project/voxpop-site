@@ -29,10 +29,10 @@ export default function Privacy() {
               <h2 className="text-xl font-bold text-white mb-4">1. Qui sommes-nous ?</h2>
               <p className="text-slate-400 leading-relaxed">
                 <strong className="text-slate-300">Responsable du traitement :</strong><br />
-                Vox Pop — Punch Ventures LLC<br />
+                VoxPop — SASU Pelegrinus (SIREN 948 908 348, France)<br />
                 Email :{" "}
-                <a href="mailto:privacy@voxpop.app" className="text-vp-teal hover:underline">
-                  privacy@voxpop.app
+                <a href="mailto:privacy@voxpop-app.com" className="text-vp-teal hover:underline">
+                  privacy@voxpop-app.com
                 </a>
               </p>
             </section>
@@ -177,7 +177,7 @@ export default function Privacy() {
                 </a>
               </p>
               <p className="text-slate-500 text-sm mt-2">
-                Punch Ventures LLC — Wyoming, USA
+                SASU Pelegrinus — SIREN 948 908 348 — France
               </p>
             </section>
           </div>

@@ -79,8 +79,9 @@ export default function CGU() {
             <section className="glass-card p-8">
               <h2 className="text-xl font-bold text-white mb-4">Article 6 — Propriété intellectuelle</h2>
               <p className="text-slate-400 leading-relaxed">
-                L&apos;ensemble des éléments constituant la plateforme Vox Pop (code, design, marque, logo)
-                sont la propriété exclusive de Punch Ventures LLC. Toute reproduction sans autorisation
+                L&apos;ensemble des éléments constituant la plateforme VoxPop (code, design, marque, logo)
+                sont la propriété exclusive de la SASU Pelegrinus. Le code source est publié sous
+                licence libre AGPL-3.0 sur GitHub. Toute reproduction commerciale sans autorisation
                 est interdite.
               </p>
             </section>
@@ -99,8 +100,8 @@ export default function CGU() {
             <section className="glass-card p-8">
               <h2 className="text-xl font-bold text-white mb-4">Article 8 — Droit applicable</h2>
               <p className="text-slate-400 leading-relaxed">
-                Les présentes CGU sont soumises au droit américain (Wyoming) pour le mode institutionnel,
-                et au droit européen pour les utilisateurs résidant dans l&apos;Union Européenne.
+                Les présentes CGU sont soumises au droit français. Tout litige sera porté
+                devant les tribunaux compétents de Paris.
               </p>
             </section>
 
@@ -114,7 +115,7 @@ export default function CGU() {
                 </a>
               </p>
               <p className="text-slate-500 text-sm mt-2">
-                Punch Ventures LLC — Wyoming, USA
+                SASU Pelegrinus — SIREN 948 908 348 — France
               </p>
             </section>
           </div>

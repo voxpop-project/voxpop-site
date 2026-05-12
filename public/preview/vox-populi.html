@@ -28,11 +28,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:#0B1220;color:#E2E8F0;line-height:1.6;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:#050912;color:#E2E8F0;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
-.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#D4A015;color:#0B1220;padding:8px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.1px}
-.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#0B1220;color:#FCD34D;padding:3px 8px;border-radius:4px;margin-right:8px}
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:#D4A015;color:#050912;padding:8px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.1px}
+.preview-banner strong{font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;font-size:11px;background:#050912;color:#FCD34D;padding:3px 8px;border-radius:4px;margin-right:8px}
 
 .nav{position:fixed;top:38px;left:0;right:0;z-index:100;backdrop-filter:blur(12px);background:rgba(11,18,32,0.85);border-bottom:1px solid rgba(212,160,21,0.18)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center}
@@ -45,35 +45,35 @@ a{color:inherit;text-decoration:none}
 
 /* Image dans "Comment ça marche" — bannière duotone */
 .how-image-banner{position:relative;margin:0 0 50px 0;height:200px;border-radius:14px;overflow:hidden;border:1px solid rgba(212,160,21,0.3)}
-.how-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/drone-village.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.6) contrast(1.1)}
+.how-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/drone-village.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.30) contrast(1.1)}
 
 /* Bannière dans "Pétitions à venir" — terre de France */
 .upcoming-image-banner{position:relative;height:160px;margin:30px 0 -10px 0;border-radius:12px;overflow:hidden;border:1px solid rgba(212,160,21,0.25)}
-.upcoming-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/aerial-farmland.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.55) contrast(1.1)}
+.upcoming-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/aerial-farmland.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.28) contrast(1.1)}
 .upcoming-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,18,32,0.5),rgba(11,18,32,0.75))}
 .upcoming-image-banner .quote-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-size:clamp(14px,2vw,18px);font-weight:600;color:#FCD34D;font-style:italic;line-height:1.5;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,0.6)}
 
 /* Bannière dans "Manifeste" — vue panoramique */
 .manifesto-image-banner{position:relative;height:140px;margin:0 0 35px 0;border-radius:12px;overflow:hidden}
-.manifesto-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/drone-panorama.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.5) contrast(1.15)}
+.manifesto-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/drone-panorama.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.25) contrast(1.15)}
 .manifesto-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,18,32,0.4),rgba(11,18,32,0.85))}
 .how-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,18,32,0.4),rgba(11,18,32,0.7))}
 .how-image-banner .quote-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:32px;text-align:center;font-size:clamp(18px,3vw,28px);font-weight:700;color:#FCD34D;font-style:italic;line-height:1.4;letter-spacing:-0.015em;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,0.6)}
 
 /* Image dans "Pétition active" — bannière duotone */
 .petition-image-banner{position:relative;height:240px;margin:-48px -44px 32px -44px;border-radius:16px 16px 0 0;overflow:hidden}
-.petition-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/drone-protest.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.55) contrast(1.15)}
+.petition-image-banner::before{content:"";position:absolute;inset:0;background:url('/preview/images/drone-protest.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.28) contrast(1.15)}
 .petition-image-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,18,32,0.3),rgba(11,18,32,0.95))}
 .nav-links{display:flex;gap:28px;font-size:13.5px;font-weight:500;color:#94A3B8}
 .nav-links a:hover{color:#FCD34D}
 .nav-right{display:flex;align-items:center;gap:18px}
 .nav-inst{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#64748B;letter-spacing:1px;text-transform:uppercase;padding:6px 10px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;transition:all 0.15s}
 .nav-inst:hover{border-color:#D4A015;color:#FCD34D}
-.nav-cta{padding:9px 22px;background:#D4A015;color:#0B1220;font-weight:800;font-size:13px;border-radius:6px;letter-spacing:0.3px;transition:all 0.2s}
+.nav-cta{padding:9px 22px;background:#D4A015;color:#050912;font-weight:800;font-size:13px;border-radius:6px;letter-spacing:0.3px;transition:all 0.2s}
 .nav-cta:hover{background:#FCD34D;transform:translateY(-1px);box-shadow:0 6px 18px rgba(212,160,21,0.35)}
 
-.hero{padding:170px 32px 70px 32px;text-align:center;position:relative;background:#0B1220;overflow:hidden}
-.hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:url('/preview/images/citizens-diverse.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.55) contrast(1.15);opacity:0.55;z-index:0}
+.hero{padding:170px 32px 70px 32px;text-align:center;position:relative;background:#050912;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:url('/preview/images/citizens-diverse.jpg') center/cover no-repeat;filter:grayscale(100%) sepia(80%) hue-rotate(355deg) saturate(2.2) brightness(0.28) contrast(1.15);opacity:0.55;z-index:0}
 .hero::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at top,rgba(212,160,21,0.35),transparent 50%),linear-gradient(to bottom,rgba(11,18,32,0.7),rgba(11,18,32,0.95));z-index:1}
 .hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:2}
 .hero-kicker{display:inline-block;padding:6px 14px;background:rgba(212,160,21,0.12);border:1px solid rgba(212,160,21,0.4);border-radius:30px;font-size:11px;font-weight:700;color:#FCD34D;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:30px;font-family:'JetBrains Mono',monospace}
@@ -83,7 +83,7 @@ a{color:inherit;text-decoration:none}
 .hero p.lead{font-size:15.5px;color:#CBD5E1;line-height:1.7;max-width:680px;margin:0 auto 36px auto;font-weight:400}
 .hero p.lead strong{color:#FCD34D;font-weight:600}
 .hero-cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-.btn-primary{padding:16px 32px;background:#D4A015;color:#0B1220;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
+.btn-primary{padding:16px 32px;background:#D4A015;color:#050912;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
 .btn-primary:hover{background:#FCD34D;transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,160,21,0.35)}
 .btn-ghost{padding:16px 32px;background:transparent;color:#FCD34D;font-weight:700;font-size:15px;border-radius:8px;border:1.5px solid #D4A015;cursor:pointer;transition:all 0.2s}
 .btn-ghost:hover{background:rgba(212,160,21,0.1)}
@@ -99,7 +99,7 @@ a{color:inherit;text-decoration:none}
 .section h2 span{color:#D4A015}
 .section p.section-sub{text-align:center;color:#94A3B8;font-size:17px;max-width:680px;margin:0 auto 60px auto;line-height:1.65}
 
-.piliers-section{background:#0B1220;border-top:1px solid rgba(212,160,21,0.15)}
+.piliers-section{background:#050912;border-top:1px solid rgba(212,160,21,0.15)}
 .piliers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
 .pilier{padding:36px 30px;background:rgba(255,255,255,0.03);border-top:3px solid #D4A015;border-radius:0 0 12px 12px;transition:all 0.2s}
 .pilier:hover{transform:translateY(-4px);background:rgba(255,255,255,0.05)}
@@ -115,7 +115,7 @@ a{color:inherit;text-decoration:none}
 .how-step h3{font-size:17px;color:#FCD34D;font-weight:800;margin-bottom:10px}
 .how-step p{font-size:13.5px;color:#94A3B8;line-height:1.6}
 
-.active-section{background:#0B1220;padding:90px 32px}
+.active-section{background:#050912;padding:90px 32px}
 .active-inner{max-width:920px;margin:0 auto}
 .petition-card{padding:48px 44px;background:linear-gradient(135deg,rgba(212,160,21,0.12),rgba(212,160,21,0.04));border:1.5px solid rgba(212,160,21,0.45);border-radius:16px;box-shadow:0 20px 50px rgba(212,160,21,0.1)}
 .petition-tag{display:inline-flex;align-items:center;gap:8px;background:#DC2626;color:white;padding:7px 14px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:20px}
@@ -143,7 +143,7 @@ a{color:inherit;text-decoration:none}
 .upcoming-note{margin-top:36px;padding:22px 28px;background:rgba(212,160,21,0.06);border:1px dashed rgba(212,160,21,0.35);border-radius:10px;text-align:center;font-size:14.5px;color:#CBD5E1;line-height:1.65;max-width:780px;margin-left:auto;margin-right:auto}
 .upcoming-note strong{color:#FCD34D;font-weight:700}
 
-.propose-section{background:#0B1220;padding:90px 32px;border-top:1px solid rgba(212,160,21,0.15)}
+.propose-section{background:#050912;padding:90px 32px;border-top:1px solid rgba(212,160,21,0.15)}
 .propose-inner{max-width:760px;margin:0 auto;text-align:center}
 .propose-warn{font-size:14.5px;color:#94A3B8;line-height:1.7;max-width:620px;margin:0 auto 36px auto;font-style:italic;padding:18px 24px;background:rgba(255,255,255,0.03);border-left:3px solid #FCD34D;border-radius:0 8px 8px 0;text-align:left}
 .propose-warn strong{color:#FCD34D;font-weight:700;font-style:normal}
@@ -155,7 +155,7 @@ a{color:inherit;text-decoration:none}
 .field-group textarea{min-height:90px;resize:vertical}
 .field-group .count{font-family:'JetBrains Mono',monospace;font-size:10px;color:#64748B;float:right;margin-top:4px}
 .field-group small{font-size:11.5px;color:#64748B;display:block;margin-top:6px;font-style:italic}
-.propose-submit{width:100%;padding:16px;background:#D4A015;color:#0B1220;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;margin-top:8px}
+.propose-submit{width:100%;padding:16px;background:#D4A015;color:#050912;font-weight:800;font-size:15px;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;margin-top:8px}
 .propose-submit:hover{background:#FCD34D}
 .propose-transparency{margin-top:24px;font-size:12.5px;color:#94A3B8;line-height:1.6;font-style:italic;text-align:center}
 .propose-transparency strong{color:#FCD34D;font-weight:700;font-style:normal}
@@ -167,7 +167,7 @@ a{color:inherit;text-decoration:none}
 .manifesto-card h3{font-size:18px;color:#FCD34D;font-weight:800;margin-bottom:10px;letter-spacing:-0.015em}
 .manifesto-card p{font-size:14px;color:#CBD5E1;line-height:1.7}
 
-.faq-section{background:#0B1220;padding:90px 32px;border-top:1px solid rgba(212,160,21,0.15)}
+.faq-section{background:#050912;padding:90px 32px;border-top:1px solid rgba(212,160,21,0.15)}
 .faq-inner{max-width:780px;margin:0 auto}
 .faq-item{border-bottom:1px solid rgba(212,160,21,0.18);padding:22px 0;cursor:pointer}
 .faq-q{display:flex;justify-content:space-between;align-items:center;font-size:17px;color:#E2E8F0;font-weight:700;line-height:1.4}
@@ -189,7 +189,7 @@ a{color:inherit;text-decoration:none}
 .support-notify p strong{color:#FCD34D;font-weight:700}
 .notify-form{display:flex;gap:8px}
 .notify-form input{flex:1;padding:13px 16px;background:rgba(11,18,32,0.8);border:1px solid rgba(212,160,21,0.3);border-radius:7px;color:#E2E8F0;font-family:'Inter',sans-serif;font-size:14px}
-.notify-form button{padding:13px 22px;background:#D4A015;color:#0B1220;font-weight:800;font-size:13px;border-radius:7px;border:none;cursor:pointer;letter-spacing:0.5px}
+.notify-form button{padding:13px 22px;background:#D4A015;color:#050912;font-weight:800;font-size:13px;border-radius:7px;border:none;cursor:pointer;letter-spacing:0.5px}
 
 .footer{background:#070D18;padding:60px 32px 36px 32px;border-top:1px solid rgba(212,160,21,0.18)}
 .footer-inner{max-width:1100px;margin:0 auto}
@@ -214,7 +214,7 @@ a{color:inherit;text-decoration:none}
 </head>
 <body>
 
-<div class="preview-banner"><strong>🟡 Lancement public septembre 2026</strong> · VoxPop Citoyens — Première pétition en préparation · <a href="petition-presidentielle-2027.html" style="color:#0B1220;text-decoration:underline;font-weight:800;margin-left:12px">Voir la démo de la 1ère pétition →</a></div>
+<div class="preview-banner"><strong>🟡 Lancement public septembre 2026</strong> · VoxPop Citoyens — Première pétition en préparation · <a href="petition-presidentielle-2027.html" style="color:#050912;text-decoration:underline;font-weight:800;margin-left:12px">Voir la démo de la 1ère pétition →</a></div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -235,8 +235,8 @@ a{color:inherit;text-decoration:none}
 
 <section class="hero">
   <div class="hero-inner">
-    <span class="hero-kicker">↓ La voix du peuple · Sans frontières · Lancement septembre 2026</span>
-    <h1>Votre voix, <span>sans intermédiaire.</span></h1>
+    <span class="hero-kicker">↓ Lancement septembre 2026 · Première pétition en préparation</span>
+    <h1>La voix du peuple, <span>sans frontières.</span></h1>
     <p class="tagline">« Quand l'État refuse de demander, les citoyens répondent quand même. »</p>
     <p class="lead">Immigration, fiscalité, énergie, gestion du Covid, concentration du pouvoir : sur les grands sujets, <strong>l'État a confisqué le débat</strong>. VoxPop rend la parole aux citoyens — <strong>anonyme par cryptographie, vérifiable mathématiquement, impossible à censurer — partout dans le monde</strong>.</p>
     <div class="hero-cta-group">
@@ -287,7 +287,7 @@ a{color:inherit;text-decoration:none}
     <h2 style="text-align:center;font-size:clamp(34px,5.5vw,56px);font-weight:900;line-height:1.05;letter-spacing:-0.035em;margin-bottom:50px;color:#E2E8F0">La <span style="color:#D4A015">première question.</span></h2>
     <div class="petition-card">
       <div class="petition-image-banner"></div>
-      <span class="petition-tag" style="background:#D4A015;color:#0B1220">🟡 En préparation · Ouverture septembre 2026</span>
+      <span class="petition-tag" style="background:#D4A015;color:#050912">🟡 En préparation · Ouverture septembre 2026</span>
       <h3>Faut-il instaurer un mandat unique de 7 ans pour la présidence de la République ?</h3>
       <p class="desc">Question transversale (gauche, droite, centre), structurelle, cohérente avec le calendrier 2027. Posée publiquement aux Français, anonymement, sans biais — pour que la voix collective compte sur cette réforme institutionnelle majeure.</p>
       <p class="desc" style="font-style:italic;color:#FCD34D;margin-top:14px;font-size:14px"><strong>Ouverture des signatures prévue : septembre 2026.</strong> Notre infrastructure cryptographique est en cours de développement pour garantir un vote totalement anonyme, vérifiable et incensurable. Aucune limite de signatures — la voix du peuple n'a pas de plafond.</p>
@@ -433,7 +433,7 @@ a{color:inherit;text-decoration:none}
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="nav-logo"><img src="/preview/images/logo_voxpop_gold.png" alt="VoxPop"><span class="brand"><span class="v">Vox</span><span class="p">Pop</span></span></div>
-        <p><strong>VoxPop Citoyens</strong> et <strong>VoxPop Institutions</strong> sont édités par SASU Pelegrinus (SIREN 948 908 348). Marque détenue par Punch Ventures LLC (Wyoming).</p>
+        <p><strong>VoxPop Citoyens</strong> et <strong>VoxPop Institutions</strong> sont édités par SASU Pelegrinus (SIREN 948 908 348). Société française.</p>
       </div>
       <div class="footer-col">
         <h4>Le projet</h4>

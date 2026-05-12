@@ -112,7 +112,7 @@ export function Footer() {
               Édité par <span className="text-slate-500">SASU Pelegrinus</span> — SIREN 948 908 348 — France
             </p>
             <p className="mt-1 text-slate-700">
-              <span className="text-slate-500">Punch Ventures LLC</span> — Wyoming, USA
+              Hébergement souverain France
             </p>
           </div>
         </div>

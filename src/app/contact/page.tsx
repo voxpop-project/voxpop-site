@@ -178,13 +178,13 @@ export default function Contact() {
               </div>
 
               <div className="glass-card p-6">
-                <h4 className="text-white font-semibold mb-3">Si\u00e8ge</h4>
+                <h4 className="text-white font-semibold mb-3">Soci\u00e9t\u00e9</h4>
                 <p className="text-slate-300 text-sm">
-                  Punch Ventures LLC<br />
-                  Wyoming, USA
+                  SASU Pelegrinus<br />
+                  SIREN 948 908 348 \u2014 France
                 </p>
                 <p className="text-slate-500 text-xs mt-2">
-                  Entit\u00e9 UE en cours de cr\u00e9ation (Estonie)
+                  H\u00e9bergement souverain en France
                 </p>
               </div>
 

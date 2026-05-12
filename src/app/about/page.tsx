@@ -210,35 +210,21 @@ export default function About() {
         </div>
       </section>
 
-      {/* ========== ENTITIES ========== */}
+      {/* ========== STRUCTURE FR ========== */}
       <section className="section-padding">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle title="Structure juridique" />
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="glass-card p-8"
-            >
-              <div className="text-3xl mb-4">🇺🇸</div>
-              <h4 className="text-lg font-bold text-white mb-2">Punch Ventures LLC</h4>
-              <p className="text-slate-300 text-sm">Wyoming, USA — Holding principale</p>
-              <p className="text-slate-500 text-xs mt-2">Propriété intellectuelle, copyright, stratégie</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="glass-card p-8"
-            >
-              <div className="text-3xl mb-4">🇪🇪</div>
-              <h4 className="text-lg font-bold text-white mb-2">OÜ estonienne</h4>
-              <p className="text-slate-300 text-sm">Estonie, UE — Façade européenne</p>
-              <p className="text-slate-500 text-xs mt-2">TVA intracommunautaire, RGPD natif, e-Residency</p>
-            </motion.div>
-          </div>
+          <SectionTitle title="Société française" subtitle="VoxPop est édité et opéré par une société française. Données hébergées en France." />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="glass-card p-10 text-center"
+          >
+            <div className="text-4xl mb-4">🇫🇷</div>
+            <h4 className="text-2xl font-bold text-white mb-3">SASU Pelegrinus</h4>
+            <p className="text-slate-300 text-sm mb-2">SIREN 948 908 348 — France</p>
+            <p className="text-slate-500 text-xs">Éditeur unique de VoxPop · Hébergement souverain France · Conformité RGPD native</p>
+          </motion.div>
         </div>
       </section>
 

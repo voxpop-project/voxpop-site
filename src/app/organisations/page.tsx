@@ -97,10 +97,8 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 0.7 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight"
           >
-            Le vote sécurisé,{" "}
-            <span className="gradient-text">pour vos décisions</span>
-            <br />
-            <span className="gradient-text-gold">qui comptent vraiment.</span>
+            Bonnes questions.{" "}
+            <span className="gradient-text">Vrais résultats.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -286,7 +284,7 @@ export default function Home() {
         <div className="relative max-w-6xl mx-auto">
           <SectionTitle
             title="Deux modes, une mission"
-            subtitle="Le vote sécurisé pour vos organisations — et la voix citoyenne libre, financée par votre abonnement."
+            subtitle="Le vote sécurisé pour vos consultations — et la voix citoyenne libre, financée par votre abonnement."
             gold
           />
           <div className="grid md:grid-cols-2 gap-8">
