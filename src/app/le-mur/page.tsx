@@ -340,7 +340,7 @@ export default function LeMurPage() {
             transition={{ delay: 0.4 }}
             className="text-xs text-slate-500 font-mono"
           >
-            « C'est pour ça qu'on a créé VoxPop. »
+            « C&apos;est pour ça qu&apos;on a créé VoxPop. »
           </motion.div>
         </div>
       </section>
