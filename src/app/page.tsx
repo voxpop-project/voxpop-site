@@ -141,6 +141,38 @@ export default function Home() {
         </p>
       </section>
 
+      {/* ========== LE MUR — PREVIEW ========== */}
+      <section className="px-6 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/5 to-transparent" />
+        <div className="relative max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-br from-red-950/30 via-vp-dark to-vp-deep border-2 border-red-500/40 rounded-2xl p-8 md:p-12 text-center"
+          >
+            <div className="font-mono text-xs font-bold text-red-300 tracking-widest uppercase mb-4">
+              ↓ Mémoire démocratique · Sourcé · Factuel
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
+              Le Mur des{" "}
+              <span className="bg-gradient-to-r from-red-400 via-vp-gold to-vp-teal bg-clip-text text-transparent">
+                décisions.
+              </span>
+            </h2>
+            <p className="text-base md:text-lg text-slate-300 mb-2 max-w-2xl mx-auto leading-relaxed">
+              <strong className="text-white">15 décisions majeures</strong> prises sans consulter les citoyens — référendum 2005 ignoré, 49.3 retraite, ZFE, Covid, IA Act, Crimée…
+            </p>
+            <p className="text-sm text-slate-400 mb-6 italic">
+              Pas une opinion. Juste les faits, sourcés. <strong className="text-vp-gold not-italic">« C&apos;est pour ça qu&apos;on a créé VoxPop. »</strong>
+            </p>
+            <CTAButton href="/le-mur">
+              Voir le Mur des décisions →
+            </CTAButton>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ========== LE CONCEPT ========== */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0">

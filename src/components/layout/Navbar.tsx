@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const navLinks = [
   { label: "Accueil", href: "/" },
   { label: "Citoyens", href: "/citoyens" },
+  { label: "Le Mur", href: "/le-mur" },
   { label: "Institutions", href: "/institutions" },
   { label: "À propos", href: "/about" },
   { label: "Contact", href: "/contact" },
