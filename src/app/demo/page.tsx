@@ -1135,6 +1135,14 @@ export default function DemoPage() {
   const [auditData, setAuditData] = useState<AuditData | null>(null);
   const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number>(-1);
 
+  // Auto-scroll to top on step change (fix mobile: éviter que l'utilisateur reste bloqué en bas
+  // après avoir cliqué sur le bouton de fin d'étape, et doive scroller pour voir la suite)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [step]);
+
   const goTo = (s: DemoStep) => setStep(s);
   const nextStep = () => {
     const idx = steps.findIndex((s) => s.key === step);
@@ -1304,8 +1312,9 @@ export default function DemoPage() {
         <StepIndicator current={step} onStep={goTo} />
       </div>
 
-      {/* Main content: phone frame on desktop, full-width on mobile */}
-      <div className="max-w-5xl mx-auto px-4 pb-20">
+      {/* Main content: phone frame on desktop, full-width on mobile.
+          pb-32 sur mobile pour éviter que les boutons d'action soient cachés par la barre Safari/Chrome iOS */}
+      <div className="max-w-5xl mx-auto px-4 pb-32 md:pb-20">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Phone mockup (desktop only) */}
           <PhoneFrame>
