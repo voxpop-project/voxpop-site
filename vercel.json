@@ -1,3 +1,8 @@
 {
-  "_comment": "Rewrites moved to next.config.mjs (canonical for Next.js projects)."
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "regions": ["cdg1"]
 }
