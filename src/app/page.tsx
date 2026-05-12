@@ -65,7 +65,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-slate-200 mb-6 md:mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-vp-teal animate-pulse" />
-            Une nouvelle ère pour la démocratie
+            La voix du peuple · Sans frontières · Souveraine
           </motion.div>
 
           {/* Main headline */}
@@ -77,8 +77,6 @@ export default function Home() {
           >
             La voix qui compte{" "}
             <span className="gradient-text">vraiment.</span>
-            <br />
-            <span className="gradient-text-gold">Anonyme. Vérifiable. Souveraine.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -88,8 +86,8 @@ export default function Home() {
             transition={{ delay: 0.7 }}
             className="text-base md:text-xl text-slate-300 max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed px-2"
           >
-            VoxPop est une plateforme de vote et de pétition à preuve cryptographique.
-            <strong className="text-vp-teal"> Une mission, deux portes :</strong> l&apos;application citoyenne libre & gratuite, et la suite institutionnelle souveraine pour vos organisations.
+            L&apos;instrument de vote et de pétition à preuve cryptographique.
+            <strong className="text-vp-teal"> Une mission, deux portes :</strong> l&apos;app citoyenne libre & sans frontières, et la suite institutionnelle souveraine.
           </motion.p>
 
           {/* 2 portes CTA */}
@@ -222,6 +220,56 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ========== PÉTITION PHARE ========== */}
+      <section className="section-padding relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-vp-gold/5 to-transparent" />
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vp-gold/15 text-vp-gold text-xs font-mono font-bold tracking-widest uppercase mb-6 border border-vp-gold/30"
+          >
+            ↓ Première pétition · Septembre 2026
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight"
+          >
+            « Faut-il instaurer un{" "}
+            <span className="gradient-text-gold">mandat unique de 7 ans</span>
+            <br className="hidden md:block" />
+            {" "}pour la présidence de la République ? »
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-base md:text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+          >
+            Question transversale (gauche · droite · centre), structurelle, cohérente avec le calendrier 2027. Posée publiquement aux Français — anonymement, sans biais.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <CTAButton href="/petition-2027">
+              Voir la démo de la pétition
+            </CTAButton>
+            <CTAButton href="/citoyens#petitions" variant="outline">
+              Toutes les pétitions à venir
+            </CTAButton>
+          </motion.div>
         </div>
       </section>
 
