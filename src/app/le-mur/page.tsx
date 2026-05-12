@@ -78,6 +78,8 @@ const events: WallEvent[] = [
       "La Programmation Pluriannuelle de l'Énergie 3 (PPE3) fixe les orientations énergétiques de la France jusqu'en 2035 — sans consultation populaire ni référendum, malgré l'impact massif sur le quotidien (chauffage, transport, éolien, nucléaire). Le mix énergétique futur des Français a été décidé en cabinet.",
     sources: [
       { label: "Ministère Transition Écologique", url: "https://www.ecologie.gouv.fr/programmation-pluriannuelle-lenergie-ppe" },
+      { label: "Le Monde — PPE3 sans débat", url: "https://www.lemonde.fr/economie/article/2023/11/19/transition-energetique-le-gouvernement-recule-encore-l-echeance-de-la-loi-de-programmation_6201158_3234.html" },
+      { label: "Wikipedia — PPE", url: "https://fr.wikipedia.org/wiki/Programmation_pluriannuelle_de_l%27%C3%A9nergie" },
     ],
   },
   {
@@ -137,6 +139,8 @@ const events: WallEvent[] = [
       "Loi pour contrôler l'immigration et améliorer l'intégration, adoptée par la Commission Mixte Paritaire avec des amendements du RN — texte très éloigné du projet initial. Aucune consultation citoyenne malgré la sensibilité du sujet et la division publique sur la question.",
     sources: [
       { label: "Assemblée Nationale", url: "https://www.assemblee-nationale.fr/dyn/16/dossiers/controler_immigration_ameliorer_integration" },
+      { label: "Le Monde — Compromis CMP", url: "https://www.lemonde.fr/politique/article/2023/12/19/loi-immigration-le-texte-adopte-par-le-parlement-marque-un-net-durcissement_6206800_823448.html" },
+      { label: "Conseil Constitutionnel", url: "https://www.conseil-constitutionnel.fr/decision/2024/2023863DC.htm" },
     ],
   },
   {
@@ -151,6 +155,8 @@ const events: WallEvent[] = [
       "État d'urgence sanitaire prolongé à plusieurs reprises. Restrictions massives (confinements, couvre-feux, fermetures commerces, restrictions déplacements) imposées par décret sans consultation citoyenne, malgré une durée totale de plus de 2 ans et un impact économique et social majeur.",
     sources: [
       { label: "Vie Publique — Chronologie", url: "https://www.vie-publique.fr/eclairage/273936-covid-19-chronologie-de-la-crise-sanitaire-en-france" },
+      { label: "Wikipedia — État d'urgence sanitaire", url: "https://fr.wikipedia.org/wiki/%C3%89tat_d%27urgence_sanitaire_en_France" },
+      { label: "Légifrance — Loi 2020-290", url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041746313/" },
     ],
   },
 
@@ -184,6 +190,8 @@ const events: WallEvent[] = [
       "Premier cadre juridique mondial sur l'intelligence artificielle adopté par le Conseil de l'UE. Impact massif sur la vie quotidienne, l'emploi, les libertés — décidé par les négociations entre Commission (non élue), Parlement européen et États membres, sans aucune consultation populaire à l'échelle de l'UE.",
     sources: [
       { label: "Conseil UE — AI Act", url: "https://www.consilium.europa.eu/fr/press/press-releases/2024/05/21/artificial-intelligence-ai-act-council-gives-final-green-light-to-the-first-worldwide-rules-on-ai/" },
+      { label: "Texte officiel AI Act", url: "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689" },
+      { label: "Wikipedia — AI Act", url: "https://fr.wikipedia.org/wiki/R%C3%A8glement_sur_l%27intelligence_artificielle" },
     ],
   },
   {
@@ -198,6 +206,8 @@ const events: WallEvent[] = [
       "Ensemble massif de mesures (fin moteur thermique 2035, taxonomie verte, etc.) décidé par la Commission von der Leyen et adopté par le Conseil/Parlement. Aucune consultation populaire européenne, malgré l'impact sur le quotidien (voiture, chauffage, agriculture).",
     sources: [
       { label: "Commission Européenne", url: "https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/european-green-deal_fr" },
+      { label: "Wikipedia — Pacte vert", url: "https://fr.wikipedia.org/wiki/Pacte_vert_pour_l%27Europe" },
+      { label: "Parlement européen", url: "https://www.europarl.europa.eu/factsheets/fr/sheet/85/le-pacte-vert-pour-l-europe" },
     ],
   },
   {
@@ -212,6 +222,8 @@ const events: WallEvent[] = [
       "Accord de libre-échange UE-Mercosur (Brésil, Argentine, Uruguay, Paraguay) finalisé par la Commission von der Leyen en décembre 2024 malgré l'opposition explicite du gouvernement français et de la profession agricole. Pas de consultation citoyenne européenne.",
     sources: [
       { label: "Commission UE", url: "https://policy.trade.ec.europa.eu/eu-trade-relationships-country-and-region/countries-and-regions/mercosur_en" },
+      { label: "Le Monde — Accord finalisé", url: "https://www.lemonde.fr/economie/article/2024/12/06/accord-de-libre-echange-entre-l-union-europeenne-et-le-mercosur-la-commission-europeenne-annonce-la-finalisation_6435060_3234.html" },
+      { label: "FNSEA — Opposition agriculteurs", url: "https://www.fnsea.fr/communiques-de-presse/" },
     ],
   },
 
@@ -229,7 +241,9 @@ const events: WallEvent[] = [
     description:
       "La Cour Suprême américaine annule l'arrêt Roe v. Wade (1973) qui garantissait le droit constitutionnel à l'avortement. Décision prise par 9 juges nommés à vie, renversant 50 ans de jurisprudence sans consultation populaire. Conséquence : interdiction de l'avortement dans une vingtaine d'États.",
     sources: [
-      { label: "Supreme Court Decision", url: "https://www.supremecourt.gov/opinions/21pdf/19-1392_6j37.pdf" },
+      { label: "Supreme Court — Décision Dobbs v. Jackson", url: "https://www.supremecourt.gov/opinions/21pdf/19-1392_6j37.pdf" },
+      { label: "Wikipedia — Dobbs v. Jackson", url: "https://fr.wikipedia.org/wiki/Dobbs_v._Jackson_Women%27s_Health_Organization" },
+      { label: "Le Monde — Roe v. Wade renversé", url: "https://www.lemonde.fr/international/article/2022/06/24/aux-etats-unis-la-cour-supreme-revoque-l-arret-roe-vs-wade_6131995_3210.html" },
     ],
   },
   {
@@ -244,6 +258,8 @@ const events: WallEvent[] = [
       "Mort de Mahsa Amini le 16 septembre 2022, après son arrestation par la police des mœurs pour port incorrect du voile. Manifestations massives « Femme, Vie, Liberté » réprimées par le régime : plus de 500 morts, plusieurs milliers d'arrestations, peines de mort prononcées. La voix du peuple iranien est étouffée par la violence.",
     sources: [
       { label: "Amnesty International", url: "https://www.amnesty.org/fr/latest/news/2022/12/iran-12-ways-iranian-authorities-are-violating-protesters-rights/" },
+      { label: "ONU — Mission d'établissement des faits", url: "https://news.un.org/en/story/2024/03/1147681" },
+      { label: "OHCHR — Experts UN", url: "https://www.ohchr.org/en/press-releases/2022/10/iran-crackdown-peaceful-protests-death-jina-mahsa-amini-needs-independent" },
     ],
   },
   {
@@ -258,6 +274,8 @@ const events: WallEvent[] = [
       "La Russie organise un référendum d'annexion de la Crimée en mars 2014, dans un contexte de présence militaire russe et sans observateurs internationaux. Résultat officiel : 96% pour le rattachement à la Russie. L'ONU et la quasi-totalité des pays démocratiques ne reconnaissent pas la validité du scrutin.",
     sources: [
       { label: "Résolution ONU 68/262", url: "https://digitallibrary.un.org/record/767565" },
+      { label: "Wikipedia — Référendum Crimée 2014", url: "https://fr.wikipedia.org/wiki/R%C3%A9f%C3%A9rendum_de_2014_en_Crim%C3%A9e" },
+      { label: "Conseil Sécurité ONU — Veto Russie", url: "https://www.un.org/securitycouncil/fr/content/highlights-2014" },
     ],
   },
 ];
