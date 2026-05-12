@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* ========== HERO VITRINE PROJET ========== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background gradient orbs */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 -left-32 w-96 h-96 bg-vp-teal/10 rounded-full blur-3xl animate-float" />
@@ -39,7 +39,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-vp-violet/5 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 text-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-10 md:pt-32 md:pb-20 text-center">
           {/* BIG LOGO */}
           <motion.div
             initial={{ opacity: 0, scale: 0.7 }}
@@ -52,7 +52,7 @@ export default function Home() {
               alt="VoxPop"
               width={160}
               height={160}
-              className="mx-auto drop-shadow-2xl"
+              className="mx-auto drop-shadow-2xl w-24 h-24 md:w-40 md:h-40"
               priority
             />
           </motion.div>
@@ -62,7 +62,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-slate-200 mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-slate-200 mb-6 md:mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-vp-teal animate-pulse" />
             Une nouvelle ère pour la démocratie
@@ -73,7 +73,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.7 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-white mb-4 md:mb-6 leading-tight"
           >
             La voix qui compte{" "}
             <span className="gradient-text">vraiment.</span>
@@ -86,7 +86,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed"
+            className="text-base md:text-xl text-slate-300 max-w-3xl mx-auto mb-6 md:mb-10 leading-relaxed px-2"
           >
             VoxPop est une plateforme de vote et de pétition à preuve cryptographique.
             <strong className="text-vp-teal"> Une mission, deux portes :</strong> l&apos;application citoyenne libre & gratuite, et la suite institutionnelle souveraine pour vos organisations.
@@ -112,16 +112,15 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="mt-16 relative max-w-4xl mx-auto"
+            className="mt-10 md:mt-16 relative max-w-4xl mx-auto"
           >
             <div className="glass-card overflow-hidden rounded-2xl shadow-2xl shadow-vp-teal/10 relative">
               <video
-                id="hero-teaser"
                 autoPlay
                 muted
                 loop
                 playsInline
-                controls
+                preload="auto"
                 className="w-full aspect-video object-cover"
               >
                 <source src="/videos/teaser.mp4" type="video/mp4" />
