@@ -157,9 +157,17 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
               Le Mur des{" "}
               <span className="bg-gradient-to-r from-red-400 via-vp-gold to-vp-teal bg-clip-text text-transparent">
-                décisions.
+                dé<span className="subliminal-letter">c</span>isi<span className="subliminal-letter">o</span><span className="subliminal-letter">n</span><span className="subliminal-letter">s</span>.
               </span>
             </h2>
+            <style jsx>{`
+              .subliminal-letter {
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-decoration-color: rgba(252, 165, 165, 0.55);
+                text-underline-offset: 4px;
+              }
+            `}</style>
             <p className="text-base md:text-lg text-slate-300 mb-2 max-w-2xl mx-auto leading-relaxed">
               <strong className="text-white">15 décisions majeures</strong> prises sans consulter les citoyens — référendum 2005 ignoré, 49.3 retraite, ZFE, Covid, IA Act, Crimée…
             </p>

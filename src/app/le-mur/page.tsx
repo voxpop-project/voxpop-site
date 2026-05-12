@@ -337,9 +337,17 @@ export default function LeMurPage() {
           >
             Le Mur des{" "}
             <span className="bg-gradient-to-r from-red-400 via-vp-gold to-vp-teal bg-clip-text text-transparent">
-              décisions.
+              dé<span className="subliminal-letter">c</span>isi<span className="subliminal-letter">o</span><span className="subliminal-letter">n</span><span className="subliminal-letter">s</span>.
             </span>
           </motion.h1>
+          <style jsx>{`
+            .subliminal-letter {
+              text-decoration: underline;
+              text-decoration-thickness: 1px;
+              text-decoration-color: rgba(252, 165, 165, 0.55);
+              text-underline-offset: 4px;
+            }
+          `}</style>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
