@@ -311,9 +311,17 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="text-center text-sm text-slate-400 mt-8 max-w-3xl mx-auto italic leading-relaxed">
-            Code source <strong className="text-vp-gold">100% public</strong> sous licence libre AGPL-3.0 · Vérifiable par n&apos;importe quel chercheur, doctorant en cryptographie ou auditeur indépendant. <strong className="text-vp-gold">Aucun autre vote SaaS français ne fait ça.</strong>
+          <p className="text-center text-base text-slate-200 mt-8 max-w-3xl mx-auto leading-relaxed">
+            <strong className="text-vp-gold">100% open source · 100% consultable par tout le monde.</strong><br />
+            Notre code est intégralement public sur GitHub sous licence libre <strong className="text-vp-gold">AGPL-3.0</strong>. Chaque ligne, chaque preuve cryptographique, chaque calcul peut être <strong className="text-vp-gold">audité, recompilé, vérifié</strong> par n&apos;importe quel chercheur, doctorant, journaliste tech ou DSI. <strong className="text-vp-gold">La porte est grande ouverte.</strong>
+            <br />
+            <span className="italic text-slate-400 text-sm">Aucun autre vote SaaS français ne fait ça.</span>
           </p>
+          <div className="text-center mt-5">
+            <a href="https://github.com/voxpop-project" target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 rounded-lg border border-vp-teal/40 bg-vp-teal/10 text-vp-teal font-mono font-bold text-sm hover:bg-vp-teal/20 transition-all">
+              → github.com/voxpop-project
+            </a>
+          </div>
         </div>
       </section>
 
