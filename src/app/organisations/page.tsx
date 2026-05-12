@@ -9,21 +9,21 @@ import { CTAButton } from "@/components/ui/CTAButton";
 const piliers = [
   {
     icon: "🔒",
-    title: "Anonymat total",
+    title: "Anonyme par mathématiques",
     description:
-      "Chaque vote est protégé par chiffrement zero-knowledge. Même l'administrateur ne peut savoir qui a voté quoi.",
+      "Pas une politique de confidentialité. Une propriété cryptographique. Même nous, on ne sait pas qui a voté quoi.",
   },
   {
     icon: "✅",
-    title: "Résultats vérifiables",
+    title: "Vérifiable mathématiquement",
     description:
-      "Chaque vote est enregistré de manière immuable. Chaque membre peut vérifier publiquement que sa voix a été comptée.",
+      "Chaque résultat peut être recalculé publiquement. Aucun trucage possible, par construction.",
   },
   {
     icon: "🇫🇷",
     title: "Souverain et conforme RGPD",
     description:
-      "Hébergement en France, conformité RGPD native, code open source auditable. Vos données ne quittent jamais l'Europe.",
+      "Données 100% en France (OVH). Conformité RGPD native (pas un add-on). Code open source auditable par votre DSI.",
   },
 ];
 
@@ -87,7 +87,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm text-slate-200 mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-vp-teal animate-pulse" />
-            Une nouvelle ère pour la démocratie
+            Consultations souveraines · RGPD natif · France
           </motion.div>
 
           {/* Main headline */}
@@ -108,8 +108,8 @@ export default function Home() {
             transition={{ delay: 0.7 }}
             className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            La plateforme de consultation et de vote pour associations, copropriétés, mairies et syndicats.
-            <strong className="text-vp-teal"> Anonyme. Vérifiable. RGPD natif.</strong>
+            Le vote anonyme et vérifiable pour vos consultations — associations, copropriétés, mairies, syndicats.
+            <strong className="text-vp-teal"> Données 100% en France. Conforme RGPD natif.</strong>
             <br />
             <span className="text-sm text-slate-400 mt-2 inline-block">
               Vous êtes citoyen ? <a href="/citoyens" className="underline text-vp-gold hover:text-vp-teal">VoxPop Citoyens →</a>
@@ -123,11 +123,11 @@ export default function Home() {
             transition={{ delay: 0.9 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <CTAButton href="/how-it-works" large>
-              Découvrir comment ça marche
+            <CTAButton href="/demo" large>
+              Demander une démo
             </CTAButton>
-            <CTAButton href="/features" variant="outline" large>
-              Voir les fonctionnalités
+            <CTAButton href="/how-it-works" variant="outline" large>
+              En savoir plus
             </CTAButton>
           </motion.div>
 
@@ -252,8 +252,8 @@ export default function Home() {
       <section className="section-padding">
         <div className="max-w-6xl mx-auto">
           <SectionTitle
-            title="Les 3 piliers de VoxPop"
-            subtitle="Une plateforme construite autour de trois promesses fondamentales."
+            title="Nos trois engagements"
+            subtitle="Anonymat, vérifiabilité, souveraineté. Sans compromis."
           />
           <div className="grid md:grid-cols-3 gap-8">
             {piliers.map((p, i) => (
@@ -273,8 +273,8 @@ export default function Home() {
       <section className="section-padding bg-vp-deep border-y border-vp-teal/15">
         <div className="max-w-6xl mx-auto">
           <SectionTitle
-            title="Pas comme les autres sites de vote"
-            subtitle="Notre architecture repose sur des technologies cryptographiques avancées — les mêmes que celles utilisées par les chercheurs et les protocoles décentralisés les plus exigeants."
+            title="Notre architecture technique"
+            subtitle="Notre plateforme repose sur des technologies cryptographiques avancées — les mêmes que celles utilisées par les chercheurs et les protocoles décentralisés les plus exigeants. Aucun autre vote SaaS français ne fait ça."
           />
 
           <div className="grid md:grid-cols-2 gap-0 border border-vp-teal/25 rounded-2xl overflow-hidden">
@@ -339,7 +339,7 @@ export default function Home() {
 
         <div className="relative max-w-6xl mx-auto">
           <SectionTitle
-            title="Deux modes, une mission"
+            title="Deux modes complémentaires"
             subtitle="Le vote sécurisé pour vos consultations — et la voix citoyenne libre, financée par votre abonnement."
             gold
           />
@@ -357,10 +357,10 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-vp-blue/20 text-vp-blue text-xs font-semibold mb-6">
                   🏢 Mode Institutionnel
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">VoxPop SaaS</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">VoxPop pour votre organisation</h3>
                 <p className="text-slate-300 mb-6 leading-relaxed">
-                  Vote sécurisé clé en main pour associations, copropriétés, CSE et collectivités.
-                  Conforme RGPD. Résultats vérifiables.
+                  Vote sécurisé pour vos consultations légales (AG, élections statutaires, budgets).
+                  Cryptographie auditable. Hébergement France. Conformité RGPD native.
                 </p>
                 <CTAButton href="/features" variant="outline">En savoir plus</CTAButton>
               </div>
@@ -379,10 +379,10 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-vp-teal/20 text-vp-teal text-xs font-semibold mb-6">
                   🌍 Mode Vox Populi
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Démocratie Globale</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">La voix du peuple, libre</h3>
                 <p className="text-slate-300 mb-6 leading-relaxed">
-                  Sondages et votes citoyens gratuits, ouverts au monde entier.
-                  Résistant à la censure. Anonymat garanti.
+                  Pétitions anonymes, vérifiables, incensurables. Pour les citoyens du monde entier.
+                  Financées par votre abonnement institutionnel.
                 </p>
                 <CTAButton href="/features">Découvrir</CTAButton>
               </div>
@@ -391,12 +391,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== POURQUOI VOX POPULI ? ========== */}
+      {/* ========== NOTRE ÉTHIQUE FINANCIÈRE ========== */}
       <section className="section-padding">
         <div className="max-w-5xl mx-auto">
           <SectionTitle
-            title="Pourquoi Vox Populi ?"
-            subtitle="La voix du peuple — un mode gratuit pour changer le monde."
+            title="Notre éthique financière"
+            subtitle="Qui finance VoxPop ? Comment ? Avec quelle indépendance ? On répond précisément."
           />
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -406,17 +406,17 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                <span className="gradient-text">Vox Populi</span>, c&apos;est quoi ?
+                <span className="gradient-text">Indépendance</span> par construction.
               </h3>
               <div className="space-y-4 text-slate-300 leading-relaxed">
                 <p>
-                  <strong className="text-white">Vox Populi</strong> signifie « la voix du peuple » en latin. C&apos;est le mode <strong className="text-vp-teal">gratuit et ouvert</strong> de VoxPop, accessible à tous, partout dans le monde.
+                  VoxPop est édité par la <strong className="text-white">SASU Pelegrinus</strong> (SIREN 948 908 348, France). Aucun parti, aucun État, aucune fondation politique, aucun fonds étranger ne détient de part ni n&apos;influence VoxPop.
                 </p>
                 <p>
-                  Son but ? Permettre à <strong className="text-white">n&apos;importe quel citoyen</strong> de participer à des sondages et consultations sur les sujets qui comptent — transition écologique, droits humains, politiques locales — sans avoir besoin de compte, sans frais, sans censure.
+                  Notre <strong className="text-vp-teal">modèle économique</strong> est simple : les abonnements institutionnels (associations, copropriétés, mairies, syndicats) financent à la fois l&apos;infrastructure technique et l&apos;app citoyenne gratuite.
                 </p>
                 <p>
-                  Financé par les abonnements du mode Institutionnel, Vox Populi est notre engagement envers la démocratie mondiale : <strong className="text-vp-teal">chaque organisation qui paye pour ses votes finance la liberté d&apos;expression d&apos;un citoyen</strong> quelque part dans le monde.
+                  Quand une organisation paye son abonnement, elle finance <strong className="text-vp-teal">l&apos;outil de consultation de ses membres</strong> ET <strong className="text-vp-teal">l&apos;app citoyenne libre</strong> accessible à tous. Pas de mécène politique, pas d&apos;agenda caché.
                 </p>
               </div>
             </motion.div>
@@ -430,24 +430,24 @@ export default function Home() {
             >
               {[
                 {
-                  icon: "🆓",
-                  title: "100% gratuit, pour toujours",
-                  desc: "Aucun compte requis. Aucune donnée personnelle collectée. Voter ne devrait jamais avoir de prix.",
+                  icon: "🇫🇷",
+                  title: "100% société française",
+                  desc: "SASU Pelegrinus, SIREN 948 908 348. Aucune holding étrangère, aucune structure offshore.",
                 },
                 {
-                  icon: "🛡️",
-                  title: "Résistant à la censure",
-                  desc: "Des technologies avancées permettent de voter même là où Internet est surveillé ou restreint.",
+                  icon: "🚫",
+                  title: "Indépendance politique",
+                  desc: "Aucun parti, aucun candidat, aucun État ne possède de part dans VoxPop. Verrouillé par les statuts.",
                 },
                 {
-                  icon: "👻",
-                  title: "Anonymat cryptographique",
-                  desc: "Votre identité est protégée par des preuves mathématiques. Personne ne peut savoir ce que vous avez voté.",
+                  icon: "💰",
+                  title: "Pas de fonds étrangers",
+                  desc: "Pas d'argent d'États étrangers, pas de fondations politiques. Modèle d'affaires transparent : abonnements clients.",
                 },
                 {
-                  icon: "🗳️",
-                  title: "Modes de vote innovants",
-                  desc: "Liquid Democracy, Quadratic Voting — des mécanismes conçus pour des décisions plus justes.",
+                  icon: "📖",
+                  title: "Transparence totale",
+                  desc: "Comptes de la SASU consultables sur Pappers. Code source public sur GitHub sous licence AGPL-3.0.",
                 },
               ].map((item, i) => (
                 <motion.div
@@ -528,15 +528,15 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-vp-teal/5 to-transparent" />
         <div className="relative max-w-3xl mx-auto text-center">
           <SectionTitle
-            title="Rejoignez le mouvement"
-            subtitle="Que vous soyez une association, une collectivité ou un citoyen du monde — VoxPop est fait pour vous."
+            title="Prêt à passer du Doodle à la cryptographie ?"
+            subtitle="Une démo gratuite de 30 minutes, en visio. Sans engagement, sans relance commerciale."
           />
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <CTAButton href="/contact" large variant="secondary">
-              Commencer maintenant
+            <CTAButton href="/demo" large variant="secondary">
+              Demander une démo gratuite (30 min)
             </CTAButton>
-            <CTAButton href="/pricing" large variant="outline">
-              Voir les tarifs
+            <CTAButton href="/contact" large variant="outline">
+              Télécharger le dossier complet
             </CTAButton>
           </div>
         </div>
