@@ -2,7 +2,7 @@
 const nextConfig = {
   async rewrites() {
     return [
-      { source: "/", destination: "/preview/splash.html" },
+      // "/" est maintenant servi par src/app/page.tsx (vitrine projet React)
       { source: "/citoyens", destination: "/preview/vox-populi.html" },
       { source: "/splash", destination: "/preview/splash.html" },
       { source: "/petition-2027", destination: "/preview/petition-presidentielle-2027.html" },
