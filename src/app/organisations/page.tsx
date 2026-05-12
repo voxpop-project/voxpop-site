@@ -269,6 +269,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ========== ZKP DIFFÉRENCIATION ========== */}
+      <section className="section-padding bg-vp-deep border-y border-vp-teal/15">
+        <div className="max-w-6xl mx-auto">
+          <SectionTitle
+            title="Pas comme les autres sites de vote"
+            subtitle="Notre architecture repose sur des technologies cryptographiques avancées — les mêmes que celles utilisées par les chercheurs et les protocoles décentralisés les plus exigeants."
+          />
+
+          <div className="grid md:grid-cols-2 gap-0 border border-vp-teal/25 rounded-2xl overflow-hidden">
+            {/* Colonne tech pure */}
+            <div className="bg-vp-dark p-8 border-r border-vp-teal/20">
+              <div className="font-mono text-xs font-bold text-vp-teal tracking-widest uppercase mb-5 pb-3 border-b border-vp-teal/20">
+                ▸ La techno pure
+              </div>
+              <ul className="space-y-3 font-mono text-sm text-slate-300">
+                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Zero-Knowledge Proofs</strong> (Groth16, PLONK)</li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Nullifiers</strong> (protocole Semaphore)</li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Merkle Trees</strong> (arbre binaire de hashs)</li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Identity Commitments</strong> (Pedersen)</li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">End-to-end verifiable</strong> (Helios, Adida 2008)</li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Hébergement souverain</strong> (France, OVH, RGPD)</li>
+                <li><strong className="text-vp-teal">Audit cryptographique</strong> signé sur demande</li>
+              </ul>
+            </div>
+
+            {/* Colonne explication concrète */}
+            <div className="bg-vp-deep p-8">
+              <div className="font-mono text-xs font-bold text-vp-gold tracking-widest uppercase mb-5 pb-3 border-b border-vp-teal/20">
+                ▸ Concrètement, pour votre organisation :
+              </div>
+              <ul className="space-y-3 text-sm text-slate-100 leading-relaxed">
+                <li className="pb-2 border-b border-dashed border-vp-teal/10">Prouver l&apos;éligibilité au vote <strong className="text-vp-gold">sans révéler l&apos;identité</strong> du votant</li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10">Un vote unique par votant, <strong className="text-vp-gold">impossible à dupliquer</strong></li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10">Liste des membres autorisés <strong className="text-vp-gold">chiffrée mais auditable</strong></li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10">L&apos;identité de chaque votant <strong className="text-vp-gold">scellée par mathématiques</strong></li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10">Chaque votant vérifie lui-même que <strong className="text-vp-gold">sa voix a été comptée</strong></li>
+                <li className="pb-2 border-b border-dashed border-vp-teal/10">Données <strong className="text-vp-gold">100% hébergées en France</strong>, sous droit français</li>
+                <li>Résultat <strong className="text-vp-gold">opposable juridiquement</strong>, audit indépendant possible</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-center text-sm text-slate-400 mt-8 max-w-3xl mx-auto italic leading-relaxed">
+            Code source <strong className="text-vp-gold">100% public</strong> sous licence libre AGPL-3.0 · Vérifiable par n&apos;importe quel chercheur, doctorant en cryptographie ou auditeur indépendant. <strong className="text-vp-gold">Aucun autre vote SaaS français ne fait ça.</strong>
+          </p>
+        </div>
+      </section>
+
       {/* ========== DUAL MODE ========== */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0">
