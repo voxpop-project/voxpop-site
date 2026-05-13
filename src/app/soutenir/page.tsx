@@ -59,7 +59,7 @@ export default function SoutenirPage() {
               </div>
               {/* Stripe Payment Link — TO REPLACE WITH REAL URL */}
               <a
-                href="https://buy.stripe.com/PLACEHOLDER_STRIPE_LINK"
+                href="https://buy.stripe.com/fZu7sMb7j0PSfzD72J4AU00"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-vp-gold text-vp-deep font-bold rounded-lg hover:bg-vp-gold/90 transition shadow-lg shadow-vp-gold/20"
