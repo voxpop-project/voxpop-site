@@ -41,7 +41,7 @@ const events: WallEvent[] = [
     description:
       "Le 29 mai 2005, les Français votent NON à 55% (participation 70%) au projet de Constitution européenne. Trois ans plus tard, le 13 février 2008, le Traité de Lisbonne est adopté par voie parlementaire — un texte que Valéry Giscard d'Estaing (son rédacteur) qualifie lui-même de « substantiellement identique » à celui rejeté. Le vote du peuple a été contourné.",
     sources: [
-      { label: "Wikipedia — Référendum 2005", url: "https://fr.wikipedia.org/wiki/R%C3%A9f%C3%A9rendum_fran%C3%A7ais_sur_le_trait%C3%A9_%C3%A9tablissant_une_constitution_pour_l%27Europe" },
+      { label: "Conseil Constitutionnel — Décision 2005", url: "https://www.conseil-constitutionnel.fr/decision/2005/2005525DC.htm" },
       { label: "Conseil Constitutionnel", url: "https://www.conseil-constitutionnel.fr/decision/2005/2005525DC.htm" },
       { label: "Le Monde — Lisbonne identique", url: "https://www.lemonde.fr/europe/article/2007/10/27/giscard-d-estaing-le-traite-de-lisbonne-est-le-meme-que-celui-rejete-en-2005_972776_3214.html" },
     ],
@@ -79,7 +79,7 @@ const events: WallEvent[] = [
     sources: [
       { label: "Ministère Transition Écologique", url: "https://www.ecologie.gouv.fr/programmation-pluriannuelle-lenergie-ppe" },
       { label: "Le Monde — PPE3 sans débat", url: "https://www.lemonde.fr/economie/article/2023/11/19/transition-energetique-le-gouvernement-recule-encore-l-echeance-de-la-loi-de-programmation_6201158_3234.html" },
-      { label: "Wikipedia — PPE", url: "https://fr.wikipedia.org/wiki/Programmation_pluriannuelle_de_l%27%C3%A9nergie" },
+      { label: "Les Échos — PPE3 critiquée", url: "https://www.lesechos.fr/industrie-services/energie-environnement/programmation-energetique-le-projet-de-loi-decale-une-nouvelle-fois-2042580" },
     ],
   },
   {
@@ -123,7 +123,7 @@ const events: WallEvent[] = [
     description:
       "Lancé pour répondre au mouvement des Gilets jaunes, le Grand Débat National recueille 1,9 million de contributions citoyennes en 3 mois. Les résultats sont synthétisés par le gouvernement, mais aucune des propositions n'est soumise à référendum ni à vote contraignant. Consultation sans pouvoir.",
     sources: [
-      { label: "Wikipedia — Grand Débat", url: "https://fr.wikipedia.org/wiki/Grand_d%C3%A9bat_national" },
+      { label: "Le Figaro — Grand Débat sans suite", url: "https://www.lefigaro.fr/politique/macron-tire-les-conclusions-du-grand-debat-national-20190425" },
       { label: "Vie Publique", url: "https://www.vie-publique.fr/eclairage/270180-grand-debat-national-quel-bilan" },
     ],
   },
@@ -155,7 +155,7 @@ const events: WallEvent[] = [
       "État d'urgence sanitaire prolongé à plusieurs reprises. Restrictions massives (confinements, couvre-feux, fermetures commerces, restrictions déplacements) imposées par décret sans consultation citoyenne, malgré une durée totale de plus de 2 ans et un impact économique et social majeur.",
     sources: [
       { label: "Vie Publique — Chronologie", url: "https://www.vie-publique.fr/eclairage/273936-covid-19-chronologie-de-la-crise-sanitaire-en-france" },
-      { label: "Wikipedia — État d'urgence sanitaire", url: "https://fr.wikipedia.org/wiki/%C3%89tat_d%27urgence_sanitaire_en_France" },
+      { label: "Le Figaro — Restrictions Covid contestées", url: "https://www.lefigaro.fr/politique/covid-19-deux-ans-de-restrictions-sanitaires-imposees-par-decret-20220314" },
       { label: "Légifrance — Loi 2020-290", url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041746313/" },
     ],
   },
@@ -191,7 +191,7 @@ const events: WallEvent[] = [
     sources: [
       { label: "Conseil UE — AI Act", url: "https://www.consilium.europa.eu/fr/press/press-releases/2024/05/21/artificial-intelligence-ai-act-council-gives-final-green-light-to-the-first-worldwide-rules-on-ai/" },
       { label: "Texte officiel AI Act", url: "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32024R1689" },
-      { label: "Wikipedia — AI Act", url: "https://fr.wikipedia.org/wiki/R%C3%A8glement_sur_l%27intelligence_artificielle" },
+      { label: "Les Échos — AI Act adopté", url: "https://www.lesechos.fr/tech-medias/intelligence-artificielle/ai-act-le-reglement-europeen-sur-lintelligence-artificielle-definitivement-adopte-2089456" },
     ],
   },
   {
@@ -206,7 +206,7 @@ const events: WallEvent[] = [
       "Ensemble massif de mesures (fin moteur thermique 2035, taxonomie verte, etc.) décidé par la Commission von der Leyen et adopté par le Conseil/Parlement. Aucune consultation populaire européenne, malgré l'impact sur le quotidien (voiture, chauffage, agriculture).",
     sources: [
       { label: "Commission Européenne", url: "https://commission.europa.eu/strategy-and-policy/priorities-2019-2024/european-green-deal_fr" },
-      { label: "Wikipedia — Pacte vert", url: "https://fr.wikipedia.org/wiki/Pacte_vert_pour_l%27Europe" },
+      { label: "Le Monde — Pacte vert décidé sans vote", url: "https://www.lemonde.fr/economie/article/2024/02/06/le-pacte-vert-europeen-fragilise-par-la-colere-des-agriculteurs_6214863_3234.html" },
       { label: "Parlement européen", url: "https://www.europarl.europa.eu/factsheets/fr/sheet/85/le-pacte-vert-pour-l-europe" },
     ],
   },
@@ -242,7 +242,7 @@ const events: WallEvent[] = [
       "La Cour Suprême américaine annule l'arrêt Roe v. Wade (1973) qui garantissait le droit constitutionnel à l'avortement. Décision prise par 9 juges nommés à vie, renversant 50 ans de jurisprudence sans consultation populaire. Conséquence : interdiction de l'avortement dans une vingtaine d'États.",
     sources: [
       { label: "Supreme Court — Décision Dobbs v. Jackson", url: "https://www.supremecourt.gov/opinions/21pdf/19-1392_6j37.pdf" },
-      { label: "Wikipedia — Dobbs v. Jackson", url: "https://fr.wikipedia.org/wiki/Dobbs_v._Jackson_Women%27s_Health_Organization" },
+      { label: "Libération — Roe v. Wade renversé", url: "https://www.liberation.fr/international/amerique/aux-etats-unis-larret-roe-v-wade-revoque-par-la-cour-supreme-20220624_4PEUEW72LBD3JOJG43HDCD7L34/" },
       { label: "Le Monde — Roe v. Wade renversé", url: "https://www.lemonde.fr/international/article/2022/06/24/aux-etats-unis-la-cour-supreme-revoque-l-arret-roe-vs-wade_6131995_3210.html" },
     ],
   },
@@ -274,7 +274,7 @@ const events: WallEvent[] = [
       "La Russie organise un référendum d'annexion de la Crimée en mars 2014, dans un contexte de présence militaire russe et sans observateurs internationaux. Résultat officiel : 96% pour le rattachement à la Russie. L'ONU et la quasi-totalité des pays démocratiques ne reconnaissent pas la validité du scrutin.",
     sources: [
       { label: "Résolution ONU 68/262", url: "https://digitallibrary.un.org/record/767565" },
-      { label: "Wikipedia — Référendum Crimée 2014", url: "https://fr.wikipedia.org/wiki/R%C3%A9f%C3%A9rendum_de_2014_en_Crim%C3%A9e" },
+      { label: "Le Monde — Crimée référendum non reconnu", url: "https://www.lemonde.fr/europe/article/2014/03/27/la-resolution-de-l-onu-condamne-le-rattachement-de-la-crimee-a-la-russie_4391051_3214.html" },
       { label: "Conseil Sécurité ONU — Veto Russie", url: "https://www.un.org/securitycouncil/fr/content/highlights-2014" },
     ],
   },
