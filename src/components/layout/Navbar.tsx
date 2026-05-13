@@ -33,32 +33,44 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo — agrandi à 72px (mobile reste 56px) */}
         <Link href="/" className="flex items-center gap-3 group">
           <Image
             src="/images/logo.png"
             alt="VoxPop"
-            width={52}
-            height={52}
-            className="transition-transform group-hover:scale-110"
+            width={72}
+            height={72}
+            className="transition-transform group-hover:scale-110 w-14 h-14 md:w-[72px] md:h-[72px]"
+            priority
           />
-          <span className="text-xl font-bold text-white tracking-tight">
+          <span className="text-2xl md:text-3xl font-black text-white tracking-tight">
             Vox<span className="gradient-text">Pop</span>
           </span>
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-slate-300 hover:text-white transition-colors duration-200 relative group"
-            >
-              {link.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-vp-teal to-vp-blue transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+        {/* Desktop links — boutons colorés par destination (boussole visuelle) */}
+        <div className="hidden lg:flex items-center gap-6">
+          {navLinks.map((link) => {
+            // Couleur spécifique pour Citoyens (or), Le Mur (rouge), Institutions (bleu)
+            const colorClass =
+              link.href === "/citoyens"
+                ? "text-vp-gold hover:text-yellow-300"
+                : link.href === "/le-mur"
+                ? "text-red-400 hover:text-red-300"
+                : link.href === "/institutions"
+                ? "text-vp-teal hover:text-cyan-300"
+                : "text-slate-300 hover:text-white";
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-semibold ${colorClass} transition-colors duration-200 relative group`}
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-current transition-all duration-300 group-hover:w-full" />
+              </Link>
+            );
+          })}
           <Link
             href="/contact"
             className="ml-4 px-6 py-2 text-sm font-semibold rounded-full bg-gradient-to-r from-vp-teal to-vp-blue text-white shadow-lg shadow-vp-teal/20 hover:shadow-vp-teal/40 transition-all duration-300"
