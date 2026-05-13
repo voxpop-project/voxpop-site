@@ -98,6 +98,21 @@ const events: WallEvent[] = [
     ],
   },
   {
+    id: "eoliennes-manche",
+    date: "2012-2024",
+    year: 2024,
+    flag: "🇫🇷",
+    region: "fr",
+    category: "law",
+    title: "Éoliennes offshore en Manche : imposées aux riverains sans référendum.",
+    description:
+      "Parcs éoliens offshore décidés par appels d'offres de l'État (2012, 2019) — Courseulles-sur-Mer, Fécamp, Dieppe-Le Tréport, Saint-Brieuc — malgré l'opposition documentée des pêcheurs, des riverains et des élus locaux. Aucun référendum local. Recours juridiques rejetés. Impact massif sur le paysage, la pêche artisanale et la faune marine. Décisions imposées d'en haut, validées sans la moindre consultation citoyenne directe.",
+    sources: [
+      { label: "Le Monde", url: "https://www.lemonde.fr/planete/article/2023/11/24/le-premier-parc-eolien-en-mer-de-fecamp-est-acheve_6202055_3244.html" },
+      { label: "Ouest-France", url: "https://www.ouest-france.fr/environnement/energies/eolien/eolien-en-mer-pourquoi-les-pecheurs-sont-en-colere-contre-le-parc-de-dieppe-le-treport-7c8c5544-9e8c-11ec-b540-72eaaa6b9f6f" },
+    ],
+  },
+  {
     id: "passe-vaccinal",
     date: "Janvier 2022",
     year: 2022,
