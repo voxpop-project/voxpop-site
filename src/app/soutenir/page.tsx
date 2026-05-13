@@ -49,7 +49,7 @@ export default function SoutenirPage() {
                 Chaque euro finance directement le développement open source, l&apos;audit cryptographique externe, et l&apos;hébergement souverain.
                 Pas de salaires d&apos;agences, pas de marketing payant, pas de levée VC.
                 <br /><br />
-                <strong className="text-vp-gold">Don sécurisé via Stripe</strong> · paiement par carte · à partir de 5€ · montant libre.
+                <strong className="text-vp-gold">Don sécurisé via Stripe</strong> · paiement par carte · 5€ par soutien (vous pouvez donner plusieurs fois). D&apos;autres paliers (10€, 20€, 50€) seront proposés sous peu.
               </p>
               <div className="bg-vp-deep/50 border border-vp-teal/20 rounded-lg p-4 mb-6">
                 <p className="text-sm text-slate-400 italic">
@@ -64,8 +64,8 @@ export default function SoutenirPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-vp-gold text-vp-deep font-bold rounded-lg hover:bg-vp-gold/90 transition shadow-lg shadow-vp-gold/20"
               >
-                💳 Faire un don — Stripe
-                <span className="text-xs opacity-70">(à partir de 5€)</span>
+                💳 Faire un don de 5€
+                <span className="text-xs opacity-70">via Stripe sécurisé</span>
               </a>
               <p className="text-xs text-slate-500 mt-3 italic">
                 Page de paiement officielle Stripe · chiffrement SSL · aucune donnée bancaire stockée chez nous.
