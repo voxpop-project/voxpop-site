@@ -288,30 +288,37 @@ a{color:inherit;text-decoration:none}
     <p class="section-sub" style="text-align:center;color:#94A3B8;font-size:17px;max-width:780px;margin:0 auto 50px auto;line-height:1.65">Notre architecture repose sur des <strong style="color:#FCD34D">technologies cryptographiques avancées</strong> — les mêmes que celles utilisées par les chercheurs et les protocoles décentralisés les plus exigeants. Voici ce que ça veut dire concrètement.</p>
 
     <div class="zkp-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(212,160,21,0.25);border-radius:14px;overflow:hidden">
-      <div class="zkp-tech" style="background:#0A0E1A;padding:32px 28px;border-right:1px solid rgba(212,160,21,0.18)">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:#D4A015;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(212,160,21,0.2)">▸ La techno pure</div>
-        <ul style="list-style:none;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;line-height:1.85">
-          <li style="padding:6px 0;border-bottom:1px dashed rgba(212,160,21,0.12)"><strong style="color:#FCD34D">Zero-Knowledge Proofs</strong> (Groth16, PLONK)</li>
-          <li style="padding:6px 0;border-bottom:1px dashed rgba(212,160,21,0.12)"><strong style="color:#FCD34D">Nullifiers</strong> (protocole Semaphore)</li>
-          <li style="padding:6px 0;border-bottom:1px dashed rgba(212,160,21,0.12)"><strong style="color:#FCD34D">Merkle Trees</strong> (arbre binaire de hashs)</li>
-          <li style="padding:6px 0;border-bottom:1px dashed rgba(212,160,21,0.12)"><strong style="color:#FCD34D">Identity Commitments</strong> (Pedersen)</li>
-          <li style="padding:6px 0;border-bottom:1px dashed rgba(212,160,21,0.12)"><strong style="color:#FCD34D">End-to-end verifiable</strong> (Helios, Adida 2008)</li>
-          <li style="padding:6px 0;border-bottom:1px dashed rgba(212,160,21,0.12)"><strong style="color:#FCD34D">Decentralized storage</strong> (IPFS, réplication)</li>
-          <li style="padding:6px 0"><strong style="color:#FCD34D">Tor + VPN routing</strong> (anti-censure réseau)</li>
-        </ul>
-      </div>
-      <div class="zkp-plain" style="background:#0F172A;padding:32px 28px">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:#FCD34D;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(212,160,21,0.2)">▸ Concrètement, ça veut dire :</div>
-        <ul style="list-style:none;font-size:13px;color:#E2E8F0;line-height:1.7">
-          <li style="padding:8px 0;border-bottom:1px dashed rgba(212,160,21,0.12)">Prouver qu'on a le droit de voter <strong style="color:#FCD34D">sans dire qui on est</strong></li>
-          <li style="padding:8px 0;border-bottom:1px dashed rgba(212,160,21,0.12)">Un ticket à usage unique, <strong style="color:#FCD34D">impossible à lier à vous</strong></li>
-          <li style="padding:8px 0;border-bottom:1px dashed rgba(212,160,21,0.12)">Une liste d'autorisés <strong style="color:#FCD34D">chiffrée mais auditable</strong></li>
-          <li style="padding:8px 0;border-bottom:1px dashed rgba(212,160,21,0.12)">Votre identité <strong style="color:#FCD34D">scellée par mathématiques</strong></li>
-          <li style="padding:8px 0;border-bottom:1px dashed rgba(212,160,21,0.12)">Vous pouvez <strong style="color:#FCD34D">vérifier vous-même</strong> que votre vote a compté</li>
-          <li style="padding:8px 0;border-bottom:1px dashed rgba(212,160,21,0.12)">Le système <strong style="color:#FCD34D">survit même si on coupe Internet</strong></li>
-          <li style="padding:8px 0">Votre vote passe par <strong style="color:#FCD34D">des chemins qu'on ne peut pas espionner</strong></li>
-        </ul>
-      </div>
+      <!-- Headers -->
+      <div class="zkp-head-l" style="background:#0A0E1A;padding:18px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px solid rgba(212,160,21,0.2);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:#D4A015;letter-spacing:2px;text-transform:uppercase">▸ La techno pure</div>
+      <div class="zkp-head-r" style="background:#0F172A;padding:18px 28px;border-bottom:1px solid rgba(212,160,21,0.2);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:#FCD34D;letter-spacing:2px;text-transform:uppercase">▸ Concrètement, ça veut dire :</div>
+
+      <!-- Row 1 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px dashed rgba(212,160,21,0.12);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">Zero-Knowledge Proofs</strong> (Groth16, PLONK)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;border-bottom:1px dashed rgba(212,160,21,0.12);font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Prouver qu'on a le droit de voter <strong style="color:#FCD34D">sans dire qui on est</strong></span></div>
+
+      <!-- Row 2 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px dashed rgba(212,160,21,0.12);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">Nullifiers</strong> (protocole Semaphore)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;border-bottom:1px dashed rgba(212,160,21,0.12);font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Un ticket à usage unique, <strong style="color:#FCD34D">impossible à lier à vous</strong></span></div>
+
+      <!-- Row 3 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px dashed rgba(212,160,21,0.12);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">Merkle Trees</strong> (arbre binaire de hashs)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;border-bottom:1px dashed rgba(212,160,21,0.12);font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Une liste d'autorisés <strong style="color:#FCD34D">chiffrée mais auditable</strong></span></div>
+
+      <!-- Row 4 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px dashed rgba(212,160,21,0.12);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">Identity Commitments</strong> (Pedersen)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;border-bottom:1px dashed rgba(212,160,21,0.12);font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Votre identité <strong style="color:#FCD34D">scellée par mathématiques</strong></span></div>
+
+      <!-- Row 5 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px dashed rgba(212,160,21,0.12);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">End-to-end verifiable</strong> (Helios, Adida 2008)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;border-bottom:1px dashed rgba(212,160,21,0.12);font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Vous pouvez <strong style="color:#FCD34D">vérifier vous-même</strong> que votre vote a compté</span></div>
+
+      <!-- Row 6 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);border-bottom:1px dashed rgba(212,160,21,0.12);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">Decentralized storage</strong> (IPFS, réplication)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;border-bottom:1px dashed rgba(212,160,21,0.12);font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Le système <strong style="color:#FCD34D">survit même si on coupe Internet</strong></span></div>
+
+      <!-- Row 7 -->
+      <div class="zkp-cell-l" style="background:#0A0E1A;padding:14px 28px;border-right:1px solid rgba(212,160,21,0.18);font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#CBD5E1;display:flex;align-items:center"><span><strong style="color:#FCD34D">Tor + VPN routing</strong> (anti-censure réseau)</span></div>
+      <div class="zkp-cell-r" style="background:#0F172A;padding:14px 28px;font-size:13px;color:#E2E8F0;line-height:1.5;display:flex;align-items:center"><span>Votre vote passe par <strong style="color:#FCD34D">des chemins qu'on ne peut pas espionner</strong></span></div>
     </div>
 
     <p style="margin-top:36px;text-align:center;font-size:14px;color:#CBD5E1;line-height:1.75;max-width:880px;margin-left:auto;margin-right:auto">
@@ -327,7 +334,7 @@ a{color:inherit;text-decoration:none}
 <style>
 @media(max-width:760px){
   .zkp-grid{grid-template-columns:1fr !important}
-  .zkp-tech{border-right:none !important;border-bottom:1px solid rgba(212,160,21,0.18)}
+  .zkp-cell-l,.zkp-head-l{border-right:none !important}
 }
 </style>
 

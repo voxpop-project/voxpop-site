@@ -277,38 +277,43 @@ export default function Home() {
             subtitle="Notre plateforme repose sur des technologies cryptographiques avancées — les mêmes que celles utilisées par les chercheurs et les protocoles décentralisés les plus exigeants. Aucun autre vote SaaS français ne fait ça."
           />
 
-          <div className="grid md:grid-cols-2 gap-0 border border-vp-teal/25 rounded-2xl overflow-hidden">
-            {/* Colonne tech pure */}
-            <div className="bg-vp-dark p-8 border-r border-vp-teal/20">
-              <div className="font-mono text-xs font-bold text-vp-teal tracking-widest uppercase mb-5 pb-3 border-b border-vp-teal/20">
-                ▸ La techno pure
-              </div>
-              <ul className="space-y-3 font-mono text-sm text-slate-300">
-                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Zero-Knowledge Proofs</strong> (Groth16, PLONK)</li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Nullifiers</strong> (protocole Semaphore)</li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Merkle Trees</strong> (arbre binaire de hashs)</li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Identity Commitments</strong> (Pedersen)</li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">End-to-end verifiable</strong> (Helios, Adida 2008)</li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10"><strong className="text-vp-teal">Hébergement souverain</strong> (France, OVH, RGPD)</li>
-                <li><strong className="text-vp-teal">Audit cryptographique</strong> signé sur demande</li>
-              </ul>
+          {/* Grid 7 lignes × 2 colonnes, alignées row par row */}
+          <div className="border border-vp-teal/25 rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            {/* Headers */}
+            <div className="bg-vp-dark p-5 border-b border-vp-teal/20 md:border-r font-mono text-xs font-bold text-vp-teal tracking-widest uppercase">
+              ▸ La techno pure
+            </div>
+            <div className="bg-vp-deep p-5 border-b border-vp-teal/20 font-mono text-xs font-bold text-vp-gold tracking-widest uppercase">
+              ▸ Concrètement, pour votre organisation :
             </div>
 
-            {/* Colonne explication concrète */}
-            <div className="bg-vp-deep p-8">
-              <div className="font-mono text-xs font-bold text-vp-gold tracking-widest uppercase mb-5 pb-3 border-b border-vp-teal/20">
-                ▸ Concrètement, pour votre organisation :
-              </div>
-              <ul className="space-y-3 text-sm text-slate-100 leading-relaxed">
-                <li className="pb-2 border-b border-dashed border-vp-teal/10">Prouver l&apos;éligibilité au vote <strong className="text-vp-gold">sans révéler l&apos;identité</strong> du votant</li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10">Un vote unique par votant, <strong className="text-vp-gold">impossible à dupliquer</strong></li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10">Liste des membres autorisés <strong className="text-vp-gold">chiffrée mais auditable</strong></li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10">L&apos;identité de chaque votant <strong className="text-vp-gold">scellée par mathématiques</strong></li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10">Chaque votant vérifie lui-même que <strong className="text-vp-gold">sa voix a été comptée</strong></li>
-                <li className="pb-2 border-b border-dashed border-vp-teal/10">Données <strong className="text-vp-gold">100% hébergées en France</strong>, sous droit français</li>
-                <li>Résultat <strong className="text-vp-gold">opposable juridiquement</strong>, audit indépendant possible</li>
-              </ul>
-            </div>
+            {/* Row 1 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 border-b border-vp-teal/10 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">Zero-Knowledge Proofs</strong> (Groth16, PLONK)</span></div>
+            <div className="bg-vp-deep px-6 py-4 border-b border-vp-teal/10 text-sm text-slate-100 leading-relaxed flex items-center"><span>Prouver l&apos;éligibilité au vote <strong className="text-vp-gold">sans révéler l&apos;identité</strong> du votant</span></div>
+
+            {/* Row 2 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 border-b border-vp-teal/10 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">Nullifiers</strong> (protocole Semaphore)</span></div>
+            <div className="bg-vp-deep px-6 py-4 border-b border-vp-teal/10 text-sm text-slate-100 leading-relaxed flex items-center"><span>Un vote unique par votant, <strong className="text-vp-gold">impossible à dupliquer</strong></span></div>
+
+            {/* Row 3 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 border-b border-vp-teal/10 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">Merkle Trees</strong> (arbre binaire de hashs)</span></div>
+            <div className="bg-vp-deep px-6 py-4 border-b border-vp-teal/10 text-sm text-slate-100 leading-relaxed flex items-center"><span>Liste des membres autorisés <strong className="text-vp-gold">chiffrée mais auditable</strong></span></div>
+
+            {/* Row 4 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 border-b border-vp-teal/10 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">Identity Commitments</strong> (Pedersen)</span></div>
+            <div className="bg-vp-deep px-6 py-4 border-b border-vp-teal/10 text-sm text-slate-100 leading-relaxed flex items-center"><span>L&apos;identité de chaque votant <strong className="text-vp-gold">scellée par mathématiques</strong></span></div>
+
+            {/* Row 5 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 border-b border-vp-teal/10 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">End-to-end verifiable</strong> (Helios, Adida 2008)</span></div>
+            <div className="bg-vp-deep px-6 py-4 border-b border-vp-teal/10 text-sm text-slate-100 leading-relaxed flex items-center"><span>Chaque votant vérifie lui-même que <strong className="text-vp-gold">sa voix a été comptée</strong></span></div>
+
+            {/* Row 6 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 border-b border-vp-teal/10 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">Hébergement souverain</strong> (France, OVH, RGPD)</span></div>
+            <div className="bg-vp-deep px-6 py-4 border-b border-vp-teal/10 text-sm text-slate-100 leading-relaxed flex items-center"><span>Données <strong className="text-vp-gold">100% hébergées en France</strong>, sous droit français</span></div>
+
+            {/* Row 7 */}
+            <div className="bg-vp-dark px-6 py-4 md:border-r border-vp-teal/20 font-mono text-sm text-slate-300 flex items-center"><span><strong className="text-vp-teal">Audit cryptographique</strong> signé sur demande</span></div>
+            <div className="bg-vp-deep px-6 py-4 text-sm text-slate-100 leading-relaxed flex items-center"><span>Résultat <strong className="text-vp-gold">opposable juridiquement</strong>, audit indépendant possible</span></div>
           </div>
 
           <p className="text-center text-base text-slate-200 mt-8 max-w-3xl mx-auto leading-relaxed">
@@ -531,6 +536,11 @@ export default function Home() {
             title="Prêt à passer du Doodle à la cryptographie ?"
             subtitle="Une démo gratuite de 30 minutes, en visio. Sans engagement, sans relance commerciale."
           />
+          <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed -mt-8 mb-12 italic">
+            <strong className="text-vp-teal not-italic">Doodle</strong> — anciennement l&apos;outil de sondage en ligne le plus utilisé pour caler une réunion ou voter en groupe.
+            Pratique, mais <strong className="text-white not-italic">non anonyme</strong>, <strong className="text-white not-italic">non vérifiable cryptographiquement</strong> et <strong className="text-white not-italic">sans valeur juridique opposable</strong>.
+            VoxPop, c&apos;est la génération d&apos;après : preuve mathématique, anonymat garanti, résultat auditable.
+          </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <CTAButton href="/demo" large variant="secondary">
               Demander une démo gratuite (30 min)
