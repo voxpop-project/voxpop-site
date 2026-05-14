@@ -24,16 +24,48 @@ export default function Contact() {
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      // Web3Forms — service externe gratuit qui forward le message à contact@voxpop-app.com
+      // Access key publique côté client = OK pour ce service (rate limit + spam filter natifs).
+      // Pour la remplacer par votre propre clé : signup sur https://web3forms.com et mettez la clé dans NEXT_PUBLIC_WEB3FORMS_KEY
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "PLACEHOLDER_REPLACE_ME";
+
+      // Fallback : si pas de clé Web3Forms, on bascule sur mailto qui ouvre le client mail de l'utilisateur.
+      if (!accessKey || accessKey === "PLACEHOLDER_REPLACE_ME") {
+        const subject = encodeURIComponent(`[VoxPop · ${data.subject}] ${data.name}${data.organization ? " (" + data.organization + ")" : ""}`);
+        const body = encodeURIComponent(`De : ${data.name}\nEmail : ${data.email}\n${data.organization ? "Organisation : " + data.organization + "\n" : ""}Sujet : ${data.subject}\n\n${data.message}\n\n---\nMessage soumis via voxpop-app.com/contact`);
+        window.location.href = `mailto:contact@voxpop-app.com?subject=${subject}&body=${body}`;
+        setSubmitted(true);
+        return;
+      }
+
+      // Envoi via Web3Forms
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          from_name: data.name,
+          email: data.email,
+          subject: `[VoxPop · ${data.subject}] ${data.name}${data.organization ? " (" + data.organization + ")" : ""}`,
+          message: data.message,
+          organization: data.organization || "—",
+          // Web3Forms forward le mail à l'adresse configurée dans le dashboard Web3Forms
+          // (donc contact@voxpop-app.com après le signup)
+        }),
+      });
+
+      const result = await res.json();
+
+      if (!result.success) {
+        throw new Error(result.message || "Failed to send message");
+      }
+
+      // Backup local : on log aussi côté serveur Vercel
+      void fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Failed to send message");
-      }
+      }).catch(() => null);
 
       setSubmitted(true);
     } catch (err) {
@@ -53,6 +85,29 @@ export default function Contact() {
 
       <section className="section-padding">
         <div className="max-w-4xl mx-auto">
+
+          {/* Bandeau email direct prioritaire */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-12 bg-vp-gold/10 border border-vp-gold/30 rounded-2xl p-6 md:p-7 flex flex-col md:flex-row items-start md:items-center gap-5"
+          >
+            <div className="text-4xl">📧</div>
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-vp-gold mb-1">Email direct prioritaire</h3>
+              <p className="text-slate-300 text-sm">
+                Pour une réponse rapide *(presse, partenariat, mécénat, technique)*, écrivez-nous directement à&nbsp;:
+              </p>
+            </div>
+            <a
+              href="mailto:contact@voxpop-app.com"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-vp-gold text-vp-deep font-bold rounded-lg hover:bg-vp-gold/90 transition shadow-lg whitespace-nowrap"
+            >
+              contact@voxpop-app.com →
+            </a>
+          </motion.div>
+
           <div className="grid md:grid-cols-5 gap-12">
             {/* Form */}
             <motion.div
