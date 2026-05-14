@@ -22,15 +22,48 @@ export default function SoutenirPage() {
               Quatre façons de faire vivre <span className="text-vp-gold">VoxPop</span>.
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-              VoxPop est <strong className="text-white">auto-financé</strong>, <strong className="text-white">sans VC</strong>, <strong className="text-white">sans subvention partisane</strong>.
+              VoxPop est <strong className="text-white">auto-financé</strong>, <strong className="text-white">sans levée VC à ce stade</strong>, <strong className="text-white">sans subvention partisane</strong>.
               Pour rester libre, il a besoin de vous — selon vos moyens, votre temps, votre voix.
             </p>
           </motion.div>
         </div>
       </section>
 
+      {/* BANDE DE RÉASSURANCE — OÙ ON EN EST */}
+      <section className="max-w-5xl mx-auto px-6 -mt-6 mb-2">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="bg-vp-teal/5 border border-vp-teal/30 rounded-xl p-6 md:p-7"
+        >
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              <div className="text-xs font-mono uppercase tracking-widest text-vp-teal mb-3">↓ Où on en est</div>
+              <h3 className="text-lg font-bold text-white mb-2">VoxPop existe déjà.</h3>
+              <ul className="text-sm text-slate-300 space-y-1">
+                <li>✅ Site live <code className="text-vp-teal text-xs">voxpop-app.com</code></li>
+                <li>✅ Code public AGPL-3.0 sur GitHub</li>
+                <li>✅ Tribu citoyenne engagée (intellectuels, médias)</li>
+                <li>✅ 1re couverture média confirmée (Stratpol)</li>
+              </ul>
+            </div>
+            <div className="flex-1">
+              <div className="text-xs font-mono uppercase tracking-widest text-vp-gold mb-3">↓ Ce que finance votre soutien</div>
+              <h3 className="text-lg font-bold text-white mb-2">3 chantiers à boucler.</h3>
+              <ul className="text-sm text-slate-300 space-y-1">
+                <li>🗳️ <strong>1re pétition publique</strong> — sept. 2026</li>
+                <li>🌐 <strong>Infrastructure souveraine IPFS</strong> — sept. 2026</li>
+                <li>🔐 <strong>Audit cryptographique externe</strong> — oct. 2026</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* 4 WAYS */}
-      <section className="max-w-5xl mx-auto px-6 py-20 space-y-10">
+      <section className="max-w-5xl mx-auto px-6 py-12 space-y-10">
 
         {/* 1. DON FINANCIER */}
         <motion.div
@@ -46,8 +79,8 @@ export default function SoutenirPage() {
               <div className="text-xs font-mono uppercase tracking-widest text-vp-gold mb-2">01 · Don financier</div>
               <h2 className="text-3xl font-bold text-white mb-4">Un don, du plus petit au plus grand.</h2>
               <p className="text-slate-300 leading-relaxed mb-6">
-                Chaque euro finance directement le développement open source, l&apos;audit cryptographique externe, et l&apos;hébergement souverain.
-                Pas de salaires d&apos;agences, pas de marketing payant, pas de levée VC.
+                Chaque euro finance directement les 3 chantiers à boucler : la 1re pétition publique, l&apos;infrastructure souveraine et l&apos;audit cryptographique externe.
+                Pas de salaires d&apos;agences, pas de marketing payant, pas de levée VC à ce stade.
                 <br /><br />
                 <strong className="text-vp-gold">Choisissez votre soutien</strong> — paiement sécurisé par carte via Stripe.
               </p>
@@ -109,8 +142,7 @@ export default function SoutenirPage() {
 
               <div className="bg-vp-deep/50 border border-vp-teal/20 rounded-lg p-4 mb-6">
                 <p className="text-sm text-slate-400 italic">
-                  ⚠️ <strong className="text-slate-300">Mention légale :</strong> VoxPop est édité par <strong>SASU Pelegrinus</strong> (SIREN 948 908 348),
-                  société commerciale française. Les dons ne sont <strong>pas éligibles au reçu fiscal</strong> (-66% impôt) — ils sont traités comme un soutien commercial.
+                  💼 <strong className="text-slate-300">Transparence :</strong> VoxPop est édité par <strong>SASU Pelegrinus</strong> (SIREN 948 908 348), entreprise française basée en Normandie. Vos dons financent exclusivement le développement du projet — un reporting financier public mensuel est envoyé à l&apos;ensemble des contributeurs. À noter : structure commerciale, donc pas de reçu fiscal -66% (une asso loi 1901 dédiée est à l&apos;étude pour 2026-2027).
                 </p>
               </div>
 
