@@ -49,26 +49,73 @@ export default function SoutenirPage() {
                 Chaque euro finance directement le développement open source, l&apos;audit cryptographique externe, et l&apos;hébergement souverain.
                 Pas de salaires d&apos;agences, pas de marketing payant, pas de levée VC.
                 <br /><br />
-                <strong className="text-vp-gold">Don sécurisé via Stripe</strong> · paiement par carte · 5€ par soutien (vous pouvez donner plusieurs fois). D&apos;autres paliers (10€, 20€, 50€) seront proposés sous peu.
+                <strong className="text-vp-gold">Choisissez votre soutien</strong> — paiement sécurisé par carte via Stripe.
               </p>
+
+              {/* 4 BOUTONS DE DON STYLÉS */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                {/* 5€ */}
+                <a
+                  href="https://buy.stripe.com/fZu7sMb7j0PSfzD72J4AU00"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col items-center justify-center gap-1 px-4 py-5 bg-vp-deep/70 border-2 border-vp-gold/30 rounded-xl hover:border-vp-gold hover:bg-vp-gold/10 transition"
+                >
+                  <span className="text-2xl font-black text-vp-gold group-hover:scale-110 transition">5€</span>
+                  <span className="text-xs text-slate-400">Soutien initial</span>
+                </a>
+
+                {/* 10€ */}
+                <a
+                  href="https://buy.stripe.com/dRmeVeb7jfKM3QVfzf4AU01"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col items-center justify-center gap-1 px-4 py-5 bg-vp-deep/70 border-2 border-vp-gold/30 rounded-xl hover:border-vp-gold hover:bg-vp-gold/10 transition"
+                >
+                  <span className="text-2xl font-black text-vp-gold group-hover:scale-110 transition">10€</span>
+                  <span className="text-xs text-slate-400">Coup de pouce</span>
+                </a>
+
+                {/* 20€ - MIS EN AVANT */}
+                <a
+                  href="https://buy.stripe.com/4gMaEYejvfKMdrv2Mt4AU02"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col items-center justify-center gap-1 px-4 py-5 bg-vp-gold text-vp-deep border-2 border-vp-gold rounded-xl hover:bg-vp-gold/90 transition shadow-lg shadow-vp-gold/30 relative"
+                >
+                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-vp-deep text-vp-gold text-[10px] font-bold rounded-full uppercase tracking-wider whitespace-nowrap">★ Suggéré</span>
+                  <span className="text-2xl font-black group-hover:scale-110 transition">20€</span>
+                  <span className="text-xs opacity-80 font-semibold">Engagement</span>
+                </a>
+
+                {/* 50€ */}
+                <a
+                  href="https://buy.stripe.com/14A00k8ZbaqsdrvbiZ4AU03"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col items-center justify-center gap-1 px-4 py-5 bg-vp-deep/70 border-2 border-vp-gold/30 rounded-xl hover:border-vp-gold hover:bg-vp-gold/10 transition"
+                >
+                  <span className="text-2xl font-black text-vp-gold group-hover:scale-110 transition">50€</span>
+                  <span className="text-xs text-slate-400">Soutien fort</span>
+                </a>
+              </div>
+
+              {/* MENTION DON MAJEUR */}
+              <div className="bg-vp-gold/5 border border-vp-gold/30 rounded-lg p-4 mb-6">
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  💎 <strong className="text-vp-gold">Pour un soutien plus important (500 €+)</strong> — virement bancaire direct possible. Aucun frais Stripe, reçu personnalisé, et possibilité d&apos;entrée au Comité Éthique Citoyen de VoxPop. Écrivez à <a href="mailto:contact@voxpop-app.com" className="text-vp-gold underline underline-offset-2 hover:text-vp-gold/80">contact@voxpop-app.com</a>.
+                </p>
+              </div>
+
               <div className="bg-vp-deep/50 border border-vp-teal/20 rounded-lg p-4 mb-6">
                 <p className="text-sm text-slate-400 italic">
                   ⚠️ <strong className="text-slate-300">Mention légale :</strong> VoxPop est édité par <strong>SASU Pelegrinus</strong> (SIREN 948 908 348),
                   société commerciale française. Les dons ne sont <strong>pas éligibles au reçu fiscal</strong> (-66% impôt) — ils sont traités comme un soutien commercial.
                 </p>
               </div>
-              {/* Stripe Payment Link — TO REPLACE WITH REAL URL */}
-              <a
-                href="https://buy.stripe.com/fZu7sMb7j0PSfzD72J4AU00"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-vp-gold text-vp-deep font-bold rounded-lg hover:bg-vp-gold/90 transition shadow-lg shadow-vp-gold/20"
-              >
-                💳 Faire un don de 5€
-                <span className="text-xs opacity-70">via Stripe sécurisé</span>
-              </a>
-              <p className="text-xs text-slate-500 mt-3 italic">
-                Page de paiement officielle Stripe · chiffrement SSL · aucune donnée bancaire stockée chez nous.
+
+              <p className="text-xs text-slate-500 italic">
+                Page de paiement officielle Stripe · chiffrement SSL · aucune donnée bancaire stockée chez nous. Reporting financier public mensuel à venir.
               </p>
             </div>
           </div>
