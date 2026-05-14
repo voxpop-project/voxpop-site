@@ -113,15 +113,15 @@ const events: WallEvent[] = [
     ],
   },
   {
-    id: "passe-vaccinal",
+    id: "pass-vaccinal",
     date: "Janvier 2022",
     year: 2022,
     flag: "🇫🇷",
     region: "fr",
     category: "health",
-    title: "Passe vaccinal voté en urgence pendant les vacances parlementaires.",
+    title: "Pass vaccinal voté en urgence pendant les vacances parlementaires.",
     description:
-      "Loi du 22 janvier 2022 instituant le passe vaccinal, votée en procédure d'urgence. Restrictions massives à la vie quotidienne (restaurants, transports, culture) sans référendum, malgré l'impact sur les libertés individuelles d'une partie significative de la population.",
+      "Loi du 22 janvier 2022 instituant le pass vaccinal, votée en procédure d'urgence. Restrictions massives à la vie quotidienne (restaurants, transports, culture) sans référendum, malgré l'impact sur les libertés individuelles d'une partie significative de la population.",
     sources: [
       { label: "Légifrance", url: "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000045067218" },
       { label: "Le Monde", url: "https://www.lemonde.fr/politique/article/2022/01/16/le-passe-vaccinal-definitivement-adopte-par-le-parlement_6109714_823448.html" },
