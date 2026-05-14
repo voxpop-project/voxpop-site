@@ -20,11 +20,11 @@ interface Plan {
 const plans: Plan[] = [
   {
     name: "Starter",
-    price: 19,
-    priceAnnual: 15,
+    price: 49,
+    priceAnnual: 39,
     target: "Petites associations (<100 membres)",
     features: [
-      "5 scrutins par mois",
+      "1 scrutin par mois",
       "Authentification 2FA",
       "Hash chain SHA-256",
       "Chiffrement de bout en bout",
@@ -35,11 +35,11 @@ const plans: Plan[] = [
   },
   {
     name: "Pro",
-    price: 49,
-    priceAnnual: 39,
+    price: 79,
+    priceAnnual: 65,
     target: "Associations moyennes, CSE",
     features: [
-      "Scrutins illimités",
+      "5 scrutins par mois",
       "Tout Starter +",
       "Export audit complet",
       "Support prioritaire",
@@ -52,10 +52,11 @@ const plans: Plan[] = [
   },
   {
     name: "Business",
-    price: 99,
-    priceAnnual: 79,
+    price: 149,
+    priceAnnual: 125,
     target: "Grandes organisations",
     features: [
+      "Scrutins illimités",
       "Tout Pro +",
       "Multi-scrutins simultanés",
       "API RESTful + Webhooks",
@@ -67,8 +68,8 @@ const plans: Plan[] = [
   },
   {
     name: "Enterprise",
-    price: 300,
-    priceAnnual: 250,
+    price: 400,
+    priceAnnual: 330,
     target: "Collectivités, fédérations",
     features: [
       "Tout Business +",
