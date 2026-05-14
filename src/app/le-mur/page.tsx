@@ -24,6 +24,8 @@ interface WallEvent {
   description: string;
   sources: { label: string; url: string }[];
   highlight?: boolean;      // true = card mise en avant
+  petitionRef?: string;     // id de la pétition liée sur /petitions (si elle existe)
+  petitionLabel?: string;   // texte court du CTA
 }
 
 const events: WallEvent[] = [
@@ -143,6 +145,8 @@ const events: WallEvent[] = [
     ],
   },
   {
+    petitionRef: "immigration",
+    petitionLabel: "Signer la pétition « Immigration »",
     id: "loi-immigration-2024",
     date: "20 décembre 2023",
     year: 2024,
@@ -194,6 +198,8 @@ const events: WallEvent[] = [
     ],
   },
   {
+    petitionRef: "censure-bigtech",
+    petitionLabel: "Signer la pétition « Censure & souveraineté numérique »",
     id: "ai-act",
     date: "21 mai 2024",
     year: 2024,
@@ -226,6 +232,8 @@ const events: WallEvent[] = [
     ],
   },
   {
+    petitionRef: "mercosur",
+    petitionLabel: "Signer la pétition « Mercosur »",
     id: "mercosur",
     date: "2024",
     year: 2024,
@@ -502,6 +510,17 @@ export default function LeMurPage() {
                   ))}
                 </div>
               </div>
+              {event.petitionRef && (
+                <div className="mt-4 pt-4 border-t border-vp-gold/20">
+                  <a
+                    href={`/petitions#${event.petitionRef}`}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-vp-gold/10 border border-vp-gold/40 text-vp-gold font-semibold text-sm rounded-lg hover:bg-vp-gold/20 transition group"
+                  >
+                    🗳️ {event.petitionLabel || "Voir la pétition connexe"}
+                    <span className="group-hover:translate-x-1 transition">→</span>
+                  </a>
+                </div>
+              )}
             </motion.article>
           ))}
         </div>
