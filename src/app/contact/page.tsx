@@ -79,7 +79,7 @@ export default function Contact() {
     <div className="overflow-hidden">
       <PageHero
         title="Contactez-nous"
-        subtitle="Une question, une d\u00e9mo, un partenariat ? Nous r\u00e9pondons sous 24h."
+        subtitle="Une question, une démo, un partenariat ? Nous répondons sous 24h."
         backgroundImage="/images/aerial-mountain.jpg"
       />
 
@@ -120,10 +120,10 @@ export default function Contact() {
                 <div className="glass-card p-12 text-center">
                   <div className="text-5xl mb-6">✅</div>
                   <h3 className="text-2xl font-bold text-white mb-4">
-                    Message envoy\u00e9 !
+                    Message envoyé !
                   </h3>
                   <p className="text-slate-300">
-                    Merci pour votre message. Nous vous r\u00e9pondrons dans les plus brefs d\u00e9lais.
+                    Merci pour votre message. Nous vous répondrons dans les plus brefs délais.
                   </p>
                 </div>
               ) : (
@@ -182,11 +182,11 @@ export default function Contact() {
                       required
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-vp-teal/50 focus:outline-none focus:ring-1 focus:ring-vp-teal/30 transition-colors"
                     >
-                      <option value="" className="bg-vp-dark">S\u00e9lectionnez un sujet</option>
-                      <option value="demo" className="bg-vp-dark">Demande de d\u00e9mo</option>
+                      <option value="" className="bg-vp-dark">Sélectionnez un sujet</option>
+                      <option value="demo" className="bg-vp-dark">Demande de démo</option>
                       <option value="pricing" className="bg-vp-dark">Question tarifs</option>
                       <option value="partnership" className="bg-vp-dark">Partenariat</option>
-                      <option value="press" className="bg-vp-dark">Presse / M\u00e9dia</option>
+                      <option value="press" className="bg-vp-dark">Presse / Média</option>
                       <option value="other" className="bg-vp-dark">Autre</option>
                     </select>
                   </div>
@@ -200,7 +200,7 @@ export default function Contact() {
                       required
                       rows={5}
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:border-vp-teal/50 focus:outline-none focus:ring-1 focus:ring-vp-teal/30 transition-colors resize-none"
-                      placeholder="D\u00e9crivez votre besoin..."
+                      placeholder="Décrivez votre besoin..."
                     />
                   </div>
 
@@ -228,27 +228,27 @@ export default function Contact() {
               </div>
 
               <div className="glass-card p-6">
-                <h4 className="text-white font-semibold mb-3">D\u00e9lai de r\u00e9ponse</h4>
-                <p className="text-slate-300 text-sm">Nous r\u00e9pondons g\u00e9n\u00e9ralement sous 24 heures ouvrables.</p>
+                <h4 className="text-white font-semibold mb-3">Délai de réponse</h4>
+                <p className="text-slate-300 text-sm">Nous répondons généralement sous 24 heures ouvrables.</p>
               </div>
 
               <div className="glass-card p-6">
-                <h4 className="text-white font-semibold mb-3">Soci\u00e9t\u00e9</h4>
+                <h4 className="text-white font-semibold mb-3">Société</h4>
                 <p className="text-slate-300 text-sm">
                   SASU Pelegrinus<br />
-                  SIREN 948 908 348 \u2014 France
+                  SIREN 948 908 348 — France
                 </p>
                 <p className="text-slate-500 text-xs mt-2">
-                  H\u00e9bergement souverain en France
+                  Hébergement souverain en France
                 </p>
               </div>
 
               <div className="glass-card p-6">
-                <h4 className="text-white font-semibold mb-3">Confidentialit\u00e9</h4>
+                <h4 className="text-white font-semibold mb-3">Confidentialité</h4>
                 <p className="text-slate-300 text-sm">
-                  Vos donn\u00e9es sont prot\u00e9g\u00e9es conform\u00e9ment \u00e0 notre{" "}
+                  Vos données sont protégées conformément à notre{" "}
                   <a href="/legal/privacy" className="text-vp-teal hover:underline">
-                    politique de confidentialit\u00e9
+                    politique de confidentialité
                   </a>.
                 </p>
               </div>
